@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "mercado")
@@ -28,6 +29,8 @@ public class Mercado implements Serializable {
 	@Column(name = "id_mercado", unique = true, nullable = false)
 	private Integer idMercado;
 
+	@Column(unique = true)
+	@NotBlank
 	private Integer cnpj;
 
 	@Column(name = "dt_alteracao")
@@ -36,7 +39,8 @@ public class Mercado implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
+	@NotBlank
 	private String email;
 
 	@Column(name = "f_ativo")
@@ -52,15 +56,18 @@ public class Mercado implements Serializable {
 	private byte[] logo;
 
 	@Column(name = "nome_fantasia", length = 150)
+	@NotBlank
 	private String nomeFantasia;
 
 	@Column(name = "razao_social", length = 150)
+	@NotBlank
 	private String razaoSocial;
 
 	@Lob
 	private String slogan;
 
 	@Column(length = 255)
+	@NotBlank
 	private String telefones;
 
 	@OneToMany(mappedBy = "mercado")
@@ -78,6 +85,7 @@ public class Mercado implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

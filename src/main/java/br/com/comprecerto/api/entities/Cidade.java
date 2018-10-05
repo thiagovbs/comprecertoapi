@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cidade")
@@ -38,14 +39,15 @@ public class Cidade implements Serializable {
 	@Column(name = "f_ativo")
 	private Boolean fAtivo;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
+	@NotBlank
 	private String nome;
 
 	@OneToMany(mappedBy = "cidade")
 	private List<Bairro> bairros;
 
 	@ManyToOne
-	@JoinColumn(name = "id_estado")
+	@JoinColumn(name = "id_estado", nullable = false)
 	private Estado estado;
 
 	public Cidade() {
@@ -54,6 +56,7 @@ public class Cidade implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "pais")
@@ -36,10 +37,12 @@ public class Pais implements Serializable {
 	@Column(name = "f_ativo")
 	private Boolean fAtivo;
 
-	@Column(length = 150)
+	@Column(length = 150, nullable = true)
+	@NotBlank
 	private String nome;
 
-	@Column(length = 3)
+	@Column(length = 3, nullable = true)
+	@NotBlank
 	private String sigla;
 
 	@OneToMany(mappedBy = "pais")
@@ -51,6 +54,7 @@ public class Pais implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

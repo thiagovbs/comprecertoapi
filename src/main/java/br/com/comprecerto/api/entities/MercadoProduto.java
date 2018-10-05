@@ -62,7 +62,7 @@ public class MercadoProduto implements Serializable {
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
-	@JoinColumn(name = "id_produto")
+	@JoinColumn(name = "id_produto", nullable = true)
 	private Produto produto;
 
 	@OneToMany(mappedBy = "mercadoProduto")
@@ -74,6 +74,7 @@ public class MercadoProduto implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

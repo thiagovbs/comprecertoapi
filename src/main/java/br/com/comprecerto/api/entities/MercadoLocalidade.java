@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "mercado_localidade")
@@ -39,14 +40,15 @@ public class MercadoLocalidade implements Serializable {
 	private Boolean fAtivo;
 
 	@Column(name = "googlemaps_link", length = 255)
+	@NotBlank
 	private String googlemapsLink;
 
 	@ManyToOne
-	@JoinColumn(name = "id_bairro")
+	@JoinColumn(name = "id_bairro", nullable = true)
 	private Bairro bairro;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado")
+	@JoinColumn(name = "id_mercado", nullable = true)
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
@@ -58,6 +60,7 @@ public class MercadoLocalidade implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

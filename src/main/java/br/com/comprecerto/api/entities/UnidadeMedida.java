@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "unidade_medida")
@@ -40,7 +41,12 @@ public class UnidadeMedida implements Serializable {
 	private Integer idCategoriaUnidadeMedida;
 
 	@Column(length = 45)
+	@NotBlank
 	private String nome;
+
+	@Column(length = 5)
+	@NotBlank
+	private String sigla;
 
 	@OneToMany(mappedBy = "unidadeMedida")
 	private List<CategoriaUnidadeMedida> categoriaUnidadeMedidas;
@@ -51,6 +57,7 @@ public class UnidadeMedida implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate
@@ -104,6 +111,14 @@ public class UnidadeMedida implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public List<CategoriaUnidadeMedida> getCategoriaUnidadeMedidas() {

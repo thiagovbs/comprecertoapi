@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "categoria")
@@ -36,10 +38,12 @@ public class Categoria implements Serializable {
 	@Column(name = "f_ativo")
 	private Boolean fAtivo;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
+	@NotBlank
 	private String nome;
 
 	@OneToMany(mappedBy = "categoria")
+	@NotEmpty
 	private List<CategoriaUnidadeMedida> categoriaUnidadeMedidas;
 
 	@OneToMany(mappedBy = "categoria")
@@ -51,6 +55,7 @@ public class Categoria implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate
