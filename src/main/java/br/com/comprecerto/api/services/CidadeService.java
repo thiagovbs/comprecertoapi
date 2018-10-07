@@ -22,7 +22,7 @@ public class CidadeService {
 	}
 
 	public Cidade buscarPorId(Integer id) {
-		Optional<Cidade> cidade = cidadeRepository.findById(id);
+		Optional<Cidade> cidade = cidadeRepository.findByIdCidade(id);
 
 		if (cidade.isPresent())
 			return cidade.get();
@@ -35,7 +35,7 @@ public class CidadeService {
 	}
 
 	public Cidade atualizarCidade(Integer id, @Valid Cidade cidade) throws Exception {
-		Optional<Cidade> cidadeOp = cidadeRepository.findById(id);
+		Optional<Cidade> cidadeOp = cidadeRepository.findByIdCidade(id);
 
 		if (!cidadeOp.isPresent())
 			throw new Exception("A cidade informada não existe!");
@@ -44,7 +44,7 @@ public class CidadeService {
 	}
 
 	public void deletarCidade(Integer id) throws Exception {
-		Optional<Cidade> cidadeOp = cidadeRepository.findById(id);
+		Optional<Cidade> cidadeOp = cidadeRepository.findByIdCidade(id);
 
 		if (!cidadeOp.isPresent())
 			throw new Exception("A cidade informada não existe!");

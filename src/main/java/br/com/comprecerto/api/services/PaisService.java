@@ -22,7 +22,7 @@ public class PaisService {
 	}
 
 	public Pais buscarPorId(Integer id) {
-		Optional<Pais> pais = paisRepository.findById(id);
+		Optional<Pais> pais = paisRepository.findByIdPais(id);
 
 		if (pais.isPresent())
 			return pais.get();
@@ -35,7 +35,7 @@ public class PaisService {
 	}
 
 	public Pais atualizarPais(Integer id, @Valid Pais pais) throws Exception {
-		Optional<Pais> paisOp = paisRepository.findById(id);
+		Optional<Pais> paisOp = paisRepository.findByIdPais(id);
 
 		if (!paisOp.isPresent())
 			throw new Exception("O país informado não existe!");
@@ -44,7 +44,7 @@ public class PaisService {
 	}
 
 	public void deletarPais(Integer id) throws Exception {
-		Optional<Pais> paisOp = paisRepository.findById(id);
+		Optional<Pais> paisOp = paisRepository.findByIdPais(id);
 
 		if (!paisOp.isPresent())
 			throw new Exception("O país informado não existe!");

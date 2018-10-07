@@ -22,7 +22,7 @@ public class ProdutoService {
 	}
 
 	public Produto buscarPorId(Integer id) {
-		Optional<Produto> produto = produtoRepository.findById(id);
+		Optional<Produto> produto = produtoRepository.findByIdProduto(id);
 
 		if (produto.isPresent())
 			return produto.get();
@@ -35,7 +35,7 @@ public class ProdutoService {
 	}
 
 	public Produto atualizarProduto(Integer id, @Valid Produto produto) throws Exception {
-		Optional<Produto> produtoOp = produtoRepository.findById(id);
+		Optional<Produto> produtoOp = produtoRepository.findByIdProduto(id);
 
 		if (!produtoOp.isPresent())
 			throw new Exception("O produto informado não existe!");
@@ -44,7 +44,7 @@ public class ProdutoService {
 	}
 
 	public void deletarProduto(Integer id) throws Exception {
-		Optional<Produto> produtoOp = produtoRepository.findById(id);
+		Optional<Produto> produtoOp = produtoRepository.findByIdProduto(id);
 
 		if (!produtoOp.isPresent())
 			throw new Exception("O produto informado não existe!");

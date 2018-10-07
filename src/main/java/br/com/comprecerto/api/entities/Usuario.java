@@ -6,18 +6,28 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import br.com.comprecerto.api.entities.enums.Sexo;
 
 @Entity
 @Table(name = "usuario")
-@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,22 +44,37 @@ public class Usuario implements Serializable {
 	private LocalDateTime dtCriacao;
 
 	@Column(name = "dt_nascimento")
+	@NotBlank
 	private LocalDateTime dtNascimento;
 
-	@Column(length = 150)
+	@Column(length = 150, unique = true)
+	@NotBlank
 	private String email;
+
+	@Column(length = 15, unique = true)
+	@NotBlank
+	private String login;
 
 	@Column(name = "f_ativo")
 	private Boolean fAtivo;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
+	@NotBlank
 	private String nome;
 
 	@Column(length = 100)
+	@NotBlank
 	private String senha;
 
+	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
+	@NotNull
 	private Sexo sexo;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	@NotEmpty
+	private List<Permissao> permissoes;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<UsuarioLista> usuarioListas;
@@ -63,6 +88,7 @@ public class Usuario implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate
@@ -110,6 +136,14 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	public Boolean getFAtivo() {
 		return this.fAtivo;
 	}
@@ -140,6 +174,14 @@ public class Usuario implements Serializable {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
+	}
+
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
 
 	public List<UsuarioLista> getUsuarioListas() {

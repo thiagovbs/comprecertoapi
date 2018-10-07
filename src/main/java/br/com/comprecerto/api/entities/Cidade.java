@@ -16,7 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "cidade")

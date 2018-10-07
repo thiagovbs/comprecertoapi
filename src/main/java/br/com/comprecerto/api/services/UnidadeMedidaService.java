@@ -22,7 +22,7 @@ public class UnidadeMedidaService {
 	}
 
 	public UnidadeMedida buscarPorId(Integer id) {
-		Optional<UnidadeMedida> unidadeMedida = unidadeMedidaRepository.findById(id);
+		Optional<UnidadeMedida> unidadeMedida = unidadeMedidaRepository.findByIdUnidade(id);
 
 		if (unidadeMedida.isPresent())
 			return unidadeMedida.get();
@@ -35,7 +35,7 @@ public class UnidadeMedidaService {
 	}
 
 	public UnidadeMedida atualizarUnidadeMedida(Integer id, @Valid UnidadeMedida unidadeMedida) throws Exception {
-		Optional<UnidadeMedida> unidadeMedidaOp = unidadeMedidaRepository.findById(id);
+		Optional<UnidadeMedida> unidadeMedidaOp = unidadeMedidaRepository.findByIdUnidade(id);
 
 		if (!unidadeMedidaOp.isPresent())
 			throw new Exception("A unidade medida informada não existe!");
@@ -44,7 +44,7 @@ public class UnidadeMedidaService {
 	}
 
 	public void deletarUnidadeMedida(Integer id) throws Exception {
-		Optional<UnidadeMedida> unidadeMedidaOp = unidadeMedidaRepository.findById(id);
+		Optional<UnidadeMedida> unidadeMedidaOp = unidadeMedidaRepository.findByIdUnidade(id);
 
 		if (!unidadeMedidaOp.isPresent())
 			throw new Exception("A unidade medida informada não existe!");

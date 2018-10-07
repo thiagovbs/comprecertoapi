@@ -22,7 +22,7 @@ public class UsuarioService {
 	}
 
 	public Usuario buscarPorId(Integer id) {
-		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		Optional<Usuario> usuario = usuarioRepository.findByIdUsuario(id);
 
 		if (usuario.isPresent())
 			return usuario.get();
@@ -35,7 +35,7 @@ public class UsuarioService {
 	}
 
 	public Usuario atualizarUsuario(Integer id, @Valid Usuario usuario) throws Exception {
-		Optional<Usuario> usuarioOp = usuarioRepository.findById(id);
+		Optional<Usuario> usuarioOp = usuarioRepository.findByIdUsuario(id);
 
 		if (!usuarioOp.isPresent())
 			throw new Exception("O usuário informado não existe!");
@@ -44,7 +44,7 @@ public class UsuarioService {
 	}
 
 	public void deletarUsuario(Integer id) throws Exception {
-		Optional<Usuario> usuarioOp = usuarioRepository.findById(id);
+		Optional<Usuario> usuarioOp = usuarioRepository.findByIdUsuario(id);
 
 		if (!usuarioOp.isPresent())
 			throw new Exception("O usuário informado não existe!");

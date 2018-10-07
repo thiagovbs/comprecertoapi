@@ -22,7 +22,7 @@ public class BairroService {
 	}
 
 	public Bairro buscarPorId(Integer id) {
-		Optional<Bairro> bairro = bairroRepository.findById(id);
+		Optional<Bairro> bairro = bairroRepository.findByIdBairro(id);
 
 		if (bairro.isPresent())
 			return bairro.get();
@@ -35,19 +35,19 @@ public class BairroService {
 	}
 
 	public Bairro atualizarBairro(Integer id, @Valid Bairro bairro) throws Exception {
-		Optional<Bairro> bairroOp = bairroRepository.findById(id);
+		Optional<Bairro> bairroOp = bairroRepository.findByIdBairro(id);
 
 		if (!bairroOp.isPresent())
-			throw new Exception("O bairro informado não existe!");
+			throw new Exception("A bairro informada não existe!");
 
 		return salvarBairro(bairro);
 	}
 
 	public void deletarBairro(Integer id) throws Exception {
-		Optional<Bairro> bairroOp = bairroRepository.findById(id);
+		Optional<Bairro> bairroOp = bairroRepository.findByIdBairro(id);
 
 		if (!bairroOp.isPresent())
-			throw new Exception("O bairro informado não existe!");
+			throw new Exception("A bairro informada não existe!");
 
 		bairroRepository.delete(bairroOp.get());
 	}

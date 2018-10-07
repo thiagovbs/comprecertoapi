@@ -22,7 +22,7 @@ public class CategoriaService {
 	}
 
 	public Categoria buscarPorId(Integer id) {
-		Optional<Categoria> categoria = categoriaRepository.findById(id);
+		Optional<Categoria> categoria = categoriaRepository.findByIdCategoria(id);
 
 		if (categoria.isPresent())
 			return categoria.get();
@@ -35,7 +35,7 @@ public class CategoriaService {
 	}
 
 	public Categoria atualizarCategoria(Integer id, @Valid Categoria categoria) throws Exception {
-		Optional<Categoria> categoriaOp = categoriaRepository.findById(id);
+		Optional<Categoria> categoriaOp = categoriaRepository.findByIdCategoria(id);
 
 		if (!categoriaOp.isPresent())
 			throw new Exception("A categoria informada não existe!");
@@ -44,7 +44,7 @@ public class CategoriaService {
 	}
 
 	public void deletarCategoria(Integer id) throws Exception {
-		Optional<Categoria> categoriaOp = categoriaRepository.findById(id);
+		Optional<Categoria> categoriaOp = categoriaRepository.findByIdCategoria(id);
 
 		if (!categoriaOp.isPresent())
 			throw new Exception("A categoria informada não existe!");

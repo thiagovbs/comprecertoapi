@@ -22,7 +22,7 @@ public class ServicoService {
 	}
 
 	public Servico buscarPorId(Integer id) {
-		Optional<Servico> servico = servicoRepository.findById(id);
+		Optional<Servico> servico = servicoRepository.findByIdServico(id);
 
 		if (servico.isPresent())
 			return servico.get();
@@ -35,7 +35,7 @@ public class ServicoService {
 	}
 
 	public Servico atualizarServico(Integer id, @Valid Servico servico) throws Exception {
-		Optional<Servico> servicoOp = servicoRepository.findById(id);
+		Optional<Servico> servicoOp = servicoRepository.findByIdServico(id);
 
 		if (!servicoOp.isPresent())
 			throw new Exception("O servico informado não existe!");
@@ -44,7 +44,7 @@ public class ServicoService {
 	}
 
 	public void deletarServico(Integer id) throws Exception {
-		Optional<Servico> servicoOp = servicoRepository.findById(id);
+		Optional<Servico> servicoOp = servicoRepository.findByIdServico(id);
 
 		if (!servicoOp.isPresent())
 			throw new Exception("O servico informado não existe!");

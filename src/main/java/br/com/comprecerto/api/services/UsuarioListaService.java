@@ -22,7 +22,7 @@ public class UsuarioListaService {
 	}
 
 	public UsuarioLista buscarPorId(Integer id) {
-		Optional<UsuarioLista> usuarioLista = usuarioListaRepository.findById(id);
+		Optional<UsuarioLista> usuarioLista = usuarioListaRepository.findByIdUsuarioLista(id);
 
 		if (usuarioLista.isPresent())
 			return usuarioLista.get();
@@ -35,7 +35,7 @@ public class UsuarioListaService {
 	}
 
 	public UsuarioLista atualizarUsuarioLista(Integer id, @Valid UsuarioLista usuarioLista) throws Exception {
-		Optional<UsuarioLista> usuarioListaOp = usuarioListaRepository.findById(id);
+		Optional<UsuarioLista> usuarioListaOp = usuarioListaRepository.findByIdUsuarioLista(id);
 
 		if (!usuarioListaOp.isPresent())
 			throw new Exception("O usuário lista informado não existe!");
@@ -44,7 +44,7 @@ public class UsuarioListaService {
 	}
 
 	public void deletarUsuarioLista(Integer id) throws Exception {
-		Optional<UsuarioLista> usuarioListaOp = usuarioListaRepository.findById(id);
+		Optional<UsuarioLista> usuarioListaOp = usuarioListaRepository.findByIdUsuarioLista(id);
 
 		if (!usuarioListaOp.isPresent())
 			throw new Exception("O usuário lista informado não existe!");

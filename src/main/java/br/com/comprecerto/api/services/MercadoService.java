@@ -22,7 +22,7 @@ public class MercadoService {
 	}
 
 	public Mercado buscarPorId(Integer id) {
-		Optional<Mercado> mercado = mercadoRepository.findById(id);
+		Optional<Mercado> mercado = mercadoRepository.findByIdMercado(id);
 
 		if (mercado.isPresent())
 			return mercado.get();
@@ -35,7 +35,7 @@ public class MercadoService {
 	}
 
 	public Mercado atualizarMercado(Integer id, @Valid Mercado mercado) throws Exception {
-		Optional<Mercado> mercadoOp = mercadoRepository.findById(id);
+		Optional<Mercado> mercadoOp = mercadoRepository.findByIdMercado(id);
 
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
@@ -44,7 +44,7 @@ public class MercadoService {
 	}
 
 	public void deletarMercado(Integer id) throws Exception {
-		Optional<Mercado> mercadoOp = mercadoRepository.findById(id);
+		Optional<Mercado> mercadoOp = mercadoRepository.findByIdMercado(id);
 
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");

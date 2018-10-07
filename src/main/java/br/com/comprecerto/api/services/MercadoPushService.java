@@ -22,7 +22,7 @@ public class MercadoPushService {
 	}
 
 	public MercadoPush buscarPorId(Integer id) {
-		Optional<MercadoPush> mercadoPush = mercadoPushRepository.findById(id);
+		Optional<MercadoPush> mercadoPush = mercadoPushRepository.findByIdMercadoPush(id);
 
 		if (mercadoPush.isPresent())
 			return mercadoPush.get();
@@ -35,7 +35,7 @@ public class MercadoPushService {
 	}
 
 	public MercadoPush atualizarMercadoPush(Integer id, @Valid MercadoPush mercadoPush) throws Exception {
-		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findById(id);
+		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findByIdMercadoPush(id);
 
 		if (!mercadoPushOp.isPresent())
 			throw new Exception("O mercado push informado não existe!");
@@ -44,7 +44,7 @@ public class MercadoPushService {
 	}
 
 	public void deletarMercadoPush(Integer id) throws Exception {
-		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findById(id);
+		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findByIdMercadoPush(id);
 
 		if (!mercadoPushOp.isPresent())
 			throw new Exception("O mercado push informado não existe!");

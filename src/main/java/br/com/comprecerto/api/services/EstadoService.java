@@ -22,7 +22,7 @@ public class EstadoService {
 	}
 
 	public Estado buscarPorId(Integer id) {
-		Optional<Estado> estado = estadoRepository.findById(id);
+		Optional<Estado> estado = estadoRepository.findByIdEstado(id);
 
 		if (estado.isPresent())
 			return estado.get();
@@ -35,7 +35,7 @@ public class EstadoService {
 	}
 
 	public Estado atualizarEstado(Integer id, @Valid Estado estado) throws Exception {
-		Optional<Estado> estadoOp = estadoRepository.findById(id);
+		Optional<Estado> estadoOp = estadoRepository.findByIdEstado(id);
 
 		if (!estadoOp.isPresent())
 			throw new Exception("O estado informado não existe!");
@@ -44,7 +44,7 @@ public class EstadoService {
 	}
 
 	public void deletarEstado(Integer id) throws Exception {
-		Optional<Estado> estadoOp = estadoRepository.findById(id);
+		Optional<Estado> estadoOp = estadoRepository.findByIdEstado(id);
 
 		if (!estadoOp.isPresent())
 			throw new Exception("O estado informado não existe!");

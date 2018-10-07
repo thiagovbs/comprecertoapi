@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.comprecerto.api.entities.Mercado;
+import br.com.comprecerto.api.entities.Permissao;
 
 @Repository
-public interface MercadoRepository extends JpaRepository<Mercado, Integer> {
+public interface PermissaoRepository extends JpaRepository<Permissao, Integer> {
 
-	Optional<Mercado> findByIdMercado(Integer id);
+	Optional<Permissao> findByIdPermissao(Integer id);
 
 }

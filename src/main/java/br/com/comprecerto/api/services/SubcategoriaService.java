@@ -22,7 +22,7 @@ public class SubcategoriaService {
 	}
 
 	public Subcategoria buscarPorId(Integer id) {
-		Optional<Subcategoria> subCategoria = subCategoriaRepository.findById(id);
+		Optional<Subcategoria> subCategoria = subCategoriaRepository.findByIdSubcategoria(id);
 
 		if (subCategoria.isPresent())
 			return subCategoria.get();
@@ -35,7 +35,7 @@ public class SubcategoriaService {
 	}
 
 	public Subcategoria atualizarSubcategoria(Integer id, @Valid Subcategoria subCategoria) throws Exception {
-		Optional<Subcategoria> subCategoriaOp = subCategoriaRepository.findById(id);
+		Optional<Subcategoria> subCategoriaOp = subCategoriaRepository.findByIdSubcategoria(id);
 
 		if (!subCategoriaOp.isPresent())
 			throw new Exception("A subcategoria informada não existe!");
@@ -44,7 +44,7 @@ public class SubcategoriaService {
 	}
 
 	public void deletarSubcategoria(Integer id) throws Exception {
-		Optional<Subcategoria> subCategoriaOp = subCategoriaRepository.findById(id);
+		Optional<Subcategoria> subCategoriaOp = subCategoriaRepository.findByIdSubcategoria(id);
 
 		if (!subCategoriaOp.isPresent())
 			throw new Exception("A subcategoria informada não existe!");
