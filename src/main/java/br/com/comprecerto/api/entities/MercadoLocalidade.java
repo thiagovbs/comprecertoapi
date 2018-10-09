@@ -37,10 +37,10 @@ public class MercadoLocalidade implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(name = "googlemaps_link", length = 255)
+	@Column(name = "googlemaps_link", length = 255, nullable = false)
 	@NotBlank
 	private String googlemapsLink;
 

@@ -39,7 +39,7 @@ public class MercadoServico implements Serializable {
 	@Column(name = "dt_inicio_servico")
 	private LocalDateTime dtInicioServico;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
 	@ManyToOne

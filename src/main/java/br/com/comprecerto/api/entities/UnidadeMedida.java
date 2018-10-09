@@ -2,7 +2,6 @@ package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -35,22 +33,16 @@ public class UnidadeMedida implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(name = "id_categoria_unidade_medida")
-	private Integer idCategoriaUnidadeMedida;
-
-	@Column(length = 45)
+	@Column(length = 45, nullable = false)
 	@NotBlank
 	private String nome;
 
-	@Column(length = 5)
+	@Column(length = 5, nullable = false)
 	@NotBlank
 	private String sigla;
-
-	@OneToMany(mappedBy = "unidadeMedida")
-	private List<CategoriaUnidadeMedida> categoriaUnidadeMedidas;
 
 	public UnidadeMedida() {
 	}
@@ -98,14 +90,6 @@ public class UnidadeMedida implements Serializable {
 		this.fAtivo = fAtivo;
 	}
 
-	public Integer getIdCategoriaUnidadeMedida() {
-		return this.idCategoriaUnidadeMedida;
-	}
-
-	public void setIdCategoriaUnidadeMedida(Integer idCategoriaUnidadeMedida) {
-		this.idCategoriaUnidadeMedida = idCategoriaUnidadeMedida;
-	}
-
 	public String getNome() {
 		return this.nome;
 	}
@@ -121,27 +105,4 @@ public class UnidadeMedida implements Serializable {
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
-
-	public List<CategoriaUnidadeMedida> getCategoriaUnidadeMedidas() {
-		return this.categoriaUnidadeMedidas;
-	}
-
-	public void setCategoriaUnidadeMedidas(List<CategoriaUnidadeMedida> categoriaUnidadeMedidas) {
-		this.categoriaUnidadeMedidas = categoriaUnidadeMedidas;
-	}
-
-	public CategoriaUnidadeMedida addCategoriaUnidadeMedida(CategoriaUnidadeMedida categoriaUnidadeMedida) {
-		getCategoriaUnidadeMedidas().add(categoriaUnidadeMedida);
-		categoriaUnidadeMedida.setUnidadeMedida(this);
-
-		return categoriaUnidadeMedida;
-	}
-
-	public CategoriaUnidadeMedida removeCategoriaUnidadeMedida(CategoriaUnidadeMedida categoriaUnidadeMedida) {
-		getCategoriaUnidadeMedidas().remove(categoriaUnidadeMedida);
-		categoriaUnidadeMedida.setUnidadeMedida(null);
-
-		return categoriaUnidadeMedida;
-	}
-
 }

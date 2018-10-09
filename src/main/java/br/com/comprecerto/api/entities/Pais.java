@@ -35,7 +35,7 @@ public class Pais implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
 	@Column(length = 150, nullable = true)

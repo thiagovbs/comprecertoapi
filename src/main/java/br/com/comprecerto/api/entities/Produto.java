@@ -12,15 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "produto")
-@NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -42,19 +43,24 @@ public class Produto implements Serializable {
 	@Column(length = 255)
 	private String imagem;
 
-	@Column(length = 100)
+	@Column(length = 100, nullable = false)
+	@NotBlank
 	private String marca;
 
-	@Column(length = 100)
+	@Column(length = 100, nullable = false)
+	@NotBlank
 	private String nome;
 
+	@Column(nullable = false)
+	@NotNull
 	private Integer quantidade;
 
 	@OneToMany(mappedBy = "produto")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@ManyToOne
-	@JoinColumn(name = "id_subcategoria")
+	@JoinColumn(name = "id_subcategoria", nullable = false)
+	@NotNull
 	private Subcategoria subcategoria;
 
 	public Produto() {

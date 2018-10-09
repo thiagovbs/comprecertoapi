@@ -36,7 +36,11 @@ public class CategoriaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Categoria> salvarCategoria(@RequestBody @Valid Categoria categoria) {
+	public ResponseEntity<?> salvarCategoria(@RequestBody @Valid Categoria categoria) {
+		if (categoria.getIdCategoria() != null) {
+			return ResponseEntity.badRequest().body("Para alterações deve ser usado o protocolo PUT");
+		}
+		
 		return ResponseEntity.ok(categoriaService.salvarCategoria(categoria));
 	}
 

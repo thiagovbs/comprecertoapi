@@ -37,10 +37,10 @@ public class Bairro implements Serializable {
 	@Column(name = "dt_criacao", nullable = false)
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo", nullable = false)
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true)
+	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
 	private String nome;
 

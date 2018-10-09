@@ -37,14 +37,14 @@ public class Estado implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 45, unique = true)
+	@Column(length = 45, unique = true, nullable = false)
 	@NotBlank
 	private String nome;
 
-	@Column(length = 2, unique = true)
+	@Column(length = 2, unique = true, nullable = false)
 	@NotBlank
 	private String sigla;
 

@@ -43,26 +43,26 @@ public class Usuario implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "dt_nascimento")
+	@Column(name = "dt_nascimento", nullable = false)
 	@NotBlank
 	private LocalDateTime dtNascimento;
 
-	@Column(length = 150, unique = true)
+	@Column(length = 150, unique = true, nullable = false)
 	@NotBlank
 	private String email;
 
-	@Column(length = 15, unique = true)
+	@Column(length = 15, unique = true, nullable = false)
 	@NotBlank
 	private String login;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true)
+	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
 	private String nome;
 
-	@Column(length = 100)
+	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String senha;
 

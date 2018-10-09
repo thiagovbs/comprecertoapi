@@ -11,15 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "subcategoria")
-@NamedQuery(name = "Subcategoria.findAll", query = "SELECT s FROM Subcategoria s")
 public class Subcategoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -35,10 +36,11 @@ public class Subcategoria implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100)
+	@Column(length = 100, unique = true, nullable = false)
+	@NotBlank
 	private String nome;
 
 	@OneToMany(mappedBy = "subcategoria")
@@ -46,6 +48,7 @@ public class Subcategoria implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", nullable = false)
+	@NotNull
 	private Categoria categoria;
 
 	public Subcategoria() {

@@ -22,7 +22,7 @@ public class Permissao implements Serializable {
 	@Column(name = "id_usuario", unique = true, nullable = false)
 	private Integer idPermissao;
 
-	@Column(length = 30)
+	@Column(length = 30, nullable = false)
 	@NotBlank
 	private String descricao;
 

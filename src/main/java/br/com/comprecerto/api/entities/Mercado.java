@@ -30,7 +30,7 @@ public class Mercado implements Serializable {
 	@Column(name = "id_mercado", unique = true, nullable = false)
 	private Integer idMercado;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	@NotBlank
 	private Integer cnpj;
 
@@ -40,34 +40,34 @@ public class Mercado implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(length = 100, unique = true)
+	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
 	private String email;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(name = "f_destaque")
+	@Column(name = "f_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fDestaque;
 
-	@Column(name = "f_super_destaque")
+	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
 	@Lob
 	private byte[] logo;
 
-	@Column(name = "nome_fantasia", length = 150)
+	@Column(name = "nome_fantasia", length = 150, nullable = false)
 	@NotBlank
 	private String nomeFantasia;
 
-	@Column(name = "razao_social", length = 150)
+	@Column(name = "razao_social", length = 150, nullable = false)
 	@NotBlank
 	private String razaoSocial;
 
 	@Lob
 	private String slogan;
 
-	@Column(length = 255)
+	@Column(length = 255, nullable = false)
 	@NotBlank
 	private String telefones;
 

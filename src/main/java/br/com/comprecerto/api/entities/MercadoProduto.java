@@ -13,17 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "mercado_produto")
-@NamedQuery(name = "MercadoProduto.findAll", query = "SELECT m FROM MercadoProduto m")
 public class MercadoProduto implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,24 +38,28 @@ public class MercadoProduto implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(name = "dt_entrada")
+	@Column(name = "dt_entrada", nullable = false)
+	@NotBlank
 	private LocalDateTime dtEntrada;
 
-	@Column(name = "dt_validade")
+	@Column(name = "dt_validade", nullable = false)
+	@NotBlank
 	private LocalDateTime dtValidade;
 
-	@Column(name = "f_ativo")
+	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(name = "f_destaque")
+	@Column(name = "f_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fDestaque;
 
-	@Column(name = "f_super_destaque")
+	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
 	@Lob
 	private String observacao;
 
+	@Column(nullable = false)
+	@NotNull
 	private BigDecimal preco;
 
 	@ManyToOne
@@ -63,6 +68,7 @@ public class MercadoProduto implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto", nullable = true)
+	@NotNull
 	private Produto produto;
 
 	@OneToMany(mappedBy = "mercadoProduto")
