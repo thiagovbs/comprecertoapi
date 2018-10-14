@@ -10,12 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usuario_mercado_push")
-@NamedQuery(name = "UsuarioMercadoPush.findAll", query = "SELECT u FROM UsuarioMercadoPush u")
 public class UsuarioMercadoPush implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -29,11 +28,13 @@ public class UsuarioMercadoPush implements Serializable {
 	private LocalDateTime dtAtivacao;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado_push")
+	@JoinColumn(name = "id_mercado_push", nullable = true)
+	@NotNull
 	private MercadoPush mercadoPush;
 
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "id_usuario", nullable = true)
+	@NotNull
 	private Usuario usuario;
 
 	public UsuarioMercadoPush() {

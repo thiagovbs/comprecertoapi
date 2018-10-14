@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -17,7 +16,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "servico")
-@NamedQuery(name = "Servico.findAll", query = "SELECT s FROM Servico s")
 public class Servico implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -51,6 +49,7 @@ public class Servico implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

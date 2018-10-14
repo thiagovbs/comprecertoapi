@@ -12,15 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "mercado_push")
-@NamedQuery(name = "MercadoPush.findAll", query = "SELECT m FROM MercadoPush m")
 public class MercadoPush implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -53,7 +52,8 @@ public class MercadoPush implements Serializable {
 	private short tipoPush;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado")
+	@JoinColumn(name = "id_mercado", nullable = true)
+	@NotNull
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoPush")
@@ -65,6 +65,7 @@ public class MercadoPush implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

@@ -11,17 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "bairro")
-@NamedQuery(name = "Bairro.findAll", query = "SELECT b FROM Bairro b")
 public class Bairro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,6 +45,7 @@ public class Bairro implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_cidade", nullable = false)
+	@NotNull
 	private Cidade cidade;
 
 	@OneToMany(mappedBy = "bairro")

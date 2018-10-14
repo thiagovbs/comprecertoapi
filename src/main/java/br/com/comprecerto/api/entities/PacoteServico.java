@@ -11,15 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pacote_servico")
-@NamedQuery(name = "PacoteServico.findAll", query = "SELECT p FROM PacoteServico p")
 public class PacoteServico implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -48,7 +47,8 @@ public class PacoteServico implements Serializable {
 	private List<MercadoServico> mercadoServicos;
 
 	@ManyToOne
-	@JoinColumn(name = "id_servico")
+	@JoinColumn(name = "id_servico", nullable = true)
+	@NotNull
 	private Servico servico;
 
 	public PacoteServico() {
@@ -57,6 +57,7 @@ public class PacoteServico implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

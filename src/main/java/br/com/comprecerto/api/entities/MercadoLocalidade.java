@@ -11,17 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "mercado_localidade")
-@NamedQuery(name = "MercadoLocalidade.findAll", query = "SELECT m FROM MercadoLocalidade m")
 public class MercadoLocalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,10 +45,12 @@ public class MercadoLocalidade implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_bairro", nullable = true)
+	@NotNull
 	private Bairro bairro;
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado", nullable = true)
+	@NotNull
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")

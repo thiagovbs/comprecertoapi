@@ -32,6 +32,8 @@ public class Produto implements Serializable {
 	private Integer idProduto;
 
 	@Lob
+	@Column(nullable = false)
+	@NotBlank
 	private String caracteristica;
 
 	@Column(name = "dt_alteracao")
@@ -40,7 +42,8 @@ public class Produto implements Serializable {
 	@Column(name = "dt_criacao")
 	private LocalDateTime dtCriacao;
 
-	@Column(length = 255)
+	@Column(length = 255, nullable = true)
+	@NotBlank
 	private String imagem;
 
 	@Column(length = 100, nullable = false)

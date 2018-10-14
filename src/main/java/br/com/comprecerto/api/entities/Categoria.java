@@ -22,6 +22,8 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "categoria")
 public class Categoria implements Serializable {
@@ -52,6 +54,7 @@ public class Categoria implements Serializable {
 	private List<UnidadeMedida> unidadesMedida;
 
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Subcategoria> subcategorias;
 
 	public Categoria() {

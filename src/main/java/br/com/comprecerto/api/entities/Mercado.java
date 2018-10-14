@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -20,7 +19,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "mercado")
-@NamedQuery(name = "Mercado.findAll", query = "SELECT m FROM Mercado m")
 public class Mercado implements Serializable {
 
 	private static final long serialVersionUID = 1L;

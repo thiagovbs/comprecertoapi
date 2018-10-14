@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -19,7 +18,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "pais")
-@NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p")
 public class Pais implements Serializable {
 
 	private static final long serialVersionUID = 1L;

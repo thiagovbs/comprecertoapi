@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "subcategoria")
 public class Subcategoria implements Serializable {
@@ -49,6 +51,7 @@ public class Subcategoria implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", nullable = false)
 	@NotNull
+	@JsonManagedReference
 	private Categoria categoria;
 
 	public Subcategoria() {
@@ -57,6 +60,7 @@ public class Subcategoria implements Serializable {
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
+		fAtivo = true;
 	}
 
 	@PreUpdate

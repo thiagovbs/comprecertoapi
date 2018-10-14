@@ -63,7 +63,8 @@ public class MercadoProduto implements Serializable {
 	private BigDecimal preco;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado_localidade")
+	@JoinColumn(name = "id_mercado_localidade", nullable = true)
+	@NotNull
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
