@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.comprecerto.api.entities.enums.Sexo;
 
 @Entity
@@ -51,7 +53,7 @@ public class Usuario implements Serializable {
 	@NotBlank
 	private String email;
 
-	@Column(length = 15, unique = true, nullable = false)
+	@Column(length = 18, unique = true, nullable = false)
 	@NotBlank
 	private String login;
 
@@ -77,9 +79,11 @@ public class Usuario implements Serializable {
 	private List<Permissao> permissoes;
 
 	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
 	private List<UsuarioLista> usuarioListas;
 
 	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
 	private List<UsuarioMercadoPush> usuarioMercadoPushs;
 
 	public Usuario() {
