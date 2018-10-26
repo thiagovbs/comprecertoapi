@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,10 +30,10 @@ public class UsuarioLista implements Serializable {
 	private String descricao;
 
 	@Column(name = "dt_alteracao")
-	private LocalDateTime dtAlteracao;
+	private Date dtAlteracao;
 
 	@Column(name = "dt_criacao")
-	private LocalDateTime dtCriacao;
+	private Date dtCriacao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_produto", nullable = true)
@@ -50,12 +50,12 @@ public class UsuarioLista implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = LocalDateTime.now();
+		dtCriacao = dtAlteracao = new Date();
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = LocalDateTime.now();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdUsuarioLista() {
@@ -74,19 +74,19 @@ public class UsuarioLista implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public LocalDateTime getDtAlteracao() {
+	public Date getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+	public void setDtAlteracao(Date dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public LocalDateTime getDtCriacao() {
+	public Date getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(LocalDateTime dtCriacao) {
+	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 

@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,10 +31,10 @@ public class MercadoLocalidade implements Serializable {
 	private Integer idMercadoLocalidade;
 
 	@Column(name = "dt_alteracao")
-	private LocalDateTime dtAlteracao;
+	private Date dtAlteracao;
 
 	@Column(name = "dt_criacao")
-	private LocalDateTime dtCriacao;
+	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
@@ -61,13 +61,13 @@ public class MercadoLocalidade implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = LocalDateTime.now();
+		dtCriacao = dtAlteracao = new Date();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = LocalDateTime.now();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdMercadoLocalidade() {
@@ -78,19 +78,19 @@ public class MercadoLocalidade implements Serializable {
 		this.idMercadoLocalidade = idMercadoLocalidade;
 	}
 
-	public LocalDateTime getDtAlteracao() {
+	public Date getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+	public void setDtAlteracao(Date dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public LocalDateTime getDtCriacao() {
+	public Date getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(LocalDateTime dtCriacao) {
+	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 

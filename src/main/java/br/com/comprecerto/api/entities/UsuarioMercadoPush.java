@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class UsuarioMercadoPush implements Serializable {
 	private Integer idUsuarioMercadoPush;
 
 	@Column(name = "dt_ativacao")
-	private LocalDateTime dtAtivacao;
+	private Date dtAtivacao;
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_push", nullable = true)
@@ -48,11 +48,11 @@ public class UsuarioMercadoPush implements Serializable {
 		this.idUsuarioMercadoPush = idUsuarioMercadoPush;
 	}
 
-	public LocalDateTime getDtAtivacao() {
+	public Date getDtAtivacao() {
 		return this.dtAtivacao;
 	}
 
-	public void setDtAtivacao(LocalDateTime dtAtivacao) {
+	public void setDtAtivacao(Date dtAtivacao) {
 		this.dtAtivacao = dtAtivacao;
 	}
 

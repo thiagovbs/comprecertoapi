@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,16 +27,16 @@ public class MercadoServico implements Serializable {
 	private Integer idMercadoServico;
 
 	@Column(name = "dt_alteracao")
-	private LocalDateTime dtAlteracao;
+	private Date dtAlteracao;
 
 	@Column(name = "dt_criacao")
-	private LocalDateTime dtCriacao;
+	private Date dtCriacao;
 
 	@Column(name = "dt_fim_servico")
-	private LocalDateTime dtFimServico;
+	private Date dtFimServico;
 
 	@Column(name = "dt_inicio_servico")
-	private LocalDateTime dtInicioServico;
+	private Date dtInicioServico;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
@@ -56,13 +56,13 @@ public class MercadoServico implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = LocalDateTime.now();
+		dtCriacao = dtAlteracao = new Date();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = LocalDateTime.now();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdMercadoServico() {
@@ -73,35 +73,35 @@ public class MercadoServico implements Serializable {
 		this.idMercadoServico = idMercadoServico;
 	}
 
-	public LocalDateTime getDtAlteracao() {
+	public Date getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+	public void setDtAlteracao(Date dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public LocalDateTime getDtCriacao() {
+	public Date getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(LocalDateTime dtCriacao) {
+	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public LocalDateTime getDtFimServico() {
+	public Date getDtFimServico() {
 		return this.dtFimServico;
 	}
 
-	public void setDtFimServico(LocalDateTime dtFimServico) {
+	public void setDtFimServico(Date dtFimServico) {
 		this.dtFimServico = dtFimServico;
 	}
 
-	public LocalDateTime getDtInicioServico() {
+	public Date getDtInicioServico() {
 		return this.dtInicioServico;
 	}
 
-	public void setDtInicioServico(LocalDateTime dtInicioServico) {
+	public void setDtInicioServico(Date dtInicioServico) {
 		this.dtInicioServico = dtInicioServico;
 	}
 

@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,10 +33,10 @@ public class Mercado implements Serializable {
 	private Integer cnpj;
 
 	@Column(name = "dt_alteracao")
-	private LocalDateTime dtAlteracao;
+	private Date dtAlteracao;
 
 	@Column(name = "dt_criacao")
-	private LocalDateTime dtCriacao;
+	private Date dtCriacao;
 
 	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
@@ -83,13 +83,13 @@ public class Mercado implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = LocalDateTime.now();
+		dtCriacao = dtAlteracao = new Date();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = LocalDateTime.now();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdMercado() {
@@ -108,19 +108,19 @@ public class Mercado implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public LocalDateTime getDtAlteracao() {
+	public Date getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+	public void setDtAlteracao(Date dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public LocalDateTime getDtCriacao() {
+	public Date getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(LocalDateTime dtCriacao) {
+	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 

@@ -1,7 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,14 +40,14 @@ public class Usuario implements Serializable {
 	private Integer idUsuario;
 
 	@Column(name = "dt_alteracao")
-	private LocalDateTime dtAlteracao;
+	private Date dtAlteracao;
 
 	@Column(name = "dt_criacao")
-	private LocalDateTime dtCriacao;
+	private Date dtCriacao;
 
 	@Column(name = "dt_nascimento", nullable = false)
 	@NotBlank
-	private LocalDateTime dtNascimento;
+	private Date dtNascimento;
 
 	@Column(length = 150, unique = true, nullable = false)
 	@NotBlank
@@ -66,6 +66,7 @@ public class Usuario implements Serializable {
 
 	@Column(length = 100, nullable = false)
 	@NotBlank
+	@JsonIgnore
 	private String senha;
 
 	@Enumerated(EnumType.STRING)
@@ -91,13 +92,13 @@ public class Usuario implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = LocalDateTime.now();
+		dtCriacao = dtAlteracao = new Date();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = LocalDateTime.now();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdUsuario() {
@@ -108,27 +109,27 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public LocalDateTime getDtAlteracao() {
+	public Date getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+	public void setDtAlteracao(Date dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public LocalDateTime getDtCriacao() {
+	public Date getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(LocalDateTime dtCriacao) {
+	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public LocalDateTime getDtNascimento() {
+	public Date getDtNascimento() {
 		return this.dtNascimento;
 	}
 
-	public void setDtNascimento(LocalDateTime dtNascimento) {
+	public void setDtNascimento(Date dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 
