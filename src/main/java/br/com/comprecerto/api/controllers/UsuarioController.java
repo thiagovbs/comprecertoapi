@@ -35,6 +35,11 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.buscarPorId(id));
 	}
 
+	@GetMapping(value = "/login/{login}")
+	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) {
+		return ResponseEntity.ok(usuarioService.buscarPorLogin(login));
+	}
+
 	@PostMapping
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody @Valid Usuario usuario) {
 		return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
