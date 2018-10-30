@@ -45,8 +45,7 @@ public class Usuario implements Serializable {
 	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
-	@Column(name = "dt_nascimento", nullable = false)
-	@NotBlank
+	@Column(name = "dt_nascimento")
 	private Date dtNascimento;
 
 	@Column(length = 150, unique = true, nullable = false)
