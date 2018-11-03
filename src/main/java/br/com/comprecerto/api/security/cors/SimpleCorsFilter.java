@@ -1,4 +1,4 @@
-package br.com.comprecerto.api.security;
+package br.com.comprecerto.api.security.cors;
 
 import java.io.IOException;
 
@@ -26,15 +26,21 @@ public class SimpleCorsFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+		if (request.getHeader("Origin").equals("http://localhost:4200")
+				|| request.getHeader("Origin").equals("http://localhost:8100")) {
+			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 
-		if ("OPTIONS".equals(request.getMethod())) {
-			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
-			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
-			response.setHeader("Access-Control-Max-Age", "3600");
+			response.setHeader("Access-Control-Allow-Credentials", "true");
 
-			response.setStatus(HttpServletResponse.SC_OK);
+			if ("OPTIONS".equals(request.getMethod())) {
+				response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
+				response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
+				response.setHeader("Access-Control-Max-Age", "3600");
+
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				chain.doFilter(req, resp);
+			}
 		} else {
 			chain.doFilter(req, resp);
 		}

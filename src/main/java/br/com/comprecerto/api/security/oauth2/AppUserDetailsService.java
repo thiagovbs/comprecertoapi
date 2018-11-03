@@ -1,4 +1,4 @@
-package br.com.comprecerto.api.security;
+package br.com.comprecerto.api.security.oauth2;
 
 import java.util.Collection;
 import java.util.HashSet;

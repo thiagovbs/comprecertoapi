@@ -1,4 +1,4 @@
-package br.com.comprecerto.api.security;
+package br.com.comprecerto.api.security.token;
 
 import java.util.HashMap;
 import java.util.Map;
