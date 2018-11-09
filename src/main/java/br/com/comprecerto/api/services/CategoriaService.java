@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.repositories.CategoriaRepository;
@@ -17,6 +19,9 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
+	@Autowired
+	private S3Service s3Service;
+	
 	public List<Categoria> buscarCategorias() {
 		return categoriaRepository.findAll();
 	}
@@ -50,6 +55,10 @@ public class CategoriaService {
 			throw new Exception("A categoria informada não existe!");
 
 		categoriaRepository.delete(categoriaOp.get());
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
 	}
 
 }
