@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,9 @@ public class CategoriaService {
 	@Autowired
 	private S3Service s3Service;
 	
+	@Autowired
+	private ImageService imgService;
+	
 	public List<Categoria> buscarCategorias() {
 		return categoriaRepository.findAll();
 	}
@@ -31,7 +35,6 @@ public class CategoriaService {
 
 		if (categoria.isPresent())
 			return categoria.get();
-
 		return null;
 	}
 
@@ -58,7 +61,17 @@ public class CategoriaService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
-		return s3Service.uploadFile(multipartFile);
+		
+		String prefix = "cat";
+		
+		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
+		
+		//pegar um prefixo de Cat + id da categoria referente + extensão
+		String filename = prefix + ".jpg";
+		
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, ".jpg"), filename ,"image");
+		
+		
 	}
 
 }
