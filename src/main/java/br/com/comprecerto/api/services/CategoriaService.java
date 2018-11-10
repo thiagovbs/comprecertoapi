@@ -1,5 +1,7 @@
 package br.com.comprecerto.api.services;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.repositories.CategoriaRepository;
@@ -19,6 +22,12 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
+	@Autowired
+	private S3Service s3Service;
+	
+	@Autowired
+	private ImageService imgService;
+	
 	public List<Categoria> buscarCategorias() {
 		return categoriaRepository.findAll();
 	}
@@ -28,7 +37,6 @@ public class CategoriaService {
 
 		if (categoria.isPresent())
 			return categoria.get();
-
 		return null;
 	}
 
@@ -48,6 +56,20 @@ public class CategoriaService {
 
 	public void deletarCategoria(Integer id) {
 		categoriaRepository.delete(id);
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		
+		String prefix = "cat";
+		
+		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
+		
+		//pegar um prefixo de Cat + id da categoria referente + extensão
+		String filename = prefix + ".jpg";
+		
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, ".jpg"), filename ,"image");
+		
+		
 	}
 
 }
