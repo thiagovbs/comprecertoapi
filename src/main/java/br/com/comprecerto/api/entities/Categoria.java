@@ -20,9 +20,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "categoria")
@@ -50,11 +49,11 @@ public class Categoria implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
-	@NotEmpty
+//	@NotEmpty
 	private List<UnidadeMedida> unidadesMedida;
 
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Subcategoria> subcategorias;
 
 	public Categoria() {

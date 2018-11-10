@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprecerto.api.entities.Categoria;
@@ -40,29 +42,18 @@ public class CategoriaController {
 		if (categoria.getIdCategoria() != null) {
 			return ResponseEntity.badRequest().body("Para alterações deve ser usado o protocolo PUT");
 		}
-		
-		return ResponseEntity.ok(categoriaService.salvarCategoria(categoria));
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.salvarCategoria(categoria));
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarCategoria(@PathVariable Integer id, @RequestBody @Valid Categoria categoria) {
-		try {
-			return ResponseEntity.ok(categoriaService.atualizarCategoria(id, categoria));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		return ResponseEntity.ok(categoriaService.atualizarCategoria(id, categoria));
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> deletarCategoria(@PathVariable Integer id) {
-		try {
-			categoriaService.deletarCategoria(id);
-
-			return ResponseEntity.ok().build();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deletarCategoria(@PathVariable Integer id) {
+		categoriaService.deletarCategoria(id);
 	}
 }

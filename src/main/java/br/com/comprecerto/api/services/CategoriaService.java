@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Categoria;
@@ -34,22 +36,18 @@ public class CategoriaService {
 		return categoriaRepository.saveAndFlush(categoria);
 	}
 
-	public Categoria atualizarCategoria(Integer id, @Valid Categoria categoria) throws Exception {
+	public Categoria atualizarCategoria(Integer id, @Valid Categoria categoria) {
 		Optional<Categoria> categoriaOp = categoriaRepository.findByIdCategoria(id);
 
 		if (!categoriaOp.isPresent())
-			throw new Exception("A categoria informada não existe!");
+			throw new EmptyResultDataAccessException(1);
 
+		BeanUtils.copyProperties(categoria, categoriaOp.get(), "idCategoria");
 		return salvarCategoria(categoria);
 	}
 
-	public void deletarCategoria(Integer id) throws Exception {
-		Optional<Categoria> categoriaOp = categoriaRepository.findByIdCategoria(id);
-
-		if (!categoriaOp.isPresent())
-			throw new Exception("A categoria informada não existe!");
-
-		categoriaRepository.delete(categoriaOp.get());
+	public void deletarCategoria(Integer id) {
+		categoriaRepository.delete(id);
 	}
 
 }

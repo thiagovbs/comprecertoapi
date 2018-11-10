@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "subcategoria")
@@ -51,7 +51,7 @@ public class Subcategoria implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", nullable = false)
 	@NotNull
-	@JsonManagedReference
+	@JsonBackReference
 	private Categoria categoria;
 
 	public Subcategoria() {
