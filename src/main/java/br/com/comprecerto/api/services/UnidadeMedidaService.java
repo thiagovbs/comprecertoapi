@@ -51,5 +51,9 @@ public class UnidadeMedidaService {
 
 		unidadeMedidaRepository.delete(unidadeMedidaOp.get());
 	}
-	
+
+	public List<UnidadeMedida> buscarUnidadesMedidaPorSubcategoria(Integer idSubcategoria) {
+		return unidadeMedidaRepository.buscarUnidadesMedidaPorSubcategoria(idSubcategoria);
+	}
+
 }

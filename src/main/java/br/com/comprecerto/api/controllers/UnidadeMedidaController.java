@@ -61,4 +61,10 @@ public class UnidadeMedidaController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "/buscarPorSubcategoria/{idSubcategoria}")
+	public ResponseEntity<List<UnidadeMedida>> buscarUnidadesMedidaPorSubcategoria(
+			@PathVariable Integer idSubcategoria) {
+		return ResponseEntity.ok(unidadeMedidaService.buscarUnidadesMedidaPorSubcategoria(idSubcategoria));
+	}
 }
