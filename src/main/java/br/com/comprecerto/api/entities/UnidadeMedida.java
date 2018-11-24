@@ -2,17 +2,24 @@ package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "unidade_medida")
@@ -41,6 +48,11 @@ public class UnidadeMedida implements Serializable {
 	@Column(length = 5, nullable = false)
 	@NotBlank
 	private String sigla;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "categoria_unidade_medida", inverseJoinColumns = @JoinColumn(name = "id_categoria"), joinColumns = @JoinColumn(name = "id_unidade"))
+	@JsonIgnore
+	private List<Categoria> categorias;
 
 	public UnidadeMedida() {
 	}
@@ -103,4 +115,13 @@ public class UnidadeMedida implements Serializable {
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
 }

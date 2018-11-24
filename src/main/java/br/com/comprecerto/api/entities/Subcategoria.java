@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "subcategoria")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSubcategoria")
 public class Subcategoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -41,11 +42,12 @@ public class Subcategoria implements Serializable {
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true, nullable = false)
+	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String nome;
 
 	@OneToMany(mappedBy = "subcategoria")
+	@JsonBackReference
 	private List<Produto> produtos;
 
 	@ManyToOne

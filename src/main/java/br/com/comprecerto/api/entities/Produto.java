@@ -20,6 +20,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable {
@@ -64,7 +66,13 @@ public class Produto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_subcategoria", nullable = false)
 	@NotNull
+	@JsonManagedReference
 	private Subcategoria subcategoria;
+
+	@ManyToOne()
+	@JoinColumn(name = "id_unidade_medida", nullable = false)
+	@NotNull
+	private UnidadeMedida unidadeMedida;
 
 	public Produto() {
 	}
@@ -171,6 +179,14 @@ public class Produto implements Serializable {
 
 	public void setSubcategoria(Subcategoria subcategoria) {
 		this.subcategoria = subcategoria;
+	}
+
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
 	}
 
 }

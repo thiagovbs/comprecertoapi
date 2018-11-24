@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "categoria")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCategoria")
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,10 +50,10 @@ public class Categoria implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
-//	@NotEmpty
 	private List<UnidadeMedida> unidadesMedida;
 
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "categoria", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REMOVE })
 	@JsonManagedReference
 	private List<Subcategoria> subcategorias;
 
