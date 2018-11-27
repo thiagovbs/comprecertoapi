@@ -61,4 +61,9 @@ public class ProdutoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "/categoria/{idCategoria}")
+	public ResponseEntity<List<Produto>> buscarProdutosPorCategoria(@PathVariable Integer idCategoria) {
+		return ResponseEntity.ok(produtoService.buscarProdutosPorCategoria(idCategoria));
+	}
 }

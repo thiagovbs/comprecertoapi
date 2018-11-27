@@ -52,4 +52,8 @@ public class ProdutoService {
 		produtoRepository.delete(produtoOp.get());
 	}
 
+	public List<Produto> buscarProdutosPorCategoria(Integer idCategoria) {
+		return produtoRepository.buscarProdutosPorCategoria(idCategoria);
+	}
+
 }
