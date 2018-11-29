@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,9 +40,10 @@ public class MercadoLocalidade implements Serializable {
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
+	@ElementCollection
 	@Column(name = "googlemaps_link", length = 255, nullable = false)
 	@NotBlank
-	private String googlemapsLink;
+	private List<String> googlemapsLinks;
 
 	@ManyToOne
 	@JoinColumn(name = "id_bairro", nullable = true)
@@ -55,6 +57,9 @@ public class MercadoLocalidade implements Serializable {
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
 	private List<MercadoProduto> mercadoProdutos;
+
+	@OneToMany(mappedBy = "mercadoLocalidade")
+	private List<MercadoServico> mercadoServicos;
 
 	public MercadoLocalidade() {
 	}
@@ -102,12 +107,12 @@ public class MercadoLocalidade implements Serializable {
 		this.fAtivo = fAtivo;
 	}
 
-	public String getGooglemapsLink() {
-		return this.googlemapsLink;
+	public List<String> getGooglemapsLinks() {
+		return googlemapsLinks;
 	}
 
-	public void setGooglemapsLink(String googlemapsLink) {
-		this.googlemapsLink = googlemapsLink;
+	public void setGooglemapsLinks(List<String> googlemapsLinks) {
+		this.googlemapsLinks = googlemapsLinks;
 	}
 
 	public Bairro getBairro() {
@@ -146,6 +151,28 @@ public class MercadoLocalidade implements Serializable {
 		mercadoProduto.setMercadoLocalidade(null);
 
 		return mercadoProduto;
+	}
+
+	public List<MercadoServico> getMercadoServicos() {
+		return this.mercadoServicos;
+	}
+
+	public void setMercadoServicos(List<MercadoServico> mercadoServicos) {
+		this.mercadoServicos = mercadoServicos;
+	}
+
+	public MercadoServico addMercadoServico(MercadoServico mercadoServico) {
+		getMercadoServicos().add(mercadoServico);
+		mercadoServico.setMercadoLocalidade(this);
+
+		return mercadoServico;
+	}
+
+	public MercadoServico removeMercadoServico(MercadoServico mercadoServico) {
+		getMercadoServicos().remove(mercadoServico);
+		mercadoServico.setMercadoLocalidade(null);
+
+		return mercadoServico;
 	}
 
 }

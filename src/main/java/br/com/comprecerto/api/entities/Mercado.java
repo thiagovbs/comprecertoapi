@@ -75,9 +75,6 @@ public class Mercado implements Serializable {
 	@OneToMany(mappedBy = "mercado")
 	private List<MercadoPush> mercadoPushs;
 
-	@OneToMany(mappedBy = "mercado")
-	private List<MercadoServico> mercadoServicos;
-
 	public Mercado() {
 	}
 
@@ -238,28 +235,6 @@ public class Mercado implements Serializable {
 		mercadoPush.setMercado(null);
 
 		return mercadoPush;
-	}
-
-	public List<MercadoServico> getMercadoServicos() {
-		return this.mercadoServicos;
-	}
-
-	public void setMercadoServicos(List<MercadoServico> mercadoServicos) {
-		this.mercadoServicos = mercadoServicos;
-	}
-
-	public MercadoServico addMercadoServico(MercadoServico mercadoServico) {
-		getMercadoServicos().add(mercadoServico);
-		mercadoServico.setMercado(this);
-
-		return mercadoServico;
-	}
-
-	public MercadoServico removeMercadoServico(MercadoServico mercadoServico) {
-		getMercadoServicos().remove(mercadoServico);
-		mercadoServico.setMercado(null);
-
-		return mercadoServico;
 	}
 
 }

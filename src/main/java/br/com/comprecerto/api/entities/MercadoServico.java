@@ -42,9 +42,9 @@ public class MercadoServico implements Serializable {
 	private Boolean fAtivo;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado", nullable = true)
+	@JoinColumn(name = "id_mercado_localidade", nullable = true)
 	@NotNull
-	private Mercado mercado;
+	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
 	@JoinColumn(name = "id_pacote_servico", nullable = true)
@@ -113,12 +113,12 @@ public class MercadoServico implements Serializable {
 		this.fAtivo = fAtivo;
 	}
 
-	public Mercado getMercado() {
-		return this.mercado;
+	public MercadoLocalidade getMercadoLocalidade() {
+		return this.mercadoLocalidade;
 	}
 
-	public void setMercado(Mercado mercado) {
-		this.mercado = mercado;
+	public void setMercadoLocalidade(MercadoLocalidade mercado) {
+		this.mercadoLocalidade = mercado;
 	}
 
 	public PacoteServico getPacoteServico() {
