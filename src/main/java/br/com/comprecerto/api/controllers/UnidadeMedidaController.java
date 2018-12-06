@@ -51,7 +51,7 @@ public class UnidadeMedidaController {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> deletarCategoria(@PathVariable Integer id) {
+	public ResponseEntity<?> deletarCategoria(@PathVariable Integer id) {
 		try {
 			unidadeMedidaService.deletarUnidadeMedida(id);
 

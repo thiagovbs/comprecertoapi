@@ -20,12 +20,12 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "subcategoria")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idSubcategoria")
 public class Subcategoria implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,7 +47,7 @@ public class Subcategoria implements Serializable {
 	private String nome;
 
 	@OneToMany(mappedBy = "subcategoria")
-	@JsonBackReference
+	@JsonIgnore
 	private List<Produto> produtos;
 
 	@ManyToOne

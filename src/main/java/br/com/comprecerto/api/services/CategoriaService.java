@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -50,8 +49,7 @@ public class CategoriaService {
 		if (!categoriaOp.isPresent())
 			throw new EmptyResultDataAccessException(1);
 
-		BeanUtils.copyProperties(categoria, categoriaOp.get(), "idCategoria");
-		return salvarCategoria(categoria);
+		return categoriaRepository.saveAndFlush(categoria);
 	}
 
 	public void deletarCategoria(Integer id) {

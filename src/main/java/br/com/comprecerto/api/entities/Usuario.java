@@ -65,7 +65,6 @@ public class Usuario implements Serializable {
 
 	@Column(length = 100, nullable = false)
 	@NotBlank
-	@JsonIgnore
 	private String senha;
 
 	@Enumerated(EnumType.STRING)
