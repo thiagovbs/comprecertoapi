@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.comprecerto.api.dto.ProdutosAppDTO;
+import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
 import br.com.comprecerto.api.services.ProdutoService;
 
@@ -65,5 +67,10 @@ public class ProdutoController {
 	@GetMapping(value = "/categoria/{idCategoria}")
 	public ResponseEntity<List<Produto>> buscarProdutosPorCategoria(@PathVariable Integer idCategoria) {
 		return ResponseEntity.ok(produtoService.buscarProdutosPorCategoria(idCategoria));
+	}
+
+	@PostMapping(value = "/detail")
+	public ResponseEntity<List<ProdutosAppDTO>> listaProdutosDetail(@RequestBody ProdutosAppFilter produtosAppFilter) {
+		return ResponseEntity.ok(produtoService.listaProdutosDetail(produtosAppFilter));
 	}
 }

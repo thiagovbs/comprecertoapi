@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.comprecerto.api.entities.Produto;
+import br.com.comprecerto.api.repositories.produto.ProdutoRepositoryQuery;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
+public interface ProdutoRepository extends JpaRepository<Produto, Integer>, ProdutoRepositoryQuery {
 
 	Optional<Produto> findByIdProduto(Integer id);
 

@@ -8,6 +8,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.comprecerto.api.dto.ProdutosAppDTO;
+import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
 import br.com.comprecerto.api.repositories.ProdutoRepository;
 
@@ -54,6 +56,10 @@ public class ProdutoService {
 
 	public List<Produto> buscarProdutosPorCategoria(Integer idCategoria) {
 		return produtoRepository.buscarProdutosPorCategoria(idCategoria);
+	}
+
+	public List<ProdutosAppDTO> listaProdutosDetail(ProdutosAppFilter produtosAppFilter) {
+		return produtoRepository.listaProdutosDetail(produtosAppFilter);
 	}
 
 }
