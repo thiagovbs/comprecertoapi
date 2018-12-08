@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -45,7 +46,7 @@ public class MercadoLocalidade implements Serializable {
 	@NotBlank
 	private List<String> googlemapsLinks;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_bairro", nullable = true)
 	@NotNull
 	private Bairro bairro;

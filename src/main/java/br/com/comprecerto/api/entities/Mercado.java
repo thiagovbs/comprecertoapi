@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Mercado implements Serializable {
 
 	@Column(unique = true, nullable = false)
 	@NotBlank
-	private Integer cnpj;
+	private String cnpj;
 
 	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
@@ -67,9 +68,9 @@ public class Mercado implements Serializable {
 
 	@Column(length = 255, nullable = false)
 	@NotBlank
-	private String telefones;
+	private String telefone;
 
-	@OneToMany(mappedBy = "mercado")
+	@OneToMany(mappedBy = "mercado", cascade = CascadeType.ALL)
 	private List<MercadoLocalidade> mercadoLocalidades;
 
 	@OneToMany(mappedBy = "mercado")
@@ -97,11 +98,11 @@ public class Mercado implements Serializable {
 		this.idMercado = idMercado;
 	}
 
-	public Integer getCnpj() {
+	public String getCnpj() {
 		return this.cnpj;
 	}
 
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -185,12 +186,12 @@ public class Mercado implements Serializable {
 		this.slogan = slogan;
 	}
 
-	public String getTelefones() {
-		return this.telefones;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(String telefones) {
-		this.telefones = telefones;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public List<MercadoLocalidade> getMercadoLocalidades() {
