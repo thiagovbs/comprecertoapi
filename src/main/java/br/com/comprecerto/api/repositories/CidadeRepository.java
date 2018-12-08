@@ -12,4 +12,5 @@ public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
 
 	Optional<Cidade> findByIdCidade(Integer id);
 
+    Cidade findByNome(String nome);
 }

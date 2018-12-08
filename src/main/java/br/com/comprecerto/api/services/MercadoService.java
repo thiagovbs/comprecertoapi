@@ -5,17 +5,32 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.comprecerto.api.entities.Cidade;
+import br.com.comprecerto.api.entities.Estado;
+import br.com.comprecerto.api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.comprecerto.api.entities.Bairro;
 import br.com.comprecerto.api.entities.Mercado;
-import br.com.comprecerto.api.repositories.MercadoRepository;
 
 @Service
 public class MercadoService {
 
 	@Autowired
 	private MercadoRepository mercadoRepository;
+	
+	@Autowired
+	private BairroRepository bairroRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private PaisRepository paisRepository;
 
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
@@ -31,6 +46,9 @@ public class MercadoService {
 	}
 
 	public Mercado salvarMercado(@Valid Mercado mercado) {
+		mercado.getMercadoLocalidades().forEach(localidade -> {
+			Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstadoAndPais(localidade.getBairro());
+		});
 		return mercadoRepository.saveAndFlush(mercado);
 	}
 
