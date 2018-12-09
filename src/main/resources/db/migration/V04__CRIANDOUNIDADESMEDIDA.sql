@@ -1,0 +1,3 @@
+INSERT INTO comprecertodb.unidade_medida (dt_alteracao, dt_criacao, f_ativo, nome, sigla) VALUES (current_date, current_date, 1, 'Unidade Medida 1', 'UM1');
+INSERT INTO comprecertodb.unidade_medida (dt_alteracao, dt_criacao, f_ativo, nome, sigla) VALUES (current_date, current_date, 1, 'Unidade Medida 2', 'UM2');
+INSERT INTO comprecertodb.unidade_medida (dt_alteracao, dt_criacao, f_ativo, nome, sigla) VALUES (current_date, current_date, 1, 'Unidade Medida 3', 'UM3');
