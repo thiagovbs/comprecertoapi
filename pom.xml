@@ -79,14 +79,17 @@
 			<artifactId>aws-java-sdk</artifactId>
 			<version>LATEST</version>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>LATEST</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -95,6 +98,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
