@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.comprecerto.api.entities.PacoteServico;
 import br.com.comprecerto.api.entities.Servico;
 import br.com.comprecerto.api.services.ServicoService;
 
@@ -60,5 +61,10 @@ public class ServicoController {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+
+	@GetMapping(value = "/pacotes")
+	public ResponseEntity<List<PacoteServico>> buscarPacoteServicos() {
+		return ResponseEntity.ok(servicoService.buscarPacoteServicos());
 	}
 }

@@ -17,6 +17,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "pacote_servico")
 public class PacoteServico implements Serializable {
@@ -49,6 +51,7 @@ public class PacoteServico implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_servico", nullable = true)
 	@NotNull
+	@JsonBackReference
 	private Servico servico;
 
 	public PacoteServico() {

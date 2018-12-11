@@ -14,6 +14,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "servico")
 public class Servico implements Serializable {
@@ -41,6 +43,7 @@ public class Servico implements Serializable {
 	private String tipo;
 
 	@OneToMany(mappedBy = "servico")
+	@JsonManagedReference
 	private List<PacoteServico> pacoteServicos;
 
 	public Servico() {
