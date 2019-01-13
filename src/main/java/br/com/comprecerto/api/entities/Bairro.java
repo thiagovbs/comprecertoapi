@@ -17,7 +17,10 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "bairro")
@@ -27,28 +30,26 @@ public class Bairro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_bairro", unique = true, nullable = false)
 	private Integer idBairro;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name = "dt_criacao", nullable = false)
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name = "id_cidade", nullable = false)
+	@JoinColumn(name = "id_cidade")
 	@NotNull
 	private Cidade cidade;
 
 	@OneToMany(mappedBy = "bairro")
+	@JsonBackReference(value = "mercadoLocalidade")
 	private List<MercadoLocalidade> mercadoLocalidades;
 
 	public Bairro() {

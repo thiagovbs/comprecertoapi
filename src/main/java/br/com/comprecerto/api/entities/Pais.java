@@ -14,7 +14,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "pais")
@@ -24,27 +27,25 @@ public class Pais implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_pais", unique = true, nullable = false)
 	private Integer idPais;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 150, nullable = true)
 	@NotBlank
+	@Length(max = 150)
 	private String nome;
 
-	@Column(length = 3, nullable = true)
 	@NotBlank
+	@Length(max = 3)
 	private String sigla;
 
 	@OneToMany(mappedBy = "pais")
+	@JsonBackReference(value = "estado")
 	private List<Estado> estados;
 
 	public Pais() {

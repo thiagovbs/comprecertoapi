@@ -17,6 +17,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,28 +30,25 @@ public class UnidadeMedida implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_unidade", unique = true, nullable = false)
 	private Integer idUnidade;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 45, nullable = false)
 	@NotBlank
+	@Length(max = 45)
 	private String nome;
 
-	@Column(length = 5, nullable = false)
 	@NotBlank
+	@Length(max = 5)
 	private String sigla;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "categoria_unidade_medida", inverseJoinColumns = @JoinColumn(name = "id_categoria"), joinColumns = @JoinColumn(name = "id_unidade"))
+	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_unidade"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	@JsonIgnore
 	private List<Categoria> categorias;
 

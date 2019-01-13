@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "mercado_servico")
@@ -41,9 +44,12 @@ public class MercadoServico implements Serializable {
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
+	@NotNull
+	private BigDecimal saldo;
+
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade", nullable = true)
-	@NotNull
+	@JsonBackReference(value = "mercadoLocalidade_mercadoLocalidade")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
@@ -111,6 +117,14 @@ public class MercadoServico implements Serializable {
 
 	public void setFAtivo(Boolean fAtivo) {
 		this.fAtivo = fAtivo;
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 
 	public MercadoLocalidade getMercadoLocalidade() {

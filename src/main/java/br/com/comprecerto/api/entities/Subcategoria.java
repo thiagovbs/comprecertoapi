@@ -2,7 +2,6 @@ package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,16 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "subcategoria")
@@ -30,30 +28,22 @@ public class Subcategoria implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_subcategoria", unique = true, nullable = false)
 	private Integer idSubcategoria;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
-
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String nome;
-
-	@OneToMany(mappedBy = "subcategoria")
-	@JsonIgnore
-	private List<Produto> produtos;
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", nullable = false)
 	@NotNull
-	@JsonBackReference
+	@JsonBackReference(value = "categoria_subcategoria")
 	private Categoria categoria;
 
 	public Subcategoria() {
@@ -108,28 +98,6 @@ public class Subcategoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<Produto> getProdutos() {
-		return this.produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
-
-	public Produto addProduto(Produto produto) {
-		getProdutos().add(produto);
-		produto.setSubcategoria(this);
-
-		return produto;
-	}
-
-	public Produto removeProduto(Produto produto) {
-		getProdutos().remove(produto);
-		produto.setSubcategoria(null);
-
-		return produto;
 	}
 
 	public Categoria getCategoria() {

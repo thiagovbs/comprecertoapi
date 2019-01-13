@@ -16,7 +16,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "mercado")
@@ -26,21 +30,18 @@ public class Mercado implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_mercado", unique = true, nullable = false)
 	private Integer idMercado;
 
-	@Column(unique = true, nullable = false)
 	@NotBlank
+	@Length(max = 18)
 	private String cnpj;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
-	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String email;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
@@ -55,22 +56,24 @@ public class Mercado implements Serializable {
 	@Lob
 	private byte[] logo;
 
-	@Column(name = "nome_fantasia", length = 150, nullable = false)
 	@NotBlank
+	@Length(max = 150)
 	private String nomeFantasia;
 
-	@Column(name = "razao_social", length = 150, nullable = false)
 	@NotBlank
+	@Length(max = 150)
 	private String razaoSocial;
 
 	@Lob
 	private String slogan;
 
-	@Column(length = 255, nullable = false)
 	@NotBlank
+	@Length(max = 13)
 	private String telefone;
 
-	@OneToMany(mappedBy = "mercado", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+	@NotEmpty
+	@JsonManagedReference(value = "mercado_mercadoLocalidade")
 	private List<MercadoLocalidade> mercadoLocalidades;
 
 	@OneToMany(mappedBy = "mercado")

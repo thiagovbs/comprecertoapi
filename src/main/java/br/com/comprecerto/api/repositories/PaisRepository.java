@@ -12,4 +12,6 @@ public interface PaisRepository extends JpaRepository<Pais, Integer> {
 
 	Optional<Pais> findByIdPais(Integer id);
 
+	Pais findByNome(String nome);
+
 }

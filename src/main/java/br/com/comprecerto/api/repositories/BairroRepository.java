@@ -13,12 +13,19 @@ public interface BairroRepository extends JpaRepository<Bairro, Integer> {
 
 	Optional<Bairro> findByIdBairro(Integer id);
 
-    Bairro findByNome(String nome);
+	Bairro findByNome(String nome);
 
-    @Query("select b from Bairro b" +
-            " where b.nome = ?1.nome" +
-            " and b.cidade.nome = ?1.cidade.nome" +
-            " and (b.cidade.estado.nome = ?1.cidade.estado.nome or b.cidade.estado.sigla = ?1.cidade.estado.sigla)" +
-            " and (b.cidade.estado.pais.nome = ?1.cidade.estado.pais.nome or b.cidade.estado.pais.sigla = ?1.cidade.estado.pais.sigla)")
-    Bairro findByNomeAndCidadeAndEstadoAndPais(Bairro bairro);
+//	@Query("select b from Bairro b" + //
+//			" where b.nome = ?1.nome" + //
+//			" and b.cidade.nome = ?1.cidade.nome" + //
+//			" and b.cidade.estado.nome = ?1.cidade.estado.nome" + //
+//			" and b.cidade.estado.pais.nome = ?1.cidade.estado.pais.nome")
+//	Bairro findByNomeAndCidadeAndEstadoAndPais(Bairro bairro);
+
+	@Query("select b from Bairro b" + //
+			" where b.nome = ?1" + //
+			" and b.cidade.nome = ?2" + //
+			" and b.cidade.estado.nome = ?3" + //
+			" and b.cidade.estado.pais.nome = ?4")
+	Bairro findByNomeAndCidadeAndEstadoAndPais(String nome, String nomeCidade, String nomeEstado, String nomePais);
 }

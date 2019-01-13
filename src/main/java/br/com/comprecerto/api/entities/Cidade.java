@@ -17,37 +17,38 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "cidade")
 public class Cidade implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_cidade", unique = true, nullable = false)
 	private Integer idCidade;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
 
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String nome;
 
 	@OneToMany(mappedBy = "cidade")
+	@JsonBackReference(value = "bairro")
 	private List<Bairro> bairros;
 
 	@ManyToOne
-	@JoinColumn(name = "id_estado", nullable = false)
+	@JoinColumn(name = "id_estado")
 	@NotNull
 	private Estado estado;
 
@@ -56,13 +57,13 @@ public class Cidade implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao =new Date();
+		dtCriacao = dtAlteracao = new Date();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao =new Date();
+		dtAlteracao = new Date();
 	}
 
 	public Integer getIdCidade() {

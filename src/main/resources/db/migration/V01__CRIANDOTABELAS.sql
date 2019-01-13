@@ -1,8 +1,8 @@
 CREATE TABLE `pais` (
   `id_pais` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(150) NOT NULL,
   `sigla` varchar(3) NOT NULL,
   PRIMARY KEY (`id_pais`)
@@ -10,9 +10,9 @@ CREATE TABLE `pais` (
 
 CREATE TABLE `estado` (
   `id_estado` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(45) NOT NULL,
   `sigla` varchar(2) NOT NULL,
   `id_pais` int(11) NOT NULL,
@@ -24,9 +24,9 @@ CREATE TABLE `estado` (
 
 CREATE TABLE `cidade` (
   `id_cidade` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(100) NOT NULL,
   `id_estado` int(11) NOT NULL,
   PRIMARY KEY (`id_cidade`),
@@ -36,9 +36,9 @@ CREATE TABLE `cidade` (
 
 CREATE TABLE `bairro` (
   `id_bairro` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
+  `dt_alteracao` datetime,
   `dt_criacao` datetime NOT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `f_ativo` tinyint(1),
   `nome` varchar(100) NOT NULL,
   `id_cidade` int(11) NOT NULL,
   PRIMARY KEY (`id_bairro`),
@@ -48,9 +48,9 @@ CREATE TABLE `bairro` (
 
 CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id_categoria`),
   UNIQUE KEY (`nome`)
@@ -58,9 +58,9 @@ CREATE TABLE `categoria` (
 
 CREATE TABLE `unidade_medida` (
   `id_unidade` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(45) NOT NULL,
   `sigla` varchar(5) NOT NULL,
   PRIMARY KEY (`id_unidade`)
@@ -77,18 +77,18 @@ CREATE TABLE `categoria_unidade_medida` (
 
 CREATE TABLE `mercado` (
   `id_mercado` int(11) NOT NULL AUTO_INCREMENT,
-  `cnpj` varchar(255) NOT NULL,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
+  `cnpj` varchar(18) NOT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
   `email` varchar(100) NOT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
-  `f_destaque` tinyint(1) DEFAULT NULL,
-  `f_super_destaque` tinyint(1) DEFAULT NULL,
+  `f_ativo` tinyint(1),
+  `f_destaque` tinyint(1),
+  `f_super_destaque` tinyint(1),
   `logo` longblob,
   `nome_fantasia` varchar(150) NOT NULL,
   `razao_social` varchar(150) NOT NULL,
   `slogan` longtext,
-  `telefone` varchar(255) NOT NULL,
+  `telefone` varchar(13) NOT NULL,
   PRIMARY KEY (`id_mercado`),
   UNIQUE KEY (`cnpj`),
   UNIQUE KEY (`email`)
@@ -96,9 +96,9 @@ CREATE TABLE `mercado` (
 
 CREATE TABLE `mercado_localidade` (
   `id_mercado_localidade` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `id_bairro` int(11) NOT NULL,
   `id_mercado` int(11) NOT NULL,
   PRIMARY KEY (`id_mercado_localidade`),
@@ -114,9 +114,9 @@ CREATE TABLE `mercado_localidade_googlemaps_links` (
 
 CREATE TABLE `subcategoria` (
   `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `nome` varchar(100) NOT NULL,
   `id_categoria` int(11) NOT NULL,
   PRIMARY KEY (`id_subcategoria`),
@@ -126,8 +126,8 @@ CREATE TABLE `subcategoria` (
 CREATE TABLE `produto` (
   `id_produto` int(11) NOT NULL AUTO_INCREMENT,
   `caracteristica` longtext NOT NULL,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
   `imagem` varchar(255) NOT NULL,
   `marca` varchar(100) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -141,13 +141,13 @@ CREATE TABLE `produto` (
 
 CREATE TABLE `mercado_produto` (
   `id_mercado_produto` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
   `dt_entrada` datetime NOT NULL,
   `dt_validade` datetime NOT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
-  `f_destaque` tinyint(1) DEFAULT NULL,
-  `f_super_destaque` tinyint(1) DEFAULT NULL,
+  `f_ativo` tinyint(1),
+  `f_destaque` tinyint(1),
+  `f_super_destaque` tinyint(1),
   `observacao` longtext,
   `preco` decimal(19,2) NOT NULL,
   `id_mercado_localidade` int(11) NOT NULL,
@@ -159,13 +159,13 @@ CREATE TABLE `mercado_produto` (
 
 CREATE TABLE `mercado_push` (
   `id_mercado_push` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(255) DEFAULT NULL,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `descricao` varchar(255),
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
   `imagem` longblob,
   `motivo_negativa` longtext,
-  `tipo_push` smallint(6) DEFAULT NULL,
+  `tipo_push` smallint(6),
   `id_mercado` int(11) NOT NULL,
   PRIMARY KEY (`id_mercado_push`),
   FOREIGN KEY (`id_mercado`) REFERENCES `mercado` (`id_mercado`)
@@ -173,21 +173,21 @@ CREATE TABLE `mercado_push` (
 
 CREATE TABLE `servico` (
   `id_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `tipo` varchar(60) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
+  `nome` varchar(100),
+  `tipo` varchar(60),
   PRIMARY KEY (`id_servico`)
 );
 
 CREATE TABLE `pacote_servico` (
   `id_pacote_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
-  `nome` varchar(100) DEFAULT NULL,
-  `pacote_servicocol` varchar(45) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `f_ativo` tinyint(1),
+  `nome` varchar(100),
+  `pacote_servicocol` varchar(45),
   `id_servico` int(11) NOT NULL,
   PRIMARY KEY (`id_pacote_servico`),
   FOREIGN KEY (`id_servico`) REFERENCES `servico` (`id_servico`)
@@ -195,11 +195,11 @@ CREATE TABLE `pacote_servico` (
 
 CREATE TABLE `mercado_servico` (
   `id_mercado_servico` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `dt_fim_servico` datetime DEFAULT NULL,
-  `dt_inicio_servico` datetime DEFAULT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `dt_fim_servico` datetime,
+  `dt_inicio_servico` datetime,
+  `f_ativo` tinyint(1),
   `id_mercado_localidade` int(11) NOT NULL,
   `id_pacote_servico` int(11) NOT NULL,
   PRIMARY KEY (`id_mercado_servico`),
@@ -215,11 +215,11 @@ CREATE TABLE `permissao` (
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
-  `dt_nascimento` datetime DEFAULT NULL,
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
+  `dt_nascimento` datetime,
   `email` varchar(150) NOT NULL,
-  `f_ativo` tinyint(1) DEFAULT NULL,
+  `f_ativo` tinyint(1),
   `login` varchar(18) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
@@ -232,9 +232,9 @@ CREATE TABLE `usuario` (
 
 CREATE TABLE `usuario_lista` (
   `id_usuario_lista` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(50) DEFAULT NULL,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `dt_criacao` datetime DEFAULT NULL,
+  `descricao` varchar(50),
+  `dt_alteracao` datetime,
+  `dt_criacao` datetime,
   `id_mercado_produto` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario_lista`),
@@ -244,7 +244,7 @@ CREATE TABLE `usuario_lista` (
 
 CREATE TABLE `usuario_mercado_push` (
   `id_usuario_mercado_push` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_ativacao` datetime DEFAULT NULL,
+  `dt_ativacao` datetime,
   `id_mercado_push` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id_usuario_mercado_push`),

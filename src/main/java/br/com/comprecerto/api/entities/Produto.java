@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +17,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -28,33 +28,26 @@ public class Produto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto", unique = true, nullable = false)
 	private Integer idProduto;
 
 	@Lob
-	@Column(nullable = false)
 	@NotBlank
 	private String caracteristica;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
-
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
-	@Column(length = 255, nullable = true)
 	@NotBlank
 	private String imagem;
 
-	@Column(length = 100, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String marca;
 
-	@Column(length = 100, nullable = false)
 	@NotBlank
+	@Length(max = 100)
 	private String nome;
 
-	@Column(nullable = false)
 	@NotNull
 	private Integer quantidade;
 
@@ -66,7 +59,7 @@ public class Produto implements Serializable {
 	@NotNull
 	private Subcategoria subcategoria;
 
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "id_unidade_medida", nullable = false)
 	@NotNull
 	private UnidadeMedida unidadeMedida;

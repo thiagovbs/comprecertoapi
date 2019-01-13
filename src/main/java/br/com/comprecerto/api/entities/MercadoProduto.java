@@ -29,20 +29,14 @@ public class MercadoProduto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_mercado_produto", unique = true, nullable = false)
 	private Integer idMercadoProduto;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
-
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
-	@Column(name = "dt_entrada", nullable = false)
 	@NotBlank
 	private Date dtEntrada;
 
-	@Column(name = "dt_validade", nullable = false)
 	@NotBlank
 	private Date dtValidade;
 
@@ -58,17 +52,16 @@ public class MercadoProduto implements Serializable {
 	@Lob
 	private String observacao;
 
-	@Column(nullable = false)
 	@NotNull
 	private BigDecimal preco;
 
 	@ManyToOne
-	@JoinColumn(name = "id_mercado_localidade", nullable = true)
+	@JoinColumn(name = "id_mercado_localidade")
 	@NotNull
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
-	@JoinColumn(name = "id_produto", nullable = true)
+	@JoinColumn(name = "id_produto")
 	@NotNull
 	private Produto produto;
 

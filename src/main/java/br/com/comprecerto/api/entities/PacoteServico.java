@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "pacote_servico")
 public class PacoteServico implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -42,16 +43,22 @@ public class PacoteServico implements Serializable {
 	@Column(length = 100)
 	private String nome;
 
-	@Column(name = "pacote_servicocol", length = 45)
-	private String pacoteServicocol;
+	@Column(length = 255)
+	private String descricao;
+
+	@NotNull
+	private BigDecimal valor;
+	private BigDecimal acrescimo;
+	private BigDecimal desconto;
 
 	@OneToMany(mappedBy = "pacoteServico")
+	@JsonBackReference(value = "mercadoServicos")
 	private List<MercadoServico> mercadoServicos;
 
 	@ManyToOne
 	@JoinColumn(name = "id_servico", nullable = true)
 	@NotNull
-	@JsonBackReference
+	@JsonBackReference(value = "servico_pacoteServico")
 	private Servico servico;
 
 	public PacoteServico() {
@@ -108,12 +115,36 @@ public class PacoteServico implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getPacoteServicocol() {
-		return this.pacoteServicocol;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setPacoteServicocol(String pacoteServicocol) {
-		this.pacoteServicocol = pacoteServicocol;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public BigDecimal getAcrescimo() {
+		return acrescimo;
+	}
+
+	public void setAcrescimo(BigDecimal acrescimo) {
+		this.acrescimo = acrescimo;
+	}
+
+	public BigDecimal getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(BigDecimal desconto) {
+		this.desconto = desconto;
 	}
 
 	public List<MercadoServico> getMercadoServicos() {

@@ -39,11 +39,11 @@ public class Servico implements Serializable {
 	@Column(length = 100)
 	private String nome;
 
-	@Column(length = 60)
-	private String tipo;
+//	@Column(length = 60)
+//	private String tipo;
 
 	@OneToMany(mappedBy = "servico")
-	@JsonManagedReference
+	@JsonManagedReference(value = "servico_pacoteServico")
 	private List<PacoteServico> pacoteServicos;
 
 	public Servico() {
@@ -100,13 +100,13 @@ public class Servico implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+//	public String getTipo() {
+//		return this.tipo;
+//	}
+//
+//	public void setTipo(String tipo) {
+//		this.tipo = tipo;
+//	}
 
 	public List<PacoteServico> getPacoteServicos() {
 		return this.pacoteServicos;

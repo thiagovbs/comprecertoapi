@@ -16,7 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "mercado_push")
@@ -53,7 +54,7 @@ public class MercadoPush implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado", nullable = true)
-	@NotNull
+	@JsonBackReference(value = "mercado")
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoPush")

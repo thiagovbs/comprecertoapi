@@ -1,25 +1,32 @@
 package br.com.comprecerto.api.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import br.com.comprecerto.api.entities.Cidade;
-import br.com.comprecerto.api.entities.Estado;
-import br.com.comprecerto.api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Bairro;
+import br.com.comprecerto.api.entities.Cidade;
+import br.com.comprecerto.api.entities.Estado;
 import br.com.comprecerto.api.entities.Mercado;
+import br.com.comprecerto.api.entities.MercadoLocalidade;
+import br.com.comprecerto.api.entities.Pais;
+import br.com.comprecerto.api.repositories.BairroRepository;
+import br.com.comprecerto.api.repositories.CidadeRepository;
+import br.com.comprecerto.api.repositories.EstadoRepository;
+import br.com.comprecerto.api.repositories.MercadoRepository;
+import br.com.comprecerto.api.repositories.PaisRepository;
 
 @Service
 public class MercadoService {
 
 	@Autowired
 	private MercadoRepository mercadoRepository;
-	
+
 	@Autowired
 	private BairroRepository bairroRepository;
 
@@ -47,9 +54,79 @@ public class MercadoService {
 
 	public Mercado salvarMercado(@Valid Mercado mercado) {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
-			Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstadoAndPais(localidade.getBairro());
+			Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstadoAndPais(localidade.getBairro().getNome(), localidade.getBairro().getCidade().getNome(),
+					localidade.getBairro().getCidade().getEstado().getNome(), localidade.getBairro().getCidade().getEstado().getPais().getNome());
+			if (bairro != null) {
+				localidade.setBairro(bairro);
+			} else {
+				Cidade cidade = cidadeRepository.findByNomeAndEstadoAndPais(localidade.getBairro().getCidade().getNome(), localidade.getBairro().getCidade().getEstado().getNome(),
+						localidade.getBairro().getCidade().getEstado().getPais().getNome());
+				if (cidade != null) {
+					localidade.getBairro().setCidade(cidade);
+				} else {
+					Estado estado = estadoRepository.findByNomeAndPais(localidade.getBairro().getCidade().getEstado().getNome(),
+							localidade.getBairro().getCidade().getEstado().getPais().getNome());
+					if (estado != null) {
+						localidade.getBairro().getCidade().setEstado(estado);
+					} else {
+						Pais pais = paisRepository.findByNome(localidade.getBairro().getCidade().getEstado().getPais().getNome());
+						if (pais != null) {
+							localidade.getBairro().getCidade().getEstado().setPais(pais);
+						}
+					}
+				}
+			}
+
+			salvaDependenciasMercado(localidade);
 		});
+//		mercado.getMercadoLocalidades().forEach(localidade -> localidade.setMercado(mercado));
+		calculaSaldoMercadoServico(mercado);
 		return mercadoRepository.saveAndFlush(mercado);
+	}
+
+	private void calculaSaldoMercadoServico(Mercado mercado) {
+		mercado.getMercadoLocalidades().forEach(localidade -> {
+			localidade.getMercadoServicos().forEach(servico -> {
+				BigDecimal saldo = servico.getPacoteServico().getValor();
+				
+				if (servico.getPacoteServico().getAcrescimo() != null)
+					saldo.add(servico.getPacoteServico().getAcrescimo());
+				if (servico.getPacoteServico().getDesconto() != null)
+					saldo.subtract(servico.getPacoteServico().getDesconto());
+				
+				servico.setSaldo(saldo);
+			});
+		});
+	}
+
+	private void salvaDependenciasMercado(MercadoLocalidade localidade) {
+		if (localidade.getBairro().getCidade().getEstado().getPais().getIdPais() == null) {
+			localidade.getBairro().getCidade().getEstado().setPais(paisRepository.save(localidade.getBairro().getCidade().getEstado().getPais()));
+			if (localidade.getBairro().getCidade().getEstado().getIdEstado() == null) {
+				localidade.getBairro().getCidade().setEstado(estadoRepository.save(localidade.getBairro().getCidade().getEstado()));
+				if (localidade.getBairro().getCidade().getIdCidade() == null) {
+					localidade.getBairro().setCidade(cidadeRepository.save(localidade.getBairro().getCidade()));
+					if (localidade.getBairro() == null) {
+						localidade.setBairro(bairroRepository.save(localidade.getBairro()));
+					}
+				}
+			}
+		} else if (localidade.getBairro().getCidade().getEstado().getIdEstado() == null) {
+			localidade.getBairro().getCidade().setEstado(estadoRepository.save(localidade.getBairro().getCidade().getEstado()));
+			if (localidade.getBairro().getCidade().getIdCidade() == null) {
+				localidade.getBairro().setCidade(cidadeRepository.save(localidade.getBairro().getCidade()));
+				if (localidade.getBairro() == null) {
+					localidade.setBairro(bairroRepository.save(localidade.getBairro()));
+				}
+			}
+		} else if (localidade.getBairro().getCidade().getIdCidade() == null) {
+			localidade.getBairro().setCidade(cidadeRepository.save(localidade.getBairro().getCidade()));
+			if (localidade.getBairro() == null) {
+				localidade.setBairro(bairroRepository.save(localidade.getBairro()));
+			}
+		} else if (localidade.getBairro().getIdBairro() == null) {
+			localidade.setBairro(bairroRepository.save(localidade.getBairro()));
+		}
 	}
 
 	public Mercado atualizarMercado(Integer id, @Valid Mercado mercado) throws Exception {

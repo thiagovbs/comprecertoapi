@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +19,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "mercado_localidade")
@@ -29,37 +32,34 @@ public class MercadoLocalidade implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_mercado_localidade", unique = true, nullable = false)
 	private Integer idMercadoLocalidade;
 
-	@Column(name = "dt_alteracao")
 	private Date dtAlteracao;
-
-	@Column(name = "dt_criacao")
 	private Date dtCriacao;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@ElementCollection
-	@Column(name = "googlemaps_link", length = 255, nullable = false)
+	@Column(length = 255, nullable = false)
 	@NotBlank
-	private List<String> googlemapsLinks;
+	private String googlemapsLinks;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_bairro", nullable = true)
+	@JoinColumn(name = "id_bairro", nullable = true, insertable = true, updatable = true)
 	@NotNull
 	private Bairro bairro;
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado", nullable = true)
-	@NotNull
+	@JsonBackReference(value = "mercado_mercadoLocalidade")
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
 	private List<MercadoProduto> mercadoProdutos;
 
-	@OneToMany(mappedBy = "mercadoLocalidade")
+	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE })
+	@NotEmpty
+	@JsonManagedReference(value = "mercadoLocalidade_mercadoLocalidade")
 	private List<MercadoServico> mercadoServicos;
 
 	public MercadoLocalidade() {
@@ -108,11 +108,11 @@ public class MercadoLocalidade implements Serializable {
 		this.fAtivo = fAtivo;
 	}
 
-	public List<String> getGooglemapsLinks() {
+	public String getGooglemapsLinks() {
 		return googlemapsLinks;
 	}
 
-	public void setGooglemapsLinks(List<String> googlemapsLinks) {
+	public void setGooglemapsLinks(String googlemapsLinks) {
 		this.googlemapsLinks = googlemapsLinks;
 	}
 
