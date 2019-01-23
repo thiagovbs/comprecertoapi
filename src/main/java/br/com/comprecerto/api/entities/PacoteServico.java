@@ -177,4 +177,11 @@ public class PacoteServico implements Serializable {
 		this.servico = servico;
 	}
 
+	@Override
+	public String toString() {
+		return "PacoteServico [idPacoteServico=" + idPacoteServico + ", dtAlteracao=" + dtAlteracao + ", dtCriacao=" + dtCriacao + ", fAtivo=" + fAtivo + ", nome=" + nome
+				+ ", descricao=" + descricao + ", valor=" + valor + ", acrescimo=" + acrescimo + ", desconto=" + desconto + ", mercadoServicos=" + mercadoServicos + "]";
+	}
+
+	
 }

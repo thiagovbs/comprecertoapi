@@ -3,6 +3,7 @@ package br.com.comprecerto.api.services;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,7 +15,10 @@ import br.com.comprecerto.api.entities.Cidade;
 import br.com.comprecerto.api.entities.Estado;
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
+import br.com.comprecerto.api.entities.MercadoServico;
+import br.com.comprecerto.api.entities.PacoteServico;
 import br.com.comprecerto.api.entities.Pais;
+import br.com.comprecerto.api.entities.Servico;
 import br.com.comprecerto.api.repositories.BairroRepository;
 import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
@@ -39,6 +43,9 @@ public class MercadoService {
 	@Autowired
 	private PaisRepository paisRepository;
 
+	@Autowired
+	private ServicoService servicoService;
+
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
 	}
@@ -46,10 +53,27 @@ public class MercadoService {
 	public Mercado buscarPorId(Integer id) {
 		Optional<Mercado> mercado = mercadoRepository.findByIdMercado(id);
 
-		if (mercado.isPresent())
-			return mercado.get();
+		if (!mercado.isPresent())
+			return null;
 
-		return null;
+		for (MercadoLocalidade localidade : mercado.get().getMercadoLocalidades()) {
+
+			for (Servico servico : servicoService.buscarServicos()) {
+				List<MercadoServico> ms = localidade.getMercadoServicos().stream().filter(mercadoServico -> mercadoServico.getPacoteServico().getServico().equals(servico))
+						.collect(Collectors.toList());
+
+				if (!ms.isEmpty()) {
+					servico.setPacoteSelecionado(ms.get(0).getPacoteServico());
+				} else {
+					servico.setPacoteSelecionado(new PacoteServico());
+				}
+				
+				localidade.addServicoTemp(servico);
+				System.out.println(servico.toString());
+			}
+		}
+
+		return mercado.get();
 	}
 
 	public Mercado salvarMercado(@Valid Mercado mercado) {
@@ -79,7 +103,6 @@ public class MercadoService {
 
 			salvaDependenciasMercado(localidade);
 		});
-//		mercado.getMercadoLocalidades().forEach(localidade -> localidade.setMercado(mercado));
 		calculaSaldoMercadoServico(mercado);
 		return mercadoRepository.saveAndFlush(mercado);
 	}
@@ -88,12 +111,12 @@ public class MercadoService {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
 			localidade.getMercadoServicos().forEach(servico -> {
 				BigDecimal saldo = servico.getPacoteServico().getValor();
-				
+
 				if (servico.getPacoteServico().getAcrescimo() != null)
 					saldo.add(servico.getPacoteServico().getAcrescimo());
 				if (servico.getPacoteServico().getDesconto() != null)
 					saldo.subtract(servico.getPacoteServico().getDesconto());
-				
+
 				servico.setSaldo(saldo);
 			});
 		});
