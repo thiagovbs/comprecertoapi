@@ -16,6 +16,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public List<Usuario> buscarUsuarios() {
 		return usuarioRepository.findAll();
@@ -31,6 +34,7 @@ public class UsuarioService {
 	}
 
 	public Usuario salvarUsuario(@Valid Usuario usuario) {
+		emailService.sendConfirmationEmail(usuario);
 		return usuarioRepository.saveAndFlush(usuario);
 	}
 
