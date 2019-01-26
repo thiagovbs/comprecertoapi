@@ -69,7 +69,6 @@ public class MercadoService {
 				}
 				
 				localidade.addServicoTemp(servico);
-				System.out.println(servico.toString());
 			}
 		}
 
@@ -161,13 +160,13 @@ public class MercadoService {
 		return salvarMercado(mercado);
 	}
 
-	public void deletarMercado(Integer id) throws Exception {
+	public void desativarMercado(Integer id) throws Exception {
 		Optional<Mercado> mercadoOp = mercadoRepository.findByIdMercado(id);
 
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
 
-		mercadoRepository.delete(mercadoOp.get());
+		mercadoRepository.desativar(mercadoOp.get().getIdMercado());
 	}
 
 }

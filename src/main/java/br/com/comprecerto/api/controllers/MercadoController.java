@@ -51,9 +51,9 @@ public class MercadoController {
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> deletarMercado(@PathVariable Integer id) {
+	public ResponseEntity<String> desativarMercado(@PathVariable Integer id) {
 		try {
-			mercadoService.deletarMercado(id);
+			mercadoService.desativarMercado(id);
 
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
