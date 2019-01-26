@@ -61,4 +61,14 @@ public class SubcategoriaController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "/categoria/{idCategoria}")
+	public ResponseEntity<?> buscarSubcategoriasByCategoria(@PathVariable Integer idCategoria) {
+		try {
+			return ResponseEntity.ok(subcategoriaService.buscarSubcategoriasByCategoria(idCategoria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
