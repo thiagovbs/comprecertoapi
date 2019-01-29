@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -56,6 +57,16 @@ public class MercadoController {
 			mercadoService.desativarMercado(id);
 
 			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/funcionario")
+	public ResponseEntity<?> buscarPorFuncionario(Principal principal) {
+		try {
+			return ResponseEntity.ok(mercadoService.buscarPorFuncionario(principal));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

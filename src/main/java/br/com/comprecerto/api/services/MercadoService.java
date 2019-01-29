@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.services;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,11 +20,13 @@ import br.com.comprecerto.api.entities.MercadoServico;
 import br.com.comprecerto.api.entities.PacoteServico;
 import br.com.comprecerto.api.entities.Pais;
 import br.com.comprecerto.api.entities.Servico;
+import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.BairroRepository;
 import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
 import br.com.comprecerto.api.repositories.MercadoRepository;
 import br.com.comprecerto.api.repositories.PaisRepository;
+import br.com.comprecerto.api.repositories.UsuarioRepository;
 
 @Service
 public class MercadoService {
@@ -45,6 +48,9 @@ public class MercadoService {
 
 	@Autowired
 	private ServicoService servicoService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
@@ -167,6 +173,18 @@ public class MercadoService {
 			throw new Exception("O mercado informado não existe!");
 
 		mercadoRepository.desativar(mercadoOp.get().getIdMercado());
+	}
+
+	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
+		Optional<Usuario> usuario = usuarioRepository.findByLogin(principal.getName());
+		
+		if (!usuario.isPresent())
+			throw new Exception("Usuário não encontrado!");
+		
+		if (usuario.get().getMercado() == null)
+			throw new Exception("Usuário não possui relacionamento com nenhum mercado!");
+		
+		return buscarPorId(usuario.get().getMercado().getIdMercado());
 	}
 
 }

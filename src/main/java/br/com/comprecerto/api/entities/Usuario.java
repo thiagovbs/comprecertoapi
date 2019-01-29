@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -73,10 +74,10 @@ public class Usuario implements Serializable {
 	@NotNull
 	private Sexo sexo;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	@NotEmpty
-	
+
 	private List<Permissao> permissoes;
 
 	@OneToMany(mappedBy = "usuario")
@@ -86,6 +87,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	@JsonIgnore
 	private List<UsuarioMercadoPush> usuarioMercadoPushs;
+
+	@OneToOne()
+	@JoinColumn(name = "id_mercado")
+	private Mercado mercado;
 
 	public Usuario() {
 	}
@@ -231,6 +236,14 @@ public class Usuario implements Serializable {
 		usuarioMercadoPush.setUsuario(null);
 
 		return usuarioMercadoPush;
+	}
+
+	public Mercado getMercado() {
+		return mercado;
+	}
+
+	public void setMercado(Mercado mercado) {
+		this.mercado = mercado;
 	}
 
 }
