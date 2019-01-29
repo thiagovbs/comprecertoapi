@@ -4,15 +4,20 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import br.com.comprecerto.api.entities.enums.Plataforma;
 
 @Entity
 @Table(name = "faq")
@@ -35,6 +40,10 @@ public class Faq {
 
 	private Date dtAlteracao;
 	private Date dtCriacao;
+
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private Plataforma plataforma;
 
 	public Faq() {
 	}
@@ -96,6 +105,14 @@ public class Faq {
 
 	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
+	}
+
+	public Plataforma getPlataforma() {
+		return plataforma;
+	}
+
+	public void setPlataforma(Plataforma plataforma) {
+		this.plataforma = plataforma;
 	}
 
 }
