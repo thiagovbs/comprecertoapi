@@ -42,6 +42,7 @@ public class UsuarioController {
 
 	@PostMapping
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody @Valid Usuario usuario) {
+		
 		return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
 	}
 
