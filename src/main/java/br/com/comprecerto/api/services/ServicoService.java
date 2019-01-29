@@ -23,7 +23,9 @@ public class ServicoService {
 	private PacoteServicoRepository pacoteServicoRepository;
 
 	public List<Servico> buscarServicos() {
-		return servicoRepository.findAll();
+		List<Servico> servicos = servicoRepository.findAll();
+		servicos.forEach(servico -> servico.setPacoteSelecionado(new PacoteServico()));
+		return servicos;
 	}
 
 	public Servico buscarPorId(Integer id) {

@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -61,6 +63,9 @@ public class MercadoLocalidade implements Serializable {
 	@NotEmpty
 	@JsonManagedReference(value = "mercadoLocalidade_mercadoLocalidade")
 	private List<MercadoServico> mercadoServicos;
+
+	@Transient
+	private List<Servico> servicosTemp = new ArrayList<Servico>();
 
 	public MercadoLocalidade() {
 	}
@@ -174,6 +179,20 @@ public class MercadoLocalidade implements Serializable {
 		mercadoServico.setMercadoLocalidade(null);
 
 		return mercadoServico;
+	}
+
+	public List<Servico> getServicosTemp() {
+		return servicosTemp;
+	}
+
+	public void setServicosTemp(List<Servico> servicosTemp) {
+		this.servicosTemp = servicosTemp;
+	}
+
+	public Servico addServicoTemp(Servico servico) {
+		getServicosTemp().add(servico);
+
+		return servico;
 	}
 
 }

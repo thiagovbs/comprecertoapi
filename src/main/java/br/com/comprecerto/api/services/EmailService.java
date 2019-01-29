@@ -6,9 +6,8 @@ import br.com.comprecerto.api.entities.Usuario;
 
 public interface EmailService {
 
-	
 	void sendConfirmationEmail(Usuario user);
-	
+
 	void sendEmail(SimpleMailMessage sm);
 	
 	void sendSuporteMsgEmail(String message);

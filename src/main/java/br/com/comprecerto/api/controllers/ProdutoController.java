@@ -73,4 +73,14 @@ public class ProdutoController {
 	public ResponseEntity<List<ProdutosAppDTO>> listaProdutosDetail(@RequestBody ProdutosAppFilter produtosAppFilter) {
 		return ResponseEntity.ok(produtoService.listaProdutosDetail(produtosAppFilter));
 	}
+
+	@GetMapping(value = "/marcas/subcategoria/{idSubcategoria}")
+	public ResponseEntity<?> buscarMarcasPorSubcategoria(@PathVariable Integer idSubcategoria) {
+		try {
+			return ResponseEntity.ok(produtoService.buscarMarcasPorSubcategoria(idSubcategoria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

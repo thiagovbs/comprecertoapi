@@ -11,13 +11,18 @@ import org.springframework.stereotype.Service;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
+import br.com.comprecerto.api.entities.Subcategoria;
 import br.com.comprecerto.api.repositories.ProdutoRepository;
+import br.com.comprecerto.api.repositories.SubcategoriaRepository;
 
 @Service
 public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private SubcategoriaRepository subcategoriaRepository;
 
 	public List<Produto> buscarProdutos() {
 		return produtoRepository.findAll();
@@ -60,6 +65,15 @@ public class ProdutoService {
 
 	public List<ProdutosAppDTO> listaProdutosDetail(ProdutosAppFilter produtosAppFilter) {
 		return produtoRepository.listaProdutosDetail(produtosAppFilter);
+	}
+
+	public List<String> buscarMarcasPorSubcategoria(Integer idSubcategoria) throws Exception {
+		Optional<Subcategoria> subcategoria = subcategoriaRepository.findByIdSubcategoria(idSubcategoria);
+		
+		if (!subcategoria.isPresent())
+			throw new Exception("A categoria informada não existe!");
+		
+		return produtoRepository.buscarMarcasPorSubcategoria(subcategoria.get());
 	}
 
 }

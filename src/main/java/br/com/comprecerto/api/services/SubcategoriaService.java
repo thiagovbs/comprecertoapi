@@ -8,7 +8,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.entities.Subcategoria;
+import br.com.comprecerto.api.repositories.CategoriaRepository;
 import br.com.comprecerto.api.repositories.SubcategoriaRepository;
 
 @Service
@@ -16,6 +18,8 @@ public class SubcategoriaService {
 
 	@Autowired
 	private SubcategoriaRepository subCategoriaRepository;
+	
+	@Autowired CategoriaRepository categoriaRepository;
 
 	public List<Subcategoria> buscarSubcategorias() {
 		return subCategoriaRepository.findAll();
@@ -50,6 +54,15 @@ public class SubcategoriaService {
 			throw new Exception("A subcategoria informada não existe!");
 
 		subCategoriaRepository.delete(subCategoriaOp.get());
+	}
+
+	public List<Subcategoria> buscarSubcategoriasByCategoria(Integer idCategoria) throws Exception {
+		Optional<Categoria> categoria = categoriaRepository.findByIdCategoria(idCategoria);
+		
+		if (!categoria.isPresent())
+			throw new Exception("A categoria informada não encontrada!");
+		
+		return subCategoriaRepository.findByCategoria(categoria.get());
 	}
 
 }

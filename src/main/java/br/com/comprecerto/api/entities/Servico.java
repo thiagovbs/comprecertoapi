@@ -13,13 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "servico")
 public class Servico implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,6 +46,9 @@ public class Servico implements Serializable {
 	@OneToMany(mappedBy = "servico")
 	@JsonManagedReference(value = "servico_pacoteServico")
 	private List<PacoteServico> pacoteServicos;
+
+	@Transient
+	private PacoteServico pacoteSelecionado;
 
 	public Servico() {
 	}
@@ -130,4 +134,19 @@ public class Servico implements Serializable {
 		return pacoteServico;
 	}
 
+	public PacoteServico getPacoteSelecionado() {
+		return pacoteSelecionado;
+	}
+
+	public void setPacoteSelecionado(PacoteServico pacoteSelecionado) {
+		this.pacoteSelecionado = pacoteSelecionado;
+	}
+
+	@Override
+	public String toString() {
+		return "Servico [idServico=" + idServico + ", dtAlteracao=" + dtAlteracao + ", dtCriacao=" + dtCriacao + ", fAtivo=" + fAtivo + ", nome=" + nome + ", pacoteServicos="
+				+ pacoteServicos + ", pacoteSelecionado=" + pacoteSelecionado + "]";
+	}
+
+	
 }

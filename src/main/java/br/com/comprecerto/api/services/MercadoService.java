@@ -1,8 +1,10 @@
 package br.com.comprecerto.api.services;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,12 +16,17 @@ import br.com.comprecerto.api.entities.Cidade;
 import br.com.comprecerto.api.entities.Estado;
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
+import br.com.comprecerto.api.entities.MercadoServico;
+import br.com.comprecerto.api.entities.PacoteServico;
 import br.com.comprecerto.api.entities.Pais;
+import br.com.comprecerto.api.entities.Servico;
+import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.BairroRepository;
 import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
 import br.com.comprecerto.api.repositories.MercadoRepository;
 import br.com.comprecerto.api.repositories.PaisRepository;
+import br.com.comprecerto.api.repositories.UsuarioRepository;
 
 @Service
 public class MercadoService {
@@ -39,6 +46,12 @@ public class MercadoService {
 	@Autowired
 	private PaisRepository paisRepository;
 
+	@Autowired
+	private ServicoService servicoService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
 	}
@@ -46,10 +59,26 @@ public class MercadoService {
 	public Mercado buscarPorId(Integer id) {
 		Optional<Mercado> mercado = mercadoRepository.findByIdMercado(id);
 
-		if (mercado.isPresent())
-			return mercado.get();
+		if (!mercado.isPresent())
+			return null;
 
-		return null;
+		for (MercadoLocalidade localidade : mercado.get().getMercadoLocalidades()) {
+
+			for (Servico servico : servicoService.buscarServicos()) {
+				List<MercadoServico> ms = localidade.getMercadoServicos().stream().filter(mercadoServico -> mercadoServico.getPacoteServico().getServico().equals(servico))
+						.collect(Collectors.toList());
+
+				if (!ms.isEmpty()) {
+					servico.setPacoteSelecionado(ms.get(0).getPacoteServico());
+				} else {
+					servico.setPacoteSelecionado(new PacoteServico());
+				}
+				
+				localidade.addServicoTemp(servico);
+			}
+		}
+
+		return mercado.get();
 	}
 
 	public Mercado salvarMercado(@Valid Mercado mercado) {
@@ -79,7 +108,6 @@ public class MercadoService {
 
 			salvaDependenciasMercado(localidade);
 		});
-//		mercado.getMercadoLocalidades().forEach(localidade -> localidade.setMercado(mercado));
 		calculaSaldoMercadoServico(mercado);
 		return mercadoRepository.saveAndFlush(mercado);
 	}
@@ -88,12 +116,12 @@ public class MercadoService {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
 			localidade.getMercadoServicos().forEach(servico -> {
 				BigDecimal saldo = servico.getPacoteServico().getValor();
-				
+
 				if (servico.getPacoteServico().getAcrescimo() != null)
 					saldo.add(servico.getPacoteServico().getAcrescimo());
 				if (servico.getPacoteServico().getDesconto() != null)
 					saldo.subtract(servico.getPacoteServico().getDesconto());
-				
+
 				servico.setSaldo(saldo);
 			});
 		});
@@ -138,13 +166,25 @@ public class MercadoService {
 		return salvarMercado(mercado);
 	}
 
-	public void deletarMercado(Integer id) throws Exception {
+	public void desativarMercado(Integer id) throws Exception {
 		Optional<Mercado> mercadoOp = mercadoRepository.findByIdMercado(id);
 
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
 
-		mercadoRepository.delete(mercadoOp.get());
+		mercadoRepository.desativar(mercadoOp.get().getIdMercado());
+	}
+
+	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
+		Optional<Usuario> usuario = usuarioRepository.findByLogin(principal.getName());
+		
+		if (!usuario.isPresent())
+			throw new Exception("Usuário não encontrado!");
+		
+		if (usuario.get().getMercado() == null)
+			throw new Exception("Usuário não possui relacionamento com nenhum mercado!");
+		
+		return buscarPorId(usuario.get().getMercado().getIdMercado());
 	}
 
 }
