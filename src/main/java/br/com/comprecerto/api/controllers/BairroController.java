@@ -61,4 +61,14 @@ public class BairroController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "/cidade/{idCidade}")
+	public ResponseEntity<?> buscarBairrosPorCidade(@PathVariable Integer idCidade) {
+		try {
+			return ResponseEntity.ok(bairroService.buscarBairrosPorCidade(idCidade));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

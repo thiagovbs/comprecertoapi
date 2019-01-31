@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Bairro;
+import br.com.comprecerto.api.entities.Cidade;
 import br.com.comprecerto.api.repositories.BairroRepository;
+import br.com.comprecerto.api.repositories.CidadeRepository;
 
 @Service
 public class BairroService {
 
 	@Autowired
 	private BairroRepository bairroRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public List<Bairro> buscarBairros() {
 		return bairroRepository.findAll();
@@ -50,6 +55,15 @@ public class BairroService {
 			throw new Exception("A bairro informada não existe!");
 
 		bairroRepository.delete(bairroOp.get());
+	}
+
+	public List<Bairro> buscarBairrosPorCidade(Integer idCidade) throws Exception {
+		Optional<Cidade> cidade = cidadeRepository.findByIdCidade(idCidade);
+
+		if (!cidade.isPresent())
+			throw new Exception("A cidade informada não existe!");
+
+		return bairroRepository.findByCidade(cidade.get());
 	}
 
 }
