@@ -22,4 +22,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>, Prod
 	@Query("select distinct p.marca from Produto p where p.subcategoria = ?1")
 	List<String> buscarMarcasPorSubcategoria(Subcategoria subcategoria);
 
+	List<Produto> findBySubcategoriaAndMarca(Optional<Subcategoria> subcategoria, String marca);
+
 }

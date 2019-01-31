@@ -48,7 +48,7 @@ public class MercadoService {
 
 	@Autowired
 	private ServicoService servicoService;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
@@ -73,7 +73,7 @@ public class MercadoService {
 				} else {
 					servico.setPacoteSelecionado(new PacoteServico());
 				}
-				
+
 				localidade.addServicoTemp(servico);
 			}
 		}
@@ -177,13 +177,13 @@ public class MercadoService {
 
 	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
 		Optional<Usuario> usuario = usuarioRepository.findByLogin(principal.getName());
-		
+
 		if (!usuario.isPresent())
 			throw new Exception("Usuário não encontrado!");
-		
+
 		if (usuario.get().getMercado() == null)
 			throw new Exception("Usuário não possui relacionamento com nenhum mercado!");
-		
+
 		return buscarPorId(usuario.get().getMercado().getIdMercado());
 	}
 
