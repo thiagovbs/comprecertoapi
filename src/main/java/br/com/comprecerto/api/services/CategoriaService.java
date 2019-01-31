@@ -40,6 +40,7 @@ public class CategoriaService {
 	}
 
 	public Categoria salvarCategoria(@Valid Categoria categoria) {
+		
 		return categoriaRepository.saveAndFlush(categoria);
 	}
 
@@ -56,18 +57,17 @@ public class CategoriaService {
 		categoriaRepository.delete(id);
 	}
 	
-	public URI uploadProfilePicture(MultipartFile multipartFile) {
+	public URI uploadCategoriaPicture(MultipartFile multipartFile, Integer idcategoria) {
 		
-		String prefix = "cat";
+		String prefix = "cat"+ idcategoria;
+		System.out.println("minha categoria é" + idcategoria);
 		
 		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
 		
 		//pegar um prefixo de Cat + id da categoria referente + extensão
 		String filename = prefix + ".jpg";
 		
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, ".jpg"), filename ,"image");
-		
-		
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
 	}
 
 }

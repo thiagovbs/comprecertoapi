@@ -46,6 +46,9 @@ public class Categoria implements Serializable {
 	@Length(max = 100)
 	private String nome;
 
+	@NotBlank
+	private String imagemUrl;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
 	private List<UnidadeMedida> unidadesMedida;
@@ -54,7 +57,7 @@ public class Categoria implements Serializable {
 	@JsonManagedReference(value = "categoria_subcategoria")
 	@NotEmpty
 	private List<Subcategoria> subcategorias;
-
+	
 	public Categoria() {
 	}
 
@@ -109,6 +112,14 @@ public class Categoria implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getImagemUrl() {
+		return this.imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
+	}
+
 	public List<UnidadeMedida> getUnidadesMedida() {
 		return unidadesMedida;
 	}
@@ -138,5 +149,6 @@ public class Categoria implements Serializable {
 
 		return subcategoria;
 	}
+
 
 }

@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.controllers;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
@@ -28,6 +30,8 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService produtoService;
 
+	Produto prod = new Produto();
+
 	@GetMapping
 	public ResponseEntity<List<Produto>> buscarProdutos() {
 		return ResponseEntity.ok(produtoService.buscarProdutos());
@@ -40,13 +44,16 @@ public class ProdutoController {
 
 	@PostMapping
 	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) {
-		return ResponseEntity.ok(produtoService.salvarProduto(produto));
+		prod = produtoService.salvarProduto(produto);
+		return ResponseEntity.ok(prod);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarProduto(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
 		try {
-			return ResponseEntity.ok(produtoService.atualizarProduto(id, produto));
+
+			prod = produtoService.atualizarProduto(id, produto);
+			return ResponseEntity.ok(prod);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -103,5 +110,12 @@ public class ProdutoController {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+
+	@PostMapping(value = "/picture")
+	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
+
+		URI uri = produtoService.uploadProdutoPicture(file, prod.getIdProduto());
+		return ResponseEntity.created(uri).build();
 	}
 }

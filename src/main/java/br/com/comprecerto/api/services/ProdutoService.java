@@ -1,5 +1,7 @@
 package br.com.comprecerto.api.services;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
@@ -27,6 +30,12 @@ public class ProdutoService {
 
 	@Autowired
 	private SubcategoriaRepository subcategoriaRepository;
+
+	@Autowired
+	private S3Service s3Service;
+
+	@Autowired
+	private ImageService imgService;
 
 	public List<Produto> buscarProdutos() {
 		return produtoRepository.findAll();
@@ -80,6 +89,17 @@ public class ProdutoService {
 		return produtoRepository.buscarMarcasPorSubcategoria(subcategoria.get());
 	}
 
+	public URI uploadProdutoPicture(MultipartFile multipartFile, Integer idproduto) {
+
+		String prefix = "prod" + idproduto;
+
+		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
+
+		String filename = prefix + ".jpg";
+
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
+	}
+
 	public List<Map<String, String>> buscarUnidadesMedidaPorSubcategoriaEMarca(Integer idSubcategoria, String marca) throws Exception {
 		Optional<Subcategoria> subcategoria = subcategoriaRepository.findByIdSubcategoria(idSubcategoria);
 
@@ -88,7 +108,7 @@ public class ProdutoService {
 
 		List<Produto> produtos = produtoRepository.findBySubcategoriaAndMarca(subcategoria, marca);
 
-		List<Map<String, String>> unidadesMedida = new ArrayList<Map<String,String>>();
+		List<Map<String, String>> unidadesMedida = new ArrayList<Map<String, String>>();
 		produtos.stream().forEach(produto -> {
 			Map<String, String> unidadeMedida = new HashMap<String, String>();
 			unidadeMedida.put("quantidade", produto.getQuantidade().toString());

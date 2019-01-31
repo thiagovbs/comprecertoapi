@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.controllers;
 
+import java.net.URI;
 import java.security.Principal;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.services.MercadoService;
@@ -25,6 +27,8 @@ public class MercadoController {
 
 	@Autowired
 	private MercadoService mercadoService;
+	
+	Mercado m = new Mercado();
 
 	@GetMapping
 	public ResponseEntity<List<Mercado>> buscarMercados() {
@@ -38,13 +42,18 @@ public class MercadoController {
 
 	@PostMapping
 	public ResponseEntity<Mercado> salvarMercado(@RequestBody @Valid Mercado mercado) {
-		return ResponseEntity.ok(mercadoService.salvarMercado(mercado));
+		
+		m = mercadoService.salvarMercado(mercado);
+		return ResponseEntity.ok(m);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarMercado(@PathVariable Integer id, @RequestBody @Valid Mercado mercado) {
 		try {
-			return ResponseEntity.ok(mercadoService.atualizarMercado(id, mercado));
+			
+			m = mercadoService.atualizarMercado(id, mercado);
+			
+			return ResponseEntity.ok(m);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -71,5 +80,12 @@ public class MercadoController {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	@PostMapping(value="/picture")
+	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
+		
+		URI uri = mercadoService.uploadMercadoPicture(file, m.getIdMercado());
+		return ResponseEntity.created(uri).build();
 	}
 }
