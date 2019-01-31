@@ -71,6 +71,9 @@ public class Mercado implements Serializable {
 	@Length(max = 13)
 	private String telefone;
 
+	@NotBlank
+	private String imagemUrl;
+
 	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
 	@NotEmpty
 	@JsonManagedReference(value = "mercado_mercadoLocalidade")
@@ -195,6 +198,14 @@ public class Mercado implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 
 	public List<MercadoLocalidade> getMercadoLocalidades() {

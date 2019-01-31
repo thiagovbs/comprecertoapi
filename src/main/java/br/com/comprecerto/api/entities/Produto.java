@@ -51,6 +51,9 @@ public class Produto implements Serializable {
 	@NotNull
 	private Integer quantidade;
 
+	@NotBlank
+	private String imagemUrl;
+
 	@OneToMany(mappedBy = "produto")
 	private List<MercadoProduto> mercadoProdutos;
 
@@ -139,6 +142,14 @@ public class Produto implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 
 	public List<MercadoProduto> getMercadoProdutos() {
