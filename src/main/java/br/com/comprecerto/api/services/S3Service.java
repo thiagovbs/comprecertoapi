@@ -28,6 +28,7 @@ public class S3Service {
 	@Value("${s3.bucket}")
 	private String bucketName;
 
+	//teste
 	public URI uploadFile(MultipartFile multipartFile) {
 		try {
 			String fileName = multipartFile.getOriginalFilename();

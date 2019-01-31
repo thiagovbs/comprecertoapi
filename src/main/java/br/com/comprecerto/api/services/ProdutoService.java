@@ -1,5 +1,7 @@
 package br.com.comprecerto.api.services;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
@@ -23,6 +26,12 @@ public class ProdutoService {
 	
 	@Autowired
 	private SubcategoriaRepository subcategoriaRepository;
+	
+	@Autowired
+	private S3Service s3Service;
+	
+	@Autowired
+	private ImageService imgService;
 
 	public List<Produto> buscarProdutos() {
 		return produtoRepository.findAll();
@@ -74,6 +83,17 @@ public class ProdutoService {
 			throw new Exception("A categoria informada não existe!");
 		
 		return produtoRepository.buscarMarcasPorSubcategoria(subcategoria.get());
+	}
+	
+	public URI uploadProdutoPicture(MultipartFile multipartFile, Integer idproduto) {
+		
+		String prefix = "prod"+ idproduto;
+		
+		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
+		
+		String filename = prefix + ".jpg";
+		
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
 	}
 
 }
