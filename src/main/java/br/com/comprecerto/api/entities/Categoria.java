@@ -54,7 +54,7 @@ public class Categoria implements Serializable {
 	@JsonManagedReference(value = "categoria_subcategoria")
 	@NotEmpty
 	private List<Subcategoria> subcategorias;
-
+	
 	public Categoria() {
 	}
 
@@ -138,5 +138,6 @@ public class Categoria implements Serializable {
 
 		return subcategoria;
 	}
+
 
 }
