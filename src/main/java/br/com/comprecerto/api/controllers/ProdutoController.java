@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
@@ -78,6 +79,26 @@ public class ProdutoController {
 	public ResponseEntity<?> buscarMarcasPorSubcategoria(@PathVariable Integer idSubcategoria) {
 		try {
 			return ResponseEntity.ok(produtoService.buscarMarcasPorSubcategoria(idSubcategoria));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/marcas/subcategoria/{idSubcategoria}/marca/{marca}")
+	public ResponseEntity<?> buscarUnidadesMedidaPorSubcategoriaEMarca(@PathVariable Integer idSubcategoria, @PathVariable String marca) {
+		try {
+			return ResponseEntity.ok(produtoService.buscarUnidadesMedidaPorSubcategoriaEMarca(idSubcategoria, marca));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping(value = "/filter")
+	public ResponseEntity<?> filtrar(@RequestBody ProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(produtoService.filtrar(filter));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

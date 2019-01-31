@@ -7,6 +7,8 @@ public class ProdutosAppDTO {
 
 	private Integer idCategoria;
 	private String nomeCategoria;
+	private Integer idSubcategoria;
+	private String nomeSubcategoria;
 	private Integer idProduto;
 	private String nomeProduto;
 	private String marcaProduto;
@@ -20,11 +22,12 @@ public class ProdutosAppDTO {
 	public ProdutosAppDTO() {
 	}
 
-	public ProdutosAppDTO(Integer idCategoria, String nomeCategoria, Integer idProduto, String nomeProduto,
-			String marcaProduto, String unidadeMedida, String caracteristicaProduto, BigDecimal precoMercadoProduto,
-			Date dtValidadeMercadoProduto, Integer quantidadeProduto) {
+	public ProdutosAppDTO(Integer idCategoria, String nomeCategoria, Integer idSubcategoria, String nomeSubcategoria, Integer idProduto, String nomeProduto, String marcaProduto,
+			String unidadeMedida, String caracteristicaProduto, BigDecimal precoMercadoProduto, Date dtValidadeMercadoProduto, Integer quantidadeProduto) {
 		this.idCategoria = idCategoria;
 		this.nomeCategoria = nomeCategoria;
+		this.idSubcategoria = idSubcategoria;
+		this.nomeSubcategoria = nomeSubcategoria;
 		this.idProduto = idProduto;
 		this.nomeProduto = nomeProduto;
 		this.marcaProduto = marcaProduto;
@@ -41,6 +44,22 @@ public class ProdutosAppDTO {
 
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
+	}
+
+	public Integer getIdSubcategoria() {
+		return idSubcategoria;
+	}
+
+	public void setIdSubcategoria(Integer idSubcategoria) {
+		this.idSubcategoria = idSubcategoria;
+	}
+
+	public String getNomeSubcategoria() {
+		return nomeSubcategoria;
+	}
+
+	public void setNomeSubcategoria(String nomeSubcategoria) {
+		this.nomeSubcategoria = nomeSubcategoria;
 	}
 
 	public String getNomeCategoria() {
