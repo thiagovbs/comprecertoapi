@@ -46,6 +46,9 @@ public class Categoria implements Serializable {
 	@Length(max = 100)
 	private String nome;
 
+	@NotBlank
+	private String imagemUrl;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
 	private List<UnidadeMedida> unidadesMedida;
@@ -107,6 +110,14 @@ public class Categoria implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getImagemUrl() {
+		return this.imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 
 	public List<UnidadeMedida> getUnidadesMedida() {
