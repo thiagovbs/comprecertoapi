@@ -19,7 +19,7 @@ public class Permissao implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_usuario", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private Integer idPermissao;
 
 	@Column(length = 30, nullable = false)
