@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Cidade;
+import br.com.comprecerto.api.entities.Estado;
 import br.com.comprecerto.api.repositories.CidadeRepository;
+import br.com.comprecerto.api.repositories.EstadoRepository;
 
 @Service
 public class CidadeService {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public List<Cidade> buscarCidades() {
 		return cidadeRepository.findAll();
@@ -50,6 +55,15 @@ public class CidadeService {
 			throw new Exception("A cidade informada não existe!");
 
 		cidadeRepository.delete(cidadeOp.get());
+	}
+
+	public List<Cidade> buscarCidadesPorEstado(Integer idEstado) throws Exception {
+		Optional<Estado> estado = estadoRepository.findByIdEstado(idEstado);
+
+		if (!estado.isPresent())
+			throw new Exception("O estado informado não existe!");
+
+		return cidadeRepository.findByEstado(estado.get());
 	}
 
 }

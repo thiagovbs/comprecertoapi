@@ -1,6 +1,8 @@
 package br.com.comprecerto.api.services;
 
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Bairro;
 import br.com.comprecerto.api.entities.Cidade;
@@ -48,9 +51,16 @@ public class MercadoService {
 
 	@Autowired
 	private ServicoService servicoService;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+
+	@Autowired
+	private S3Service s3Service;
+	
+	@Autowired
+	private ImageService imgService;
 
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
@@ -73,7 +83,7 @@ public class MercadoService {
 				} else {
 					servico.setPacoteSelecionado(new PacoteServico());
 				}
-				
+
 				localidade.addServicoTemp(servico);
 			}
 		}
@@ -177,14 +187,26 @@ public class MercadoService {
 
 	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
 		Optional<Usuario> usuario = usuarioRepository.findByLogin(principal.getName());
-		
+
 		if (!usuario.isPresent())
 			throw new Exception("Usuário não encontrado!");
-		
+
 		if (usuario.get().getMercado() == null)
 			throw new Exception("Usuário não possui relacionamento com nenhum mercado!");
-		
+
 		return buscarPorId(usuario.get().getMercado().getIdMercado());
+	}
+	
+	public URI uploadMercadoPicture(MultipartFile multipartFile, Integer idmercado) {
+		
+		String prefix = "mercado"+ idmercado;
+		
+		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
+		
+		//pegar um prefixo de Cat + id da categoria referente + extensão
+		String filename = prefix + ".jpg";
+		
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
 	}
 
 }

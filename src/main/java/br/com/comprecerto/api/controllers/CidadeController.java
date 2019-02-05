@@ -61,4 +61,14 @@ public class CidadeController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+
+	@GetMapping(value = "/estado/{idEstado}")
+	public ResponseEntity<?> buscarCidadesPorEstado(@PathVariable Integer idEstado) {
+		try {
+			return ResponseEntity.ok(cidadeService.buscarCidadesPorEstado(idEstado));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

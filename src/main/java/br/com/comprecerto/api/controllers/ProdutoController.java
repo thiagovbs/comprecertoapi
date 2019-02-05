@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
@@ -28,7 +29,7 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-	
+
 	Produto prod = new Produto();
 
 	@GetMapping
@@ -50,7 +51,7 @@ public class ProdutoController {
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarProduto(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
 		try {
-			
+
 			prod = produtoService.atualizarProduto(id, produto);
 			return ResponseEntity.ok(prod);
 		} catch (Exception e) {
@@ -90,10 +91,30 @@ public class ProdutoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	@PostMapping(value="/picture")
+
+	@GetMapping(value = "/marcas/subcategoria/{idSubcategoria}/marca/{marca}")
+	public ResponseEntity<?> buscarUnidadesMedidaPorSubcategoriaEMarca(@PathVariable Integer idSubcategoria, @PathVariable String marca) {
+		try {
+			return ResponseEntity.ok(produtoService.buscarUnidadesMedidaPorSubcategoriaEMarca(idSubcategoria, marca));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping(value = "/filter")
+	public ResponseEntity<?> filtrar(@RequestBody ProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(produtoService.filtrar(filter));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping(value = "/picture")
 	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
-		
+
 		URI uri = produtoService.uploadProdutoPicture(file, prod.getIdProduto());
 		return ResponseEntity.created(uri).build();
 	}

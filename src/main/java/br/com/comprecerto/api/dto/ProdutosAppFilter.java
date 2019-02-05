@@ -6,15 +6,9 @@ public class ProdutosAppFilter {
 	private Integer idCidade;
 	private Integer idBairro;
 	private Integer idCategoria;
+	private Integer idSubcategoria;
 
 	public ProdutosAppFilter() {
-	}
-
-	public ProdutosAppFilter(Integer idEstado, Integer idCidade, Integer idBairro, Integer idCategoria) {
-		this.idEstado = idEstado;
-		this.idCidade = idCidade;
-		this.idBairro = idBairro;
-		this.idCategoria = idCategoria;
 	}
 
 	public Integer getIdEstado() {
@@ -47,6 +41,14 @@ public class ProdutosAppFilter {
 
 	public void setIdCategoria(Integer idCategoria) {
 		this.idCategoria = idCategoria;
+	}
+
+	public Integer getIdSubcategoria() {
+		return idSubcategoria;
+	}
+
+	public void setIdSubcategoria(Integer idSubcategoria) {
+		this.idSubcategoria = idSubcategoria;
 	}
 
 }

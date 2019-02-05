@@ -2,7 +2,10 @@ package br.com.comprecerto.api.services;
 
 import java.awt.image.BufferedImage;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
@@ -23,13 +27,13 @@ public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
+
 	@Autowired
 	private SubcategoriaRepository subcategoriaRepository;
-	
+
 	@Autowired
 	private S3Service s3Service;
-	
+
 	@Autowired
 	private ImageService imgService;
 
@@ -78,22 +82,45 @@ public class ProdutoService {
 
 	public List<String> buscarMarcasPorSubcategoria(Integer idSubcategoria) throws Exception {
 		Optional<Subcategoria> subcategoria = subcategoriaRepository.findByIdSubcategoria(idSubcategoria);
-		
+
 		if (!subcategoria.isPresent())
 			throw new Exception("A categoria informada não existe!");
-		
+
 		return produtoRepository.buscarMarcasPorSubcategoria(subcategoria.get());
 	}
-	
+
 	public URI uploadProdutoPicture(MultipartFile multipartFile, Integer idproduto) {
-		
-		String prefix = "prod"+ idproduto;
-		
+
+		String prefix = "prod" + idproduto;
+
 		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
-		
+
 		String filename = prefix + ".jpg";
-		
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
+
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
+	}
+
+	public List<Map<String, String>> buscarUnidadesMedidaPorSubcategoriaEMarca(Integer idSubcategoria, String marca) throws Exception {
+		Optional<Subcategoria> subcategoria = subcategoriaRepository.findByIdSubcategoria(idSubcategoria);
+
+		if (!subcategoria.isPresent())
+			throw new Exception("A categoria informada não existe!");
+
+		List<Produto> produtos = produtoRepository.findBySubcategoriaAndMarca(subcategoria, marca);
+
+		List<Map<String, String>> unidadesMedida = new ArrayList<Map<String, String>>();
+		produtos.stream().forEach(produto -> {
+			Map<String, String> unidadeMedida = new HashMap<String, String>();
+			unidadeMedida.put("quantidade", produto.getQuantidade().toString());
+			unidadeMedida.put("unidadeMedida", produto.getUnidadeMedida().getSigla());
+			unidadesMedida.add(unidadeMedida);
+		});
+
+		return unidadesMedida;
+	}
+
+	public List<Produto> filtrar(ProdutoFilter filter) {
+		return produtoRepository.filtrar(filter);
 	}
 
 }

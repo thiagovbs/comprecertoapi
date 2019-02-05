@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.comprecerto.api.entities.Cidade;
+import br.com.comprecerto.api.entities.Estado;
 
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
@@ -26,4 +28,6 @@ public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
 			" and c.estado.nome = ?2" + //
 			" and c.estado.pais.nome = ?3")
 	Cidade findByNomeAndEstadoAndPais(String nome, String nomeEstado, String nomePais);
+
+	List<Cidade> findByEstado(Estado estado);
 }
