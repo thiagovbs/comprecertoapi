@@ -128,7 +128,6 @@ CREATE TABLE `produto` (
   `caracteristica` longtext NOT NULL,
   `dt_alteracao` datetime,
   `dt_criacao` datetime,
-  `imagem` varchar(255) NOT NULL,
   `marca` varchar(100) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `quantidade` int(11) NOT NULL,

@@ -38,9 +38,6 @@ public class Produto implements Serializable {
 	private Date dtCriacao;
 
 	@NotBlank
-	private String imagem;
-
-	@NotBlank
 	@Length(max = 100)
 	private String marca;
 
@@ -110,14 +107,6 @@ public class Produto implements Serializable {
 
 	public void setDtCriacao(Date dtCriacao) {
 		this.dtCriacao = dtCriacao;
-	}
-
-	public String getImagem() {
-		return this.imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
 	}
 
 	public String getMarca() {
