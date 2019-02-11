@@ -19,6 +19,7 @@ import br.com.comprecerto.api.entities.Bairro;
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.entities.Cidade;
 import br.com.comprecerto.api.entities.Estado;
+import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Produto;
@@ -84,6 +85,13 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 			Join<Produto, Subcategoria> subcategoria = produto.join("subcategoria");
 
 			predicates.add(cb.equal(subcategoria.get("idSubcategoria"), mercadoProdutoFilter.getIdSubcategoria()));
+		}
+
+		if (mercadoProdutoFilter.getIdMercado() != null && mercadoProdutoFilter.getIdMercado() != 0) {
+			Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercadoProduto.join("mercadoLocalidade");
+			Join<Produto, Mercado> mercado = mercadoLocalidade.join("mercado");
+
+			predicates.add(cb.equal(mercado.get("idMercado"), mercadoProdutoFilter.getIdMercado()));
 		}
 	}
 
