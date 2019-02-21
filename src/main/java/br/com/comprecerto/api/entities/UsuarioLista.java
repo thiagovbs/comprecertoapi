@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "usuario_lista")
+@Table(schema = "sheap", name = "usuario_lista")
 public class UsuarioLista implements Serializable {
 
 	private static final long serialVersionUID = 1L;

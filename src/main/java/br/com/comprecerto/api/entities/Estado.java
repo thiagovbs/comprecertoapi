@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "estado")
+@Table(schema = "sheap", name = "estado")
 public class Estado implements Serializable {
 
 	private static final long serialVersionUID = 1L;

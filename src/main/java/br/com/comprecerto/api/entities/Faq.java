@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import br.com.comprecerto.api.entities.enums.Plataforma;
 
 @Entity
-@Table(name = "faq")
+@Table(schema = "sheap", name = "faq")
 public class Faq {
 
 	@Id

@@ -1,15 +1,16 @@
 package br.com.comprecerto.api.services;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.MercadoPush;
+import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.MercadoPushRepository;
+import br.com.comprecerto.api.repositories.UsuarioRepository;
 
 @Service
 public class MercadoPushService {
@@ -17,39 +18,16 @@ public class MercadoPushService {
 	@Autowired
 	private MercadoPushRepository mercadoPushRepository;
 
-	public List<MercadoPush> buscarMercadoPushs() {
-		return mercadoPushRepository.findAll();
-	}
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
-	public MercadoPush buscarPorId(Integer id) {
-		Optional<MercadoPush> mercadoPush = mercadoPushRepository.findByIdMercadoPush(id);
+	public List<MercadoPush> buscarPushsDeHoje(Principal principal) throws Exception {
+		Optional<Usuario> usuarioLogado = usuarioRepository.findByLogin(principal.getName());
 
-		if (mercadoPush.isPresent())
-			return mercadoPush.get();
+		if (!usuarioLogado.isPresent())
+			throw new Exception("Usuário não encontrado!");
 
-		return null;
-	}
-
-	public MercadoPush salvarMercadoPush(@Valid MercadoPush mercadoPush) {
-		return mercadoPushRepository.saveAndFlush(mercadoPush);
-	}
-
-	public MercadoPush atualizarMercadoPush(Integer id, @Valid MercadoPush mercadoPush) throws Exception {
-		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findByIdMercadoPush(id);
-
-		if (!mercadoPushOp.isPresent())
-			throw new Exception("O mercado push informado não existe!");
-
-		return salvarMercadoPush(mercadoPush);
-	}
-
-	public void deletarMercadoPush(Integer id) throws Exception {
-		Optional<MercadoPush> mercadoPushOp = mercadoPushRepository.findByIdMercadoPush(id);
-
-		if (!mercadoPushOp.isPresent())
-			throw new Exception("O mercado push informado não existe!");
-
-		mercadoPushRepository.delete(mercadoPushOp.get());
+		return mercadoPushRepository.findHojeByMercado(usuarioLogado.get().getMercado().getIdMercado());
 	}
 
 }

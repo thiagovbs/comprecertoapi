@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "permissao")
+@Table(schema = "sheap", name = "permissao")
 public class Permissao implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "unidade_medida")
+@Table(schema = "sheap", name = "unidade_medida")
 public class UnidadeMedida implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -48,7 +48,7 @@ public class UnidadeMedida implements Serializable {
 	private String sigla;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_unidade"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
+	@JoinTable(schema = "sheap", name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_unidade"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	@JsonIgnore
 	private List<Categoria> categorias;
 

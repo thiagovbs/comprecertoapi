@@ -3,6 +3,7 @@ package br.com.comprecerto.api.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "categoria")
+@Table(schema = "sheap", name = "categoria")
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -50,8 +51,8 @@ public class Categoria implements Serializable {
 	private String imagemUrl;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
-	private List<UnidadeMedida> unidadesMedida;
+	@JoinTable(schema = "sheap", name = "categoria_unidade_medida", joinColumns = @JoinColumn(name = "id_categoria"), inverseJoinColumns = @JoinColumn(name = "id_unidade"))
+	private Set<UnidadeMedida> unidadesMedida;
 
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value = "categoria_subcategoria")
@@ -120,11 +121,11 @@ public class Categoria implements Serializable {
 		this.imagemUrl = imagemUrl;
 	}
 
-	public List<UnidadeMedida> getUnidadesMedida() {
+	public Set<UnidadeMedida> getUnidadesMedida() {
 		return unidadesMedida;
 	}
 
-	public void setUnidadesMedida(List<UnidadeMedida> unidadesMedida) {
+	public void setUnidadesMedida(Set<UnidadeMedida> unidadesMedida) {
 		this.unidadesMedida = unidadesMedida;
 	}
 

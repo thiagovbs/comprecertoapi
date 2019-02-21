@@ -1,1 +1,0 @@
-INSERT INTO comprecertodb.pacote_servico (f_ativo, nome, descricao, valor, id_servico, dt_criacao, dt_alteracao) VALUES (1, 'Pacote 2', '32', 504, (SELECT id_servico FROM comprecertodb.servico WHERE nome = 'Boost Super Destaque'), current_date, current_date);

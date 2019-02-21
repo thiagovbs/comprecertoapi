@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "mercado")
+@Table(schema = "sheap", name = "mercado")
 public class Mercado implements Serializable {
 
 	private static final long serialVersionUID = 1L;

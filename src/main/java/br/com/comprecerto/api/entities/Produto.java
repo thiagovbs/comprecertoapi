@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "produto")
+@Table(schema = "sheap", name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;

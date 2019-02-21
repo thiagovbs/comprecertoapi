@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "pacote_servico")
+@Table(schema = "sheap", name = "pacote_servico")
 public class PacoteServico implements Serializable {
 
 	private static final long serialVersionUID = 1L;

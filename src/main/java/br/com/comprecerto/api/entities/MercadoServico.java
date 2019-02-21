@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "mercado_servico")
+@Table(schema = "sheap", name = "mercado_servico")
 public class MercadoServico implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "servico")
+@Table(schema = "sheap", name = "servico")
 public class Servico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,9 +39,6 @@ public class Servico implements Serializable {
 
 	@Column(length = 100)
 	private String nome;
-
-//	@Column(length = 60)
-//	private String tipo;
 
 	@OneToMany(mappedBy = "servico")
 	@JsonManagedReference(value = "servico_pacoteServico")
@@ -148,5 +145,4 @@ public class Servico implements Serializable {
 				+ pacoteServicos + ", pacoteSelecionado=" + pacoteSelecionado + "]";
 	}
 
-	
 }

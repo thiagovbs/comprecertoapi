@@ -3,6 +3,7 @@ package br.com.comprecerto.api.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.comprecerto.api.entities.enums.Sexo;
 
 @Entity
-@Table(name = "usuario")
+@Table(schema = "sheap", name = "usuario")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -75,9 +76,9 @@ public class Usuario implements Serializable {
 	private Sexo sexo;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
+	@JoinTable(schema = "sheap", name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	@NotEmpty
-	private List<Permissao> permissoes;
+	private Set<Permissao> permissoes;
 
 	@OneToMany(mappedBy = "usuario")
 	@JsonIgnore
@@ -185,11 +186,11 @@ public class Usuario implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public List<Permissao> getPermissoes() {
+	public Set<Permissao> getPermissoes() {
 		return permissoes;
 	}
 
-	public void setPermissoes(List<Permissao> permissoes) {
+	public void setPermissoes(Set<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
 
