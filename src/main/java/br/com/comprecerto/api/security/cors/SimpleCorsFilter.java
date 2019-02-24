@@ -26,8 +26,10 @@ public class SimpleCorsFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 
-		if (request.getHeader("Origin") == null || request.getHeader("Origin").equals("http://localhost:4200")
-				|| request.getHeader("Origin").equals("http://localhost:8100")) {
+		//if (request.getHeader("Origin") == null || request.getHeader("Origin").equals("https://localhost:4200")
+		//		|| request.getHeader("Origin").equals("http://localhost:8100")) {
+		if (request.getHeader("Origin") == null || request.getHeader("Origin").equals("https://sheapweb.herokuapp.com")
+				|| request.getHeader("Origin").equals("https://sheap.herokuapp.com")) {
 			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 
 			response.setHeader("Access-Control-Allow-Credentials", "true");

@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprecerto.api.services.EmailService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/suporte")
 public class SuporteController {

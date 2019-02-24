@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import br.com.comprecerto.api.entities.PacoteServico;
 import br.com.comprecerto.api.entities.Servico;
 import br.com.comprecerto.api.services.ServicoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/servicos")
 public class ServicoController {
