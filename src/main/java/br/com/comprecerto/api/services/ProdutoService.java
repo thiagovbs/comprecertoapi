@@ -41,13 +41,13 @@ public class ProdutoService {
 		return produtoRepository.findAll();
 	}
 
-	public Produto buscarPorId(Integer id) {
+	public Produto buscarPorId(Integer id) throws Exception {
 		Optional<Produto> produto = produtoRepository.findByIdProduto(id);
 
-		if (produto.isPresent())
-			return produto.get();
+		if (!produto.isPresent())
+			throw new Exception("O produto informado não existe!");
 
-		return null;
+		return produto.get();
 	}
 
 	public Produto salvarProduto(@Valid Produto produto) {

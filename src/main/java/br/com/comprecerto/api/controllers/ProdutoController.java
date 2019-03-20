@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.controllers;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.comprecerto.api.config.CompreCertoExceptionHandler.Erro;
 import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
@@ -40,8 +42,13 @@ public class ProdutoController {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id) {
-		return ResponseEntity.ok(produtoService.buscarPorId(id));
+	public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(produtoService.buscarPorId(id));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
+		}
 	}
 
 	@PostMapping
