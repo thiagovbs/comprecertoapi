@@ -13,7 +13,7 @@ import br.com.comprecerto.api.repositories.mercadoProduto.MercadoProdutoReposito
 @Repository
 public interface MercadoProdutoRepository extends JpaRepository<MercadoProduto, Integer>, MercadoProdutoRepositoryQuery {
 
-	@Query("select mp from MercadoProduto mp where mp.mercadoLocalidade.mercado.idMercado = ?1.idMercado")
+	@Query("from MercadoProduto mp where mp.mercadoLocalidade.mercado = ?1")
 	List<MercadoProduto> findAllByMercado(Mercado mercado);
 
 }
