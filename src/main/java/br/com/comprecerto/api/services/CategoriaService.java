@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.repositories.CategoriaRepository;
+import br.com.comprecerto.api.repositories.MercadoPushRepository;
+import br.com.comprecerto.api.repositories.SubcategoriaRepository;
 
 @Service
 public class CategoriaService {
@@ -23,10 +25,16 @@ public class CategoriaService {
 
 	@Autowired
 	private S3Service s3Service;
-	
+
 	@Autowired
 	private ImageService imgService;
-	
+
+	@Autowired
+	private MercadoPushRepository mercadoPushRepository;
+
+	@Autowired
+	private SubcategoriaRepository subcategoriaRepository;
+
 	public List<Categoria> buscarCategorias() {
 		return categoriaRepository.findAll();
 	}
@@ -40,7 +48,7 @@ public class CategoriaService {
 	}
 
 	public Categoria salvarCategoria(@Valid Categoria categoria) {
-		
+
 		return categoriaRepository.saveAndFlush(categoria);
 	}
 
@@ -53,21 +61,26 @@ public class CategoriaService {
 		return categoriaRepository.saveAndFlush(categoria);
 	}
 
-	public void deletarCategoria(Integer id) {
+	public void deletarCategoria(Integer id) throws Exception {
+		Categoria categoria = buscarPorId(id);
+		if (mercadoPushRepository.findByCategoria(categoria).size() > 0 || subcategoriaRepository.findByCategoria(categoria).size() > 0) {
+			throw new Exception("Categoria em uso. Não pode ser excluída!");
+		}
+
 		categoriaRepository.delete(id);
 	}
-	
+
 	public URI uploadCategoriaPicture(MultipartFile multipartFile, Integer idcategoria) {
-		
-		String prefix = "cat"+ idcategoria;
+
+		String prefix = "cat" + idcategoria;
 		System.out.println("minha categoria é" + idcategoria);
-		
+
 		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
-		
-		//pegar um prefixo de Cat + id da categoria referente + extensão
+
+		// pegar um prefixo de Cat + id da categoria referente + extensão
 		String filename = prefix + ".jpg";
-		
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
+
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
 	}
 
 }

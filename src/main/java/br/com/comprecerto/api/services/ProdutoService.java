@@ -19,6 +19,7 @@ import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
 import br.com.comprecerto.api.entities.Produto;
 import br.com.comprecerto.api.entities.Subcategoria;
+import br.com.comprecerto.api.repositories.MercadoProdutoRepository;
 import br.com.comprecerto.api.repositories.ProdutoRepository;
 import br.com.comprecerto.api.repositories.SubcategoriaRepository;
 
@@ -36,6 +37,9 @@ public class ProdutoService {
 
 	@Autowired
 	private ImageService imgService;
+	
+	@Autowired
+	private MercadoProdutoRepository mercadoProdutoRepository;
 
 	public List<Produto> buscarProdutos() {
 		return produtoRepository.findAll();
@@ -68,6 +72,10 @@ public class ProdutoService {
 
 		if (!produtoOp.isPresent())
 			throw new Exception("O produto informado não existe!");
+		
+		if (mercadoProdutoRepository.findByProduto(produtoOp.get()).size() > 0) {
+			throw new Exception("O produto é utilizado em algum mercado! Não pode ser excluído");
+		}
 
 		produtoRepository.delete(produtoOp.get());
 	}

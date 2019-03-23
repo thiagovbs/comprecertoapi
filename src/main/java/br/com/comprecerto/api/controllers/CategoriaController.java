@@ -30,7 +30,7 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
-	
+
 	private Categoria cat = new Categoria();
 
 	@GetMapping
@@ -48,29 +48,33 @@ public class CategoriaController {
 		if (categoria.getIdCategoria() != null) {
 			return ResponseEntity.badRequest().body("Para alterações deve ser usado o protocolo PUT");
 		}
-		
+
 		cat = categoriaService.salvarCategoria(categoria);
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(cat);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarCategoria(@PathVariable Integer id, @RequestBody @Valid Categoria categoria) {
-		
+
 		cat = categoriaService.atualizarCategoria(id, categoria);
-		
+
 		return ResponseEntity.ok(cat);
 	}
 
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletarCategoria(@PathVariable Integer id) {
-		categoriaService.deletarCategoria(id);
+		try {
+			categoriaService.deletarCategoria(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	@PostMapping(value="/picture")
+
+	@PostMapping(value = "/picture")
 	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
-		
+
 		URI uri = categoriaService.uploadCategoriaPicture(file, cat.getIdCategoria());
 		return ResponseEntity.created(uri).build();
 	}

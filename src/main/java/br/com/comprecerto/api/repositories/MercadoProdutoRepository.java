@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoProduto;
+import br.com.comprecerto.api.entities.Produto;
 import br.com.comprecerto.api.repositories.mercadoProduto.MercadoProdutoRepositoryQuery;
 
 @Repository
@@ -15,5 +16,7 @@ public interface MercadoProdutoRepository extends JpaRepository<MercadoProduto, 
 
 	@Query("from MercadoProduto mp where mp.mercadoLocalidade.mercado = ?1")
 	List<MercadoProduto> findAllByMercado(Mercado mercado);
+
+	List<Produto> findByProduto(Produto produto);
 
 }
