@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -19,6 +18,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -49,7 +49,7 @@ public class MercadoProduto implements Serializable {
 	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
-	@Lob
+	@Type(type="text")
 	private String observacao;
 
 	@NotNull

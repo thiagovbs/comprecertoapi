@@ -16,6 +16,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -64,7 +65,7 @@ public class Mercado implements Serializable {
 	@Length(max = 150)
 	private String razaoSocial;
 
-	@Lob
+	@Type(type="text")
 	private String slogan;
 
 	@NotBlank

@@ -17,6 +17,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -45,7 +47,7 @@ public class MercadoPush implements Serializable {
 	@Lob
 	private byte[] imagem;
 
-	@Lob
+	@Type(type="text")
 	@Column(name = "motivo_negativa")
 	private String motivoNegativa;
 
