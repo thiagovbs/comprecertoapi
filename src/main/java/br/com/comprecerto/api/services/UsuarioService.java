@@ -60,14 +60,8 @@ public class UsuarioService {
 		usuarioRepository.delete(usuarioOp.get());
 	}
 
-	public Usuario buscarPorLogin(String login) {
-		Optional<Usuario> usuario = usuarioRepository.findByLogin(login);
-		
-		if (usuario.isPresent()) {
-			return usuario.get();
-		}
-		
-		return new Usuario();
+	public Optional<Usuario> buscarPorLogin(String login) {
+		return usuarioRepository.findByLogin(login);
 	}
 
 }

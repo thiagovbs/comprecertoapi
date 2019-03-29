@@ -88,7 +88,7 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private List<UsuarioMercadoPush> usuarioMercadoPushs;
 
-	@OneToOne()
+	@OneToOne
 	@JoinColumn(name = "id_mercado")
 	private Mercado mercado;
 
@@ -244,6 +244,10 @@ public class Usuario implements Serializable {
 
 	public void setMercado(Mercado mercado) {
 		this.mercado = mercado;
+	}
+
+	public boolean isAdmin() {
+		return this.getPermissoes().stream().filter(permissao -> permissao.getDescricao().equals("MERCADO_ADMIN")).count() > 0;
 	}
 
 }

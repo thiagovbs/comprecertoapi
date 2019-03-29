@@ -39,7 +39,7 @@ public class UsuarioController {
 
 	@GetMapping(value = "/login/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) {
-		return ResponseEntity.ok(usuarioService.buscarPorLogin(login));
+		return ResponseEntity.ok(usuarioService.buscarPorLogin(login).orElseGet(() -> new Usuario()));
 	}
 
 	@PostMapping
