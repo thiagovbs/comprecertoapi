@@ -48,4 +48,13 @@ public class MercadoProdutoService {
 		return repository.findAllByMercado(usuario.get().getMercado());
 	}
 
+	public Object atualizarProduto(Integer idMercadoProduto, MercadoProduto mercadoProduto) throws Exception {
+		Optional<MercadoProduto> mercadoProdutoOp = repository.findByIdMercadoProduto(idMercadoProduto);
+
+		if (!mercadoProdutoOp.isPresent())
+			throw new Exception("O produto informado não existe!");
+
+		return salvarMercadoProduto(mercadoProduto);
+	}
+
 }

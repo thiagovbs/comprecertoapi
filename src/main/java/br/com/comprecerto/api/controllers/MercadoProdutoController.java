@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +56,16 @@ public class MercadoProdutoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
+		}
+	}
+
+	@PutMapping(value = "/{idMercadoProduto}")
+	public ResponseEntity<?> atualizarProduto(@PathVariable Integer idMercadoProduto, @RequestBody @Valid MercadoProduto mercadoProduto) {
+		try {
+			return ResponseEntity.ok(service.atualizarProduto(idMercadoProduto, mercadoProduto));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 }

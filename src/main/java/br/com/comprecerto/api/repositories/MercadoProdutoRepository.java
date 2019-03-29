@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,7 @@ public interface MercadoProdutoRepository extends JpaRepository<MercadoProduto, 
 	List<MercadoProduto> findAllByMercado(Mercado mercado);
 
 	List<Produto> findByProduto(Produto produto);
+
+	Optional<MercadoProduto> findByIdMercadoProduto(Integer idMercadoProduto);
 
 }
