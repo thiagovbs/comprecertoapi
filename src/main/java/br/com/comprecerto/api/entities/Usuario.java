@@ -88,7 +88,7 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private List<UsuarioMercadoPush> usuarioMercadoPushs;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_mercado")
 	private Mercado mercado;
 
