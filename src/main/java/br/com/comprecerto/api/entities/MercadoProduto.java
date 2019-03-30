@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -34,10 +36,10 @@ public class MercadoProduto implements Serializable {
 	private Date dtAlteracao;
 	private Date dtCriacao;
 
+	@Temporal(TemporalType.DATE)
 	@NotBlank
 	private Date dtEntrada;
 
-	@NotBlank
 	private Date dtValidade;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
