@@ -93,6 +93,10 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 			predicates.add(cb.equal(mercado.get("idMercado"), mercadoProdutoFilter.getIdMercado()));
 		}
+
+		if (mercadoProdutoFilter.getDtAlteracao() != null) {
+			predicates.add(cb.equal(mercadoProduto.get("dtAlteracao"), mercadoProdutoFilter.getDtAlteracao()));
+		}
 	}
 
 	private List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
