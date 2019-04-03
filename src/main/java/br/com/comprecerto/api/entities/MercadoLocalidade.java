@@ -57,6 +57,7 @@ public class MercadoLocalidade implements Serializable {
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
+	@JsonManagedReference(value = "mercadoLocalidade_mercadoProduto")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE })
