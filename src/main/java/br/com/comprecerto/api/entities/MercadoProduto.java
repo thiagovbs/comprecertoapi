@@ -21,6 +21,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
 public class MercadoProduto implements Serializable {
@@ -54,6 +56,7 @@ public class MercadoProduto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade")
 	@NotNull
+	@JsonIgnore
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
