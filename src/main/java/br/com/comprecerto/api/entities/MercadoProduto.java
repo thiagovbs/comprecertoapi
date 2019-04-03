@@ -2,7 +2,8 @@ package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,12 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
@@ -33,14 +31,10 @@ public class MercadoProduto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idMercadoProduto;
 
-	private Date dtAlteracao;
-	private Date dtCriacao;
+	private LocalDateTime dtAlteracao;
+	private LocalDateTime dtCriacao;
 
-	@Temporal(TemporalType.DATE)
-	@NotBlank
-	private Date dtEntrada;
-
-	private Date dtValidade;
+	private LocalDate dtValidade;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
@@ -75,13 +69,16 @@ public class MercadoProduto implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = new Date();
+		dtCriacao = dtAlteracao = LocalDateTime.now();
 		fAtivo = true;
+		
+		//TODO: Corrigir com a regra correta
+		dtValidade = LocalDate.now().plusDays(3);
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = new Date();
+		dtAlteracao = LocalDateTime.now();
 	}
 
 	public Integer getIdMercadoProduto() {
@@ -92,35 +89,27 @@ public class MercadoProduto implements Serializable {
 		this.idMercadoProduto = idMercadoProduto;
 	}
 
-	public Date getDtAlteracao() {
+	public LocalDateTime getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(Date dtAlteracao) {
+	public void setDtAlteracao(LocalDateTime dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public Date getDtCriacao() {
+	public LocalDateTime getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(Date dtCriacao) {
+	public void setDtCriacao(LocalDateTime dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public Date getDtEntrada() {
-		return this.dtEntrada;
-	}
-
-	public void setDtEntrada(Date dtEntrada) {
-		this.dtEntrada = dtEntrada;
-	}
-
-	public Date getDtValidade() {
+	public LocalDate getDtValidade() {
 		return this.dtValidade;
 	}
 
-	public void setDtValidade(Date dtValidade) {
+	public void setDtValidade(LocalDate dtValidade) {
 		this.dtValidade = dtValidade;
 	}
 
