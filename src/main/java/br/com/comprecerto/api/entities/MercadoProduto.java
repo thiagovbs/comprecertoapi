@@ -34,6 +34,7 @@ public class MercadoProduto implements Serializable {
 	private LocalDateTime dtAlteracao;
 	private LocalDateTime dtCriacao;
 
+	private LocalDate dtEntrada;
 	private LocalDate dtValidade;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
@@ -45,7 +46,7 @@ public class MercadoProduto implements Serializable {
 	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
-	@Type(type="text")
+	@Type(type = "text")
 	private String observacao;
 
 	@NotNull
@@ -71,9 +72,6 @@ public class MercadoProduto implements Serializable {
 	public void salvando() {
 		dtCriacao = dtAlteracao = LocalDateTime.now();
 		fAtivo = true;
-		
-		//TODO: Corrigir com a regra correta
-		dtValidade = LocalDate.now().plusDays(3);
 	}
 
 	@PreUpdate
@@ -103,6 +101,14 @@ public class MercadoProduto implements Serializable {
 
 	public void setDtCriacao(LocalDateTime dtCriacao) {
 		this.dtCriacao = dtCriacao;
+	}
+
+	public LocalDate getDtEntrada() {
+		return dtEntrada;
+	}
+
+	public void setDtEntrada(LocalDate dtEntrada) {
+		this.dtEntrada = dtEntrada;
 	}
 
 	public LocalDate getDtValidade() {

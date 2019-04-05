@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.services;
 
 import java.security.Principal;
+import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,15 @@ public class MercadoProdutoService {
 	public MercadoProduto salvarMercadoProduto(MercadoProduto mercadoProduto) throws Exception {
 		mercadoLocalidadeService.buscarMercadoLocalidade(mercadoProduto.getMercadoLocalidade().getIdMercadoLocalidade());
 		produtoService.buscarPorId(mercadoProduto.getProduto().getIdProduto());
+
+		if (!mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.TUESDAY) || !mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.FRIDAY))
+			throw new Exception("A data de entrada devem ser na Terça-feira ou Sexta-feira!");
+		
+		if (mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
+			mercadoProduto.setDtValidade(mercadoProduto.getDtEntrada().plusDays(2));
+		} else if (mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
+			mercadoProduto.setDtValidade(mercadoProduto.getDtEntrada().plusDays(3));
+		}
 
 		return repository.saveAndFlush(mercadoProduto);
 	}
