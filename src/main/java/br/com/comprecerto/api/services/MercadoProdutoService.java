@@ -37,8 +37,8 @@ public class MercadoProdutoService {
 	public MercadoProduto salvarMercadoProduto(MercadoProduto mercadoProduto) throws Exception {
 		mercadoLocalidadeService.buscarMercadoLocalidade(mercadoProduto.getMercadoLocalidade().getIdMercadoLocalidade());
 		produtoService.buscarPorId(mercadoProduto.getProduto().getIdProduto());
-
-		if (!mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.TUESDAY) || !mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.FRIDAY))
+		
+		if (!mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.TUESDAY) && !mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.FRIDAY))
 			throw new Exception("A data de entrada devem ser na Terça-feira ou Sexta-feira!");
 		
 		if (mercadoProduto.getDtEntrada().getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
