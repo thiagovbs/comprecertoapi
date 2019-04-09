@@ -20,11 +20,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.threeten.bp.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
@@ -67,6 +65,7 @@ public class MercadoProduto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	@NotNull
+	@JsonManagedReference(value = "mercadoProduto_produto")
 	private Produto produto;
 
 	@OneToMany(mappedBy = "mercadoProduto")

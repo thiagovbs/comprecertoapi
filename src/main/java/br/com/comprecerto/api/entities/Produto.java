@@ -20,6 +20,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(schema = "sheap", name = "produto")
 public class Produto implements Serializable {
@@ -52,6 +54,7 @@ public class Produto implements Serializable {
 	private String imagemUrl;
 
 	@OneToMany(mappedBy = "produto")
+	@JsonBackReference(value = "mercadoProduto_produto")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@ManyToOne
