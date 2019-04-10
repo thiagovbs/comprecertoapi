@@ -20,10 +20,12 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "produto")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto", scope = Integer.class)
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +34,7 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProduto;
 
-	@Type(type="text")
+	@Type(type = "text")
 	@NotBlank
 	private String caracteristica;
 
@@ -54,7 +56,7 @@ public class Produto implements Serializable {
 	private String imagemUrl;
 
 	@OneToMany(mappedBy = "produto")
-	@JsonBackReference(value = "mercadoProduto_produto")
+//	@JsonBackReference(value = "mercadoProduto_produto")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@ManyToOne

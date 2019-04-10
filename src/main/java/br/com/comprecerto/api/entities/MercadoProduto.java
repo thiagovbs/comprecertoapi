@@ -21,11 +21,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoProduto", scope = Integer.class)
 public class MercadoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +38,6 @@ public class MercadoProduto implements Serializable {
 	private LocalDateTime dtAlteracao;
 	private LocalDateTime dtCriacao;
 
-	
 	private LocalDate dtEntrada;
 	private LocalDate dtValidade;
 
@@ -59,13 +59,11 @@ public class MercadoProduto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade")
 	@NotNull
-	@JsonBackReference(value = "mercadoLocalidade_mercadoProduto")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	@NotNull
-	@JsonManagedReference(value = "mercadoProduto_produto")
 	private Produto produto;
 
 	@OneToMany(mappedBy = "mercadoProduto")

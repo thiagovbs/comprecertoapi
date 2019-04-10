@@ -33,7 +33,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 	private EntityManager em;
 
 	@Override
-	public List<MercadoProdutoDTO> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
+	public List<MercadoProduto> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MercadoProduto> cq = cb.createQuery(MercadoProduto.class);
 
@@ -44,8 +44,8 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 		cq.where(predicates.toArray(new Predicate[0]));
 
-		List<MercadoProduto> produtos = em.createQuery(cq).getResultList();
-		return criaProjecao(produtos);
+		return em.createQuery(cq).getResultList();
+//		return criaProjecao(produtos);
 	}
 
 	private void verificaFiltros(CriteriaBuilder cb, Root<MercadoProduto> mercadoProduto, List<Predicate> predicates, MercadoProdutoFilter mercadoProdutoFilter) {
@@ -100,6 +100,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
 		List<MercadoProdutoDTO> dtos = new ArrayList<>();
 

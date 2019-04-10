@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.comprecerto.api.dto.MercadoProdutoDTO;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Usuario;
@@ -30,7 +29,7 @@ public class MercadoProdutoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public List<MercadoProdutoDTO> filtrar(MercadoProdutoFilter filter) {
+	public List<MercadoProduto> filtrar(MercadoProdutoFilter filter) {
 		return repository.filtrar(filter);
 	}
 

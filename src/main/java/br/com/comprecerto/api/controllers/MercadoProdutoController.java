@@ -1,6 +1,5 @@
 package br.com.comprecerto.api.controllers;
 
-import java.security.Principal;
 import java.util.Arrays;
 
 import javax.validation.Valid;
@@ -29,8 +28,8 @@ public class MercadoProdutoController {
 	@Autowired
 	private MercadoProdutoService service;
 
-	@PostMapping(value = "/filter")
-	public ResponseEntity<?> filtrar(@RequestBody MercadoProdutoFilter filter) {
+	@GetMapping
+	public ResponseEntity<?> filtrar(MercadoProdutoFilter filter) {
 		try {
 			return ResponseEntity.ok(service.filtrar(filter));
 		} catch (Exception e) {
@@ -48,16 +47,6 @@ public class MercadoProdutoController {
 			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
 		}
 	}
-	
-	@GetMapping
-	public ResponseEntity<?> buscarMercadoProdutos(Principal principal) {
-		try {
-			return ResponseEntity.ok(service.buscarMercadoProdutos(principal));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
-		}
-	}
 
 	@PutMapping(value = "/{idMercadoProduto}")
 	public ResponseEntity<?> atualizarProduto(@PathVariable Integer idMercadoProduto, @RequestBody @Valid MercadoProduto mercadoProduto) {
@@ -69,4 +58,3 @@ public class MercadoProdutoController {
 		}
 	}
 }
-

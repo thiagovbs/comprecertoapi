@@ -24,10 +24,13 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_localidade")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoLocalidade", scope = Integer.class)
 public class MercadoLocalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +60,6 @@ public class MercadoLocalidade implements Serializable {
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
-	@JsonManagedReference(value = "mercadoLocalidade_mercadoProduto")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE })

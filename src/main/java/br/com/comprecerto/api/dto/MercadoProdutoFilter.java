@@ -1,11 +1,12 @@
 package br.com.comprecerto.api.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class MercadoProdutoFilter extends ProdutosAppFilter {
 
 	private Integer idMercado;
-	private Date dtAlteracao;
+	private LocalDate dtAlteracao;
+	private LocalDate dtEntrada;
 
 	public Integer getIdMercado() {
 		return idMercado;
@@ -15,12 +16,20 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 		this.idMercado = idMercado;
 	}
 
-	public Date getDtAlteracao() {
+	public LocalDate getDtAlteracao() {
 		return dtAlteracao;
 	}
 
-	public void setDtAlteracao(Date dtAlteracao) {
+	public void setDtAlteracao(LocalDate dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
+	}
+
+	public LocalDate getDtEntrada() {
+		return dtEntrada;
+	}
+
+	public void setDtEntrada(LocalDate dtEntrada) {
+		this.dtEntrada = dtEntrada;
 	}
 
 }
