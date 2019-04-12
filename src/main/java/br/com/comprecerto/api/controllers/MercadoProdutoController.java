@@ -44,7 +44,7 @@ public class MercadoProdutoController {
 			return ResponseEntity.ok(service.salvarMercadoProduto(mercadoProduto));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
+			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause())));
 		}
 	}
 
