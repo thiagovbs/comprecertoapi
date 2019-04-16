@@ -104,6 +104,10 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 			predicates.add(cb.equal(mercadoLocalidade.get("idMercadoLocalidade"), mercadoProdutoFilter.getIdMercadoLocalidade()));
 		}
+
+		if (mercadoProdutoFilter.getDtEntrada() != null) {
+			predicates.add(cb.equal(mercadoProduto.get("dtEntrada"), mercadoProdutoFilter.getDtEntrada()));
+		}
 	}
 
 	@SuppressWarnings("unused")
