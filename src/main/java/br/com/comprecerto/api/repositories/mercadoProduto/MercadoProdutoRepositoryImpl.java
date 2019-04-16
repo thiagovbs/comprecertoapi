@@ -98,6 +98,12 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		if (mercadoProdutoFilter.getDtAlteracao() != null) {
 			predicates.add(cb.equal(mercadoProduto.get("dtAlteracao"), mercadoProdutoFilter.getDtAlteracao()));
 		}
+
+		if (mercadoProdutoFilter.getIdMercadoLocalidade() != null && mercadoProdutoFilter.getIdMercadoLocalidade() != 0) {
+			Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercadoProduto.join("mercadoLocalidade");
+
+			predicates.add(cb.equal(mercadoLocalidade.get("idMercadoLocalidade"), mercadoProdutoFilter.getIdMercadoLocalidade()));
+		}
 	}
 
 	@SuppressWarnings("unused")
