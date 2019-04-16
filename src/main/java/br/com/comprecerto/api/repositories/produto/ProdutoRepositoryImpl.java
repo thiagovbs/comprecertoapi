@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.comprecerto.api.DateUtil;
 import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
@@ -106,7 +107,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryQuery {
 			dto.setUnidadeMedida(produto.getUnidadeMedida().getSigla());
 
 			if (produto.getMercadoProdutos().size() != 0) {
-				dto.setDtValidadeMercadoProduto(produto.getMercadoProdutos().get(0).getDtValidade());
+				dto.setDtValidadeMercadoProduto(DateUtil.converteLocalDateToDate(produto.getMercadoProdutos().get(0).getDtValidade()));
 				dto.setPrecoMercadoProduto(produto.getMercadoProdutos().get(0).getPreco());
 			}
 

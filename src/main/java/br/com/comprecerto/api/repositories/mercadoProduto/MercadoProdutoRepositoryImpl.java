@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.comprecerto.api.DateUtil;
 import br.com.comprecerto.api.dto.MercadoProdutoDTO;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.Bairro;
@@ -32,7 +33,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 	private EntityManager em;
 
 	@Override
-	public List<MercadoProdutoDTO> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
+	public List<MercadoProduto> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<MercadoProduto> cq = cb.createQuery(MercadoProduto.class);
 
@@ -43,8 +44,8 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 		cq.where(predicates.toArray(new Predicate[0]));
 
-		List<MercadoProduto> produtos = em.createQuery(cq).getResultList();
-		return criaProjecao(produtos);
+		return em.createQuery(cq).getResultList();
+//		return criaProjecao(produtos);
 	}
 
 	private void verificaFiltros(CriteriaBuilder cb, Root<MercadoProduto> mercadoProduto, List<Predicate> predicates, MercadoProdutoFilter mercadoProdutoFilter) {
@@ -93,8 +94,19 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 			predicates.add(cb.equal(mercado.get("idMercado"), mercadoProdutoFilter.getIdMercado()));
 		}
+
+		if (mercadoProdutoFilter.getDtAlteracao() != null) {
+			predicates.add(cb.equal(mercadoProduto.get("dtAlteracao"), mercadoProdutoFilter.getDtAlteracao()));
+		}
+
+		if (mercadoProdutoFilter.getIdMercadoLocalidade() != null && mercadoProdutoFilter.getIdMercadoLocalidade() != 0) {
+			Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercadoProduto.join("mercadoLocalidade");
+
+			predicates.add(cb.equal(mercadoLocalidade.get("idMercadoLocalidade"), mercadoProdutoFilter.getIdMercadoLocalidade()));
+		}
 	}
 
+	@SuppressWarnings("unused")
 	private List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
 		List<MercadoProdutoDTO> dtos = new ArrayList<>();
 
@@ -110,7 +122,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 			dto.setNomeSubcategoria(mercadoProduto.getProduto().getSubcategoria().getNome());
 			dto.setQuantidadeProduto(mercadoProduto.getProduto().getQuantidade());
 			dto.setUnidadeMedida(mercadoProduto.getProduto().getUnidadeMedida().getSigla());
-			dto.setDtValidadeMercadoProduto(mercadoProduto.getDtValidade());
+			dto.setDtValidadeMercadoProduto(DateUtil.converteLocalDateToDate(mercadoProduto.getDtValidade()));
 			dto.setPrecoMercadoProduto(mercadoProduto.getPreco());
 			dto.setIdMercado(mercadoProduto.getMercadoLocalidade().getMercado().getIdMercado());
 			dto.setNomeFantasiaMercado(mercadoProduto.getMercadoLocalidade().getMercado().getNomeFantasia());

@@ -30,43 +30,34 @@ public class CompreCertoExceptionHandler extends ResponseEntityExceptionHandler 
 	private MessageSource messageSource;
 
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.getCause().toString();
 
-		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)), headers,
-				HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)), headers, HttpStatus.BAD_REQUEST, request);
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 		List<Erro> erros = criarListaErros(ex.getBindingResult());
 		return handleExceptionInternal(ex, erros, headers, status, request);
 	}
 
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,
-			WebRequest request) {
-		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null,
-				LocaleContextHolder.getLocale());
+	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.getCause().toString();
 
-		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)),
-				new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
 	@ExceptionHandler({ DataIntegrityViolationException.class })
-	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex,
-			WebRequest request) {
-		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null,
-				LocaleContextHolder.getLocale());
+	public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
 
-		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)),
-				new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor)), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 	private List<Erro> criarListaErros(BindingResult bindingResult) {
@@ -89,6 +80,11 @@ public class CompreCertoExceptionHandler extends ResponseEntityExceptionHandler 
 		public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
 			this.mensagemUsuario = mensagemUsuario;
 			this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+		}
+
+		public Erro(String mensagemUsuario, Throwable cause) {
+			this.mensagemUsuario = mensagemUsuario;
+			this.mensagemDesenvolvedor = cause == null ? "" : cause.toString();
 		}
 
 		public String getMensagemUsuario() {

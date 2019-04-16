@@ -1,6 +1,5 @@
 package br.com.comprecerto.api.controllers;
 
-import java.security.Principal;
 import java.util.Arrays;
 
 import javax.validation.Valid;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,8 @@ public class MercadoProdutoController {
 	@Autowired
 	private MercadoProdutoService service;
 
-	@PostMapping(value = "/filter")
-	public ResponseEntity<?> filtrar(@RequestBody MercadoProdutoFilter filter) {
+	@GetMapping
+	public ResponseEntity<?> filtrar(MercadoProdutoFilter filter) {
 		try {
 			return ResponseEntity.ok(service.filtrar(filter));
 		} catch (Exception e) {
@@ -43,18 +44,17 @@ public class MercadoProdutoController {
 			return ResponseEntity.ok(service.salvarMercadoProduto(mercadoProduto));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
+			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause())));
 		}
 	}
-	
-	@GetMapping
-	public ResponseEntity<?> buscarMercadoProdutos(Principal principal) {
+
+	@PutMapping(value = "/{idMercadoProduto}")
+	public ResponseEntity<?> atualizarProduto(@PathVariable Integer idMercadoProduto, @RequestBody @Valid MercadoProduto mercadoProduto) {
 		try {
-			return ResponseEntity.ok(service.buscarMercadoProdutos(principal));
+			return ResponseEntity.ok(service.atualizarProduto(idMercadoProduto, mercadoProduto));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause().toString())));
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 }
-

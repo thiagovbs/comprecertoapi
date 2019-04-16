@@ -2,7 +2,8 @@ package br.com.comprecerto.api.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -19,10 +19,14 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="idMercadoProduto")
 public class MercadoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,14 +35,11 @@ public class MercadoProduto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idMercadoProduto;
 
-	private Date dtAlteracao;
-	private Date dtCriacao;
+	private LocalDateTime dtAlteracao;
+	private LocalDateTime dtCriacao;
 
-	@NotBlank
-	private Date dtEntrada;
-
-	@NotBlank
-	private Date dtValidade;
+	private LocalDate dtEntrada;
+	private LocalDate dtValidade;
 
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
@@ -49,7 +50,7 @@ public class MercadoProduto implements Serializable {
 	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
-	@Lob
+	@Type(type = "text")
 	private String observacao;
 
 	@NotNull
@@ -73,13 +74,13 @@ public class MercadoProduto implements Serializable {
 
 	@PrePersist
 	public void salvando() {
-		dtCriacao = dtAlteracao = new Date();
+		dtCriacao = dtAlteracao = LocalDateTime.now();
 		fAtivo = true;
 	}
 
 	@PreUpdate
 	public void atualizando() {
-		dtAlteracao = new Date();
+		dtAlteracao = LocalDateTime.now();
 	}
 
 	public Integer getIdMercadoProduto() {
@@ -90,35 +91,35 @@ public class MercadoProduto implements Serializable {
 		this.idMercadoProduto = idMercadoProduto;
 	}
 
-	public Date getDtAlteracao() {
+	public LocalDateTime getDtAlteracao() {
 		return this.dtAlteracao;
 	}
 
-	public void setDtAlteracao(Date dtAlteracao) {
+	public void setDtAlteracao(LocalDateTime dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public Date getDtCriacao() {
+	public LocalDateTime getDtCriacao() {
 		return this.dtCriacao;
 	}
 
-	public void setDtCriacao(Date dtCriacao) {
+	public void setDtCriacao(LocalDateTime dtCriacao) {
 		this.dtCriacao = dtCriacao;
 	}
 
-	public Date getDtEntrada() {
-		return this.dtEntrada;
+	public LocalDate getDtEntrada() {
+		return dtEntrada;
 	}
 
-	public void setDtEntrada(Date dtEntrada) {
+	public void setDtEntrada(LocalDate dtEntrada) {
 		this.dtEntrada = dtEntrada;
 	}
 
-	public Date getDtValidade() {
+	public LocalDate getDtValidade() {
 		return this.dtValidade;
 	}
 
-	public void setDtValidade(Date dtValidade) {
+	public void setDtValidade(LocalDate dtValidade) {
 		this.dtValidade = dtValidade;
 	}
 

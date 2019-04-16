@@ -16,14 +16,17 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercado", scope = Integer.class)
 public class Mercado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -64,7 +67,7 @@ public class Mercado implements Serializable {
 	@Length(max = 150)
 	private String razaoSocial;
 
-	@Lob
+	@Type(type="text")
 	private String slogan;
 
 	@NotBlank
@@ -76,7 +79,7 @@ public class Mercado implements Serializable {
 
 	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
 	@NotEmpty
-	@JsonManagedReference(value = "mercado_mercadoLocalidade")
+//	@JsonManagedReference(value = "mercado_mercadoLocalidade")
 	private List<MercadoLocalidade> mercadoLocalidades;
 
 	@OneToMany(mappedBy = "mercado")
