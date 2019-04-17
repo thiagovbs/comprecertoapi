@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.CidadeService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/cidades")
+@RequestMapping(value = "/rest/cidades")
 public class CidadeController {
 
 	@Autowired

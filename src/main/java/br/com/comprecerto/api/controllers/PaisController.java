@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.PaisService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/paises")
+@RequestMapping(value = "/rest/paises")
 public class PaisController {
 
 	@Autowired

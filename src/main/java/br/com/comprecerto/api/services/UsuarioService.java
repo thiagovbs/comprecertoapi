@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Usuario;
@@ -16,7 +17,7 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -37,7 +38,7 @@ public class UsuarioService {
 
 		Usuario userResp = usuarioRepository.saveAndFlush(usuario);
 		emailService.sendConfirmationEmail(usuario);
-		
+
 		return userResp;
 
 	}
@@ -60,8 +61,8 @@ public class UsuarioService {
 		usuarioRepository.delete(usuarioOp.get());
 	}
 
-	public Optional<Usuario> buscarPorLogin(String login) {
-		return usuarioRepository.findByLogin(login);
+	public Usuario buscarPorLogin(String login) {
+		return usuarioRepository.findByLogin(login).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
 }

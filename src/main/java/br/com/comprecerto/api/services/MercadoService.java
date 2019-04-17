@@ -29,7 +29,6 @@ import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
 import br.com.comprecerto.api.repositories.MercadoRepository;
 import br.com.comprecerto.api.repositories.PaisRepository;
-import br.com.comprecerto.api.repositories.UsuarioRepository;
 
 @Service
 public class MercadoService {
@@ -53,12 +52,11 @@ public class MercadoService {
 	private ServicoService servicoService;
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
+	private UsuarioService usuarioService;
 
 	@Autowired
 	private S3Service s3Service;
-	
+
 	@Autowired
 	private ImageService imgService;
 
@@ -186,27 +184,25 @@ public class MercadoService {
 	}
 
 	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
-		Optional<Usuario> usuario = usuarioRepository.findByLogin(principal.getName());
+		Usuario usuario = usuarioService.buscarPorLogin(principal.getName());
 
-		if (!usuario.isPresent())
-			throw new Exception("Usuário não encontrado!");
-
-		if (usuario.get().getMercado() == null)
+		if (usuario.getMercado() == null)
 			throw new Exception("Usuário não possui relacionamento com nenhum mercado!");
 
-		return buscarPorId(usuario.get().getMercado().getIdMercado());
+		return buscarPorId(usuario.getMercado().getIdMercado());
 	}
-	
-	public URI uploadMercadoPicture(MultipartFile multipartFile, Integer idmercado) {
-		
-		String prefix = "mercado"+ idmercado;
-		
+
+	public URI uploadMercadoPicture(MultipartFile multipartFile, Principal principal) {
+		Usuario usuario = usuarioService.buscarPorLogin(principal.getName());
+
+		String prefix = "mercado" + usuario.getMercado().getIdMercado();
+
 		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
-		
-		//pegar um prefixo de Cat + id da categoria referente + extensão
+
+		// pegar um prefixo de Cat + id da categoria referente + extensão
 		String filename = prefix + ".jpg";
-		
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename ,"image");
+
+		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
 	}
 
 }

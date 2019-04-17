@@ -28,7 +28,7 @@ import br.com.comprecerto.api.services.ProdutoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/produtos")
+@RequestMapping(value = "/rest/produtos")
 public class ProdutoController {
 
 	@Autowired

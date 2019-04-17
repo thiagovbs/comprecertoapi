@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.FaqService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/faqs")
+@RequestMapping(value = "/rest/faqs")
 public class FaqController {
 
 	@Autowired

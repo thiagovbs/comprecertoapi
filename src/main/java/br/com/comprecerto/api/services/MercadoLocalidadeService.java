@@ -16,7 +16,7 @@ public class MercadoLocalidadeService {
 
 	@Autowired
 	private MercadoLocalidadeRepository repository;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -30,16 +30,12 @@ public class MercadoLocalidadeService {
 	}
 
 	public List<MercadoLocalidade> buscarMercadoLocalidades(Principal principal) throws Exception {
-		Optional<Usuario> usuario = usuarioService.buscarPorLogin(principal.getName());
-		
-		if (!usuario.isPresent()) {
-			throw new Exception("Usuário não encontrado!");
-		}
-		
-		if (usuario.get().isAdmin()) {
+		Usuario usuario = usuarioService.buscarPorLogin(principal.getName());
+
+		if (usuario.isAdmin()) {
 			return repository.findAll();
 		}
-		
-		return repository.findByMercado(usuario.get().getMercado());
+
+		return repository.findByMercado(usuario.getMercado());
 	}
 }

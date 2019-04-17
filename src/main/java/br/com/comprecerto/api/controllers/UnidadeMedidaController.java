@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.UnidadeMedidaService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/unidadesMedida")
+@RequestMapping(value = "/rest/unidades-medida")
 public class UnidadeMedidaController {
 
 	@Autowired

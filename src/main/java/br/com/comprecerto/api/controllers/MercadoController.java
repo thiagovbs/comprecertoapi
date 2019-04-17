@@ -22,58 +22,89 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.services.MercadoService;
 
+/**
+ * Servicos para consumo do objeto 'Mercado'
+ * 
+ * @author braz
+ *
+ */
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/mercados")
+@RequestMapping(value = "/rest/mercados")
 public class MercadoController {
 
 	@Autowired
 	private MercadoService mercadoService;
-	
-	Mercado m = new Mercado();
 
+	/**
+	 * Listagem de mercados
+	 * 
+	 * @return Lista de mercados
+	 */
 	@GetMapping
 	public ResponseEntity<List<Mercado>> buscarMercados() {
 		return ResponseEntity.ok(mercadoService.buscarMercados());
 	}
 
+	/**
+	 * Consulta de mercado por Id
+	 * 
+	 * @param id Identificador do mercado necessario
+	 * @return Mercado solicitado
+	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Mercado> buscarPorId(@PathVariable Integer id) {
 		return ResponseEntity.ok(mercadoService.buscarPorId(id));
 	}
 
+	/**
+	 * Salvar um mercado
+	 * 
+	 * @param mercado Mercado a ser salvo
+	 * @return Mercado salvo
+	 */
 	@PostMapping
 	public ResponseEntity<Mercado> salvarMercado(@RequestBody @Valid Mercado mercado) {
-		
-		m = mercadoService.salvarMercado(mercado);
-		return ResponseEntity.ok(m);
+		return ResponseEntity.ok(mercadoService.salvarMercado(mercado));
 	}
 
+	/**
+	 * <br>
+	 * Atualização um mercado
+	 * 
+	 * @param id      Identificador do mercado a ser atualizado
+	 * @param mercado Mercado a ser atualizado
+	 * @return Mercado atualizado
+	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarMercado(@PathVariable Integer id, @RequestBody @Valid Mercado mercado) {
 		try {
-			
-			m = mercadoService.atualizarMercado(id, mercado);
-			
-			return ResponseEntity.ok(m);
+			return ResponseEntity.ok(mercadoService.atualizarMercado(id, mercado));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
+	/**
+	 * Inativação do mercado
+	 * 
+	 * @param id Identificador do mercado a ser inativado
+	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<String> desativarMercado(@PathVariable Integer id) {
+	public void desativarMercado(@PathVariable Integer id) {
 		try {
 			mercadoService.desativarMercado(id);
-
-			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
+	/**
+	 * Consulta de mercado por funcionario
+	 * 
+	 * @return Mercado do funcionario
+	 */
 	@GetMapping(value = "/funcionario")
 	public ResponseEntity<?> buscarPorFuncionario(Principal principal) {
 		try {
@@ -83,11 +114,16 @@ public class MercadoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	@PostMapping(value="/picture")
-	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
-		
-		URI uri = mercadoService.uploadMercadoPicture(file, m.getIdMercado());
+
+	/**
+	 * Upload da foto do mercado
+	 * 
+	 * @param file Foto a ser salva
+	 * @return URI da foto salva
+	 */
+	@PostMapping(value = "/picture")
+	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file, Principal principal) {
+		URI uri = mercadoService.uploadMercadoPicture(file, principal);
 		return ResponseEntity.created(uri).build();
 	}
 }

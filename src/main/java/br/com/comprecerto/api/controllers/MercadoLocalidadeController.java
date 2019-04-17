@@ -13,7 +13,7 @@ import br.com.comprecerto.api.services.MercadoLocalidadeService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/mercado-localidades")
+@RequestMapping(value = "/rest/mercado-localidades")
 public class MercadoLocalidadeController {
 
 	@Autowired

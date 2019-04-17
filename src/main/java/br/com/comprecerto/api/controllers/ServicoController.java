@@ -22,7 +22,7 @@ import br.com.comprecerto.api.services.ServicoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/servicos")
+@RequestMapping(value = "/rest/servicos")
 public class ServicoController {
 
 	@Autowired

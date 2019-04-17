@@ -22,7 +22,7 @@ import br.com.comprecerto.api.services.MercadoProdutoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/mercado-produtos")
+@RequestMapping(value = "/rest/mercado-produtos")
 public class MercadoProdutoController {
 
 	@Autowired

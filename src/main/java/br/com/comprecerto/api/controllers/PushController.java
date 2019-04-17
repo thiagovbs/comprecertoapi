@@ -13,7 +13,7 @@ import br.com.comprecerto.api.services.MercadoPushService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/push")
+@RequestMapping(value = "/rest/push")
 public class PushController {
 
 	@Autowired
