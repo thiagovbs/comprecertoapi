@@ -91,6 +91,8 @@ public class MercadoService {
 
 	public Mercado salvarMercado(@Valid Mercado mercado) {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
+			localidade.setMercado(mercado);
+
 			Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstadoAndPais(localidade.getBairro().getNome(), localidade.getBairro().getCidade().getNome(),
 					localidade.getBairro().getCidade().getEstado().getNome(), localidade.getBairro().getCidade().getEstado().getPais().getNome());
 			if (bairro != null) {
@@ -116,6 +118,7 @@ public class MercadoService {
 
 			salvaDependenciasMercado(localidade);
 		});
+
 		calculaSaldoMercadoServico(mercado);
 		return mercadoRepository.saveAndFlush(mercado);
 	}

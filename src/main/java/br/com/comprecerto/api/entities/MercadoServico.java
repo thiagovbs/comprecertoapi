@@ -49,7 +49,6 @@ public class MercadoServico implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade", nullable = true)
-	@JsonBackReference(value = "mercadoLocalidade_mercadoLocalidade")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
