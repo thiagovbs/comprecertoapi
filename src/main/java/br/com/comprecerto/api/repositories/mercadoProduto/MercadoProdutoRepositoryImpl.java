@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.comprecerto.api.DateUtil;
+import br.com.comprecerto.api.util.DateUtil;
 import br.com.comprecerto.api.dto.MercadoProdutoDTO;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.Bairro;
