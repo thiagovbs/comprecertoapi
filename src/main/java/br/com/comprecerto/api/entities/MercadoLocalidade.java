@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_localidade")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoLocalidade", scope = Integer.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoLocalidade", scope = MercadoLocalidade.class)
 public class MercadoLocalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,7 +54,6 @@ public class MercadoLocalidade implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado", nullable = true)
-//	@JsonBackReference(value = "mercado_mercadoLocalidade")
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")

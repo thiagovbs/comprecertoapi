@@ -1,5 +1,8 @@
 package br.com.comprecerto.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,13 +21,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_servico")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoServico", scope = MercadoServico.class)
 public class MercadoServico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_mercado_servico", unique = true, nullable = false)
 	private Integer idMercadoServico;
 
 	@Column(name = "dt_alteracao")
