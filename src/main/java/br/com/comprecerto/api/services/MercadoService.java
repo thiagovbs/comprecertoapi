@@ -196,17 +196,22 @@ public class MercadoService {
 		return buscarPorId(usuario.getMercado().getIdMercado());
 	}
 
-	public URI uploadMercadoPicture(MultipartFile multipartFile, Principal principal) {
+	public void uploadMercadoPicture(MultipartFile multipartFile, Principal principal) throws Exception {
 		Usuario usuario = usuarioService.buscarPorLogin(principal.getName());
+		Mercado mercado = usuario.getMercado();
 
-		String prefix = "mercado" + usuario.getMercado().getIdMercado();
+		String prefix = "mercado-" + mercado.getIdMercado();
 
 		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
 
 		// pegar um prefixo de Cat + id da categoria referente + extensão
 		String filename = prefix + ".jpg";
 
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
+		URI uri = s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
+
+		mercado.setImagemUrl(uri.toString());
+
+		atualizarMercado(mercado.getIdMercado(), mercado);
 	}
 
 }

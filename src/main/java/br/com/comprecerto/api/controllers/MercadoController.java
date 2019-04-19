@@ -116,14 +116,17 @@ public class MercadoController {
 	}
 
 	/**
-	 * Upload da foto do mercado
+	 * Upload da foto do mercado e atualização do mesmo
 	 * 
 	 * @param file Foto a ser salva
 	 * @return URI da foto salva
 	 */
-	@PostMapping(value = "/picture")
-	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file, Principal principal) {
-		URI uri = mercadoService.uploadMercadoPicture(file, principal);
-		return ResponseEntity.created(uri).build();
+	@PostMapping(value = "/upload-foto-mercado")
+	public void uploadProfilePicture(@PathVariable MultipartFile file, Principal principal) {
+		try {
+			mercadoService.uploadMercadoPicture(file, principal);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

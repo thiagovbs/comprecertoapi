@@ -42,7 +42,6 @@ public class S3Service {
 	}
 
 	public URI uploadFile(InputStream is, String fileName, String contentType) {
-
 		try {
 			ObjectMetadata meta = new ObjectMetadata();
 			meta.setContentType(contentType);
