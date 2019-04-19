@@ -4,17 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -74,8 +64,10 @@ public class Mercado implements Serializable {
 	@Length(max = 13)
 	private String telefone;
 
-	@NotBlank
 	private String imagemUrl;
+
+	@Transient
+	private String imageBase64;
 
 	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
 	@NotEmpty
@@ -208,6 +200,14 @@ public class Mercado implements Serializable {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
+	}
+
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(String imageBase64) {
+		this.imageBase64 = imageBase64;
 	}
 
 	public List<MercadoLocalidade> getMercadoLocalidades() {
