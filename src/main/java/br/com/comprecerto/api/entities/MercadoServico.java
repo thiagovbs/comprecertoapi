@@ -16,8 +16,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table(schema = "sheap", name = "mercado_servico")
 public class MercadoServico implements Serializable {

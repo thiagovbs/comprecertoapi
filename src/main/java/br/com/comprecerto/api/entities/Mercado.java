@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "mercado")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercado", scope = Integer.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercado", scope = Mercado.class)
 public class Mercado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
