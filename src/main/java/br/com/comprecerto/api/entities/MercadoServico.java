@@ -1,27 +1,15 @@
 package br.com.comprecerto.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 @Entity
 @Table(schema = "sheap", name = "mercado_servico")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoServico", scope = MercadoServico.class)
 public class MercadoServico implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -50,6 +38,7 @@ public class MercadoServico implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade", nullable = true)
+	@JsonBackReference("mercadoServico-mercadoLocalidade")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne

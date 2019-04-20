@@ -52,7 +52,7 @@ public class PacoteServico implements Serializable {
 	private BigDecimal desconto;
 
 	@OneToMany(mappedBy = "pacoteServico")
-	@JsonBackReference(value = "mercadoServicos")
+	@JsonBackReference("pacoteServico-mercadoServicos")
 	private List<MercadoServico> mercadoServicos;
 
 	@ManyToOne
