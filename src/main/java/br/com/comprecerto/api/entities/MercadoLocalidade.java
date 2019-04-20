@@ -1,34 +1,18 @@
 package br.com.comprecerto.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
 @Table(schema = "sheap", name = "mercado_localidade")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercadoLocalidade", scope = MercadoLocalidade.class)
 public class MercadoLocalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,9 +38,11 @@ public class MercadoLocalidade implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_mercado", nullable = true)
+	@JsonBackReference("mercadoLocalidade-mercado")
 	private Mercado mercado;
 
 	@OneToMany(mappedBy = "mercadoLocalidade")
+	@JsonBackReference("mercadoLocalidade-mercadoProdutos")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE })

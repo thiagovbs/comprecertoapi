@@ -16,6 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,7 +26,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(schema = "sheap", name = "produto")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto", scope = Integer.class)
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public class Produto implements Serializable {
 	private String imagemUrl;
 
 	@OneToMany(mappedBy = "produto")
-//	@JsonBackReference(value = "mercadoProduto_produto")
+	@JsonBackReference("produto-mercadoProdutos")
 	private List<MercadoProduto> mercadoProdutos;
 
 	@ManyToOne

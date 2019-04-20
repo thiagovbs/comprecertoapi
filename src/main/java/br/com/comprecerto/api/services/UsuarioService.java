@@ -35,12 +35,10 @@ public class UsuarioService {
 	}
 
 	public Usuario salvarUsuario(@Valid Usuario usuario) {
-
 		Usuario userResp = usuarioRepository.saveAndFlush(usuario);
-		emailService.sendConfirmationEmail(usuario);
+//		emailService.sendConfirmationEmail(usuario);
 
 		return userResp;
-
 	}
 
 	public Usuario atualizarUsuario(Integer id, @Valid Usuario usuario) throws Exception {

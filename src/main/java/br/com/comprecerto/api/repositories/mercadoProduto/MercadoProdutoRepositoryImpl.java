@@ -45,7 +45,6 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		cq.where(predicates.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList();
-//		return criaProjecao(produtos);
 	}
 
 	private void verificaFiltros(CriteriaBuilder cb, Root<MercadoProduto> mercadoProduto, List<Predicate> predicates, MercadoProdutoFilter mercadoProdutoFilter) {
