@@ -31,7 +31,8 @@ public class MercadoController {
 
 	/**
 	 * Listagem de mercados
-	 * 
+	 *
+	 * @param localidadeFilter Objeto de filtro para pesquisa de mercados
 	 * @return Lista de mercados
 	 */
 	@GetMapping
