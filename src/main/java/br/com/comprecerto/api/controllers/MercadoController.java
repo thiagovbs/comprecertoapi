@@ -1,26 +1,16 @@
 package br.com.comprecerto.api.controllers;
 
-import java.net.URI;
-import java.security.Principal;
-import java.util.List;
-
-import javax.validation.Valid;
-
+import br.com.comprecerto.api.dto.LocalidadeFilter;
+import br.com.comprecerto.api.entities.Mercado;
+import br.com.comprecerto.api.repositories.MercadoRepository;
+import br.com.comprecerto.api.services.MercadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.comprecerto.api.entities.Mercado;
-import br.com.comprecerto.api.services.MercadoService;
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 /**
  * Servicos para consumo do objeto 'Mercado'
@@ -36,14 +26,17 @@ public class MercadoController {
 	@Autowired
 	private MercadoService mercadoService;
 
+	@Autowired
+	private MercadoRepository mercadoRepository;
+
 	/**
 	 * Listagem de mercados
 	 * 
 	 * @return Lista de mercados
 	 */
 	@GetMapping
-	public ResponseEntity<List<Mercado>> buscarMercados() {
-		return ResponseEntity.ok(mercadoService.buscarMercados());
+	public ResponseEntity<List<Mercado>> buscarMercados(LocalidadeFilter localidadeFilter) {
+		return ResponseEntity.ok(mercadoRepository.buscarMercados(localidadeFilter));
 	}
 
 	/**
