@@ -9,7 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>api</name>
+    <name>sheap-api</name>
     <description>Api da aplicação Compre Certo</description>
 
     <parent>

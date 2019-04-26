@@ -109,42 +109,4 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
-		List<MercadoProdutoDTO> dtos = new ArrayList<>();
-
-		for (MercadoProduto mercadoProduto : mercadoProdutos) {
-			MercadoProdutoDTO dto = new MercadoProdutoDTO();
-			dto.setCaracteristicaProduto(mercadoProduto.getProduto().getCaracteristica());
-			dto.setIdCategoria(mercadoProduto.getProduto().getSubcategoria().getCategoria().getIdCategoria());
-			dto.setIdSubcategoria(mercadoProduto.getProduto().getSubcategoria().getIdSubcategoria());
-			dto.setIdProduto(mercadoProduto.getProduto().getIdProduto());
-			dto.setNomeProduto(mercadoProduto.getProduto().getNome());
-			dto.setMarcaProduto(mercadoProduto.getProduto().getMarca());
-			dto.setNomeCategoria(mercadoProduto.getProduto().getNome());
-			dto.setNomeSubcategoria(mercadoProduto.getProduto().getSubcategoria().getNome());
-			dto.setQuantidadeProduto(mercadoProduto.getProduto().getQuantidade());
-			dto.setUnidadeMedida(mercadoProduto.getProduto().getUnidadeMedida().getSigla());
-			dto.setDtValidadeMercadoProduto(DateUtil.converteLocalDateToDate(mercadoProduto.getDtValidade()));
-			dto.setPrecoMercadoProduto(mercadoProduto.getPreco());
-			dto.setIdMercado(mercadoProduto.getMercadoLocalidade().getMercado().getIdMercado());
-			dto.setNomeFantasiaMercado(mercadoProduto.getMercadoLocalidade().getMercado().getNomeFantasia());
-			dto.setRazaoSocialMercado(mercadoProduto.getMercadoLocalidade().getMercado().getRazaoSocial());
-			dto.setIdMercadoLocalidade(mercadoProduto.getMercadoLocalidade().getIdMercadoLocalidade());
-			dto.setIdBairro(mercadoProduto.getMercadoLocalidade().getBairro().getIdBairro());
-			dto.setNomeBairro(mercadoProduto.getMercadoLocalidade().getBairro().getNome());
-			dto.setIdCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getIdCidade());
-			dto.setNomeCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getNome());
-			dto.setIdEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getIdEstado());
-			dto.setNomeEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getNome());
-			dto.setIdPais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getIdPais());
-			dto.setNomePais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getNome());
-			dto.setObservacao(mercadoProduto.getObservacao());
-
-			dtos.add(dto);
-		}
-
-		return dtos;
-	}
-
 }
