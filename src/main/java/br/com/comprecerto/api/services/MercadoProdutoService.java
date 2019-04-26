@@ -111,4 +111,10 @@ public class MercadoProdutoService {
 
 		return dtos;
 	}
+
+	public List<MercadoProdutoDTO> filtrarDtoComValidade(MercadoProdutoFilter filter) {
+		filter.setComValidade(true);
+
+		return filtrarDto(filter);
+	}
 }
