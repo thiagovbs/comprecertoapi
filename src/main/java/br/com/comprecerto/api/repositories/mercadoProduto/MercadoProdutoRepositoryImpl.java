@@ -1,30 +1,14 @@
 package br.com.comprecerto.api.repositories.mercadoProduto;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.com.comprecerto.api.dto.MercadoProdutoFilter;
+import br.com.comprecerto.api.entities.*;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.springframework.stereotype.Repository;
-
-import br.com.comprecerto.api.util.DateUtil;
-import br.com.comprecerto.api.dto.MercadoProdutoDTO;
-import br.com.comprecerto.api.dto.MercadoProdutoFilter;
-import br.com.comprecerto.api.entities.Bairro;
-import br.com.comprecerto.api.entities.Categoria;
-import br.com.comprecerto.api.entities.Cidade;
-import br.com.comprecerto.api.entities.Estado;
-import br.com.comprecerto.api.entities.Mercado;
-import br.com.comprecerto.api.entities.MercadoLocalidade;
-import br.com.comprecerto.api.entities.MercadoProduto;
-import br.com.comprecerto.api.entities.Produto;
-import br.com.comprecerto.api.entities.Subcategoria;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQuery {
