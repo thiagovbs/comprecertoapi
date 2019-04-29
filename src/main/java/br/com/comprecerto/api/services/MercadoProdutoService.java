@@ -87,9 +87,9 @@ public class MercadoProdutoService {
 			dto.setIdProduto(mercadoProduto.getProduto().getIdProduto());
 			dto.setNomeProduto(mercadoProduto.getProduto().getNome());
 			dto.setMarcaProduto(mercadoProduto.getProduto().getMarca());
-			dto.setNomeCategoria(mercadoProduto.getProduto().getNome());
 			dto.setQuantidadeProduto(mercadoProduto.getProduto().getQuantidade());
 			dto.setIdCategoria(mercadoProduto.getProduto().getSubcategoria().getCategoria().getIdCategoria());
+			dto.setNomeCategoria(mercadoProduto.getProduto().getSubcategoria().getCategoria().getNome());
 			dto.setIdSubcategoria(mercadoProduto.getProduto().getSubcategoria().getIdSubcategoria());
 			dto.setNomeSubcategoria(mercadoProduto.getProduto().getSubcategoria().getNome());
 			dto.setUnidadeMedida(mercadoProduto.getProduto().getUnidadeMedida().getSigla());
