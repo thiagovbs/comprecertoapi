@@ -2,6 +2,9 @@ package br.com.comprecerto.api.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+import br.com.comprecerto.api.entities.MercadoServico;
 
 public class MercadoProdutoDTO {
 
@@ -33,6 +36,7 @@ public class MercadoProdutoDTO {
 	private Boolean fDestaqueMercadoProduto;
 	//	private BigDecimal desconto; TODO: Aonde está esse campo??
 	private Date dtValidadeMercadoProduto;
+	private List<MercadoServico> mercadoServicos;
 
 	public Integer getIdMercado() {
 		return idMercado;
@@ -249,4 +253,13 @@ public class MercadoProdutoDTO {
 	public void setDtValidadeMercadoProduto(Date dtValidadeMercadoProduto) {
 		this.dtValidadeMercadoProduto = dtValidadeMercadoProduto;
 	}
+
+	public List<MercadoServico> getMercadoServicos() {
+		return mercadoServicos;
+	}
+
+	public void setMercadoServicos(List<MercadoServico> mercadoServicos) {
+		this.mercadoServicos = mercadoServicos;
+	}
+	
 }

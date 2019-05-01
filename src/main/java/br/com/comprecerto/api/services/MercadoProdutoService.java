@@ -105,7 +105,7 @@ public class MercadoProdutoService {
 			dto.setNomeEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getNome());
 			dto.setIdPais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getIdPais());
 			dto.setNomePais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getNome());
-
+			dto.setMercadoServicos(mercadoProduto.getMercadoLocalidade().getMercadoServicos());
 			dtos.add(dto);
 		}
 
