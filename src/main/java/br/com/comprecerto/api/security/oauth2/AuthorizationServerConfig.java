@@ -29,7 +29,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("angular").secret("@ngul@r0").scopes("read", "write")
 				.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(14400)
-				.refreshTokenValiditySeconds(3600 * 24).and().withClient("ionic").secret("10n1c0")
+				.refreshTokenValiditySeconds(20).and().withClient("ionic").secret("10n1c0")
 				.scopes("read", "write").authorizedGrantTypes("password", "refresh_token");
 	}
 
