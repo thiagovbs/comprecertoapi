@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.PermissaoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/permissoes")
+@RequestMapping(value = "/rest/permissoes")
 public class PermissaoController {
 
 	@Autowired

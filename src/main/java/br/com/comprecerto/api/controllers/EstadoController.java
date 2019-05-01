@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.EstadoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/estados")
+@RequestMapping(value = "/rest/estados")
 public class EstadoController {
 
 	@Autowired

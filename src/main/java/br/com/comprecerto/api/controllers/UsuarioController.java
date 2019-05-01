@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.UsuarioService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/usuarios")
+@RequestMapping(value = "/rest/usuarios")
 public class UsuarioController {
 
 	@Autowired
@@ -39,12 +39,11 @@ public class UsuarioController {
 
 	@GetMapping(value = "/login/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) {
-		return ResponseEntity.ok(usuarioService.buscarPorLogin(login).orElseGet(() -> new Usuario()));
+		return ResponseEntity.ok(usuarioService.buscarPorLogin(login));
 	}
 
 	@PostMapping
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody @Valid Usuario usuario) {
-		
 		return ResponseEntity.ok(usuarioService.salvarUsuario(usuario));
 	}
 

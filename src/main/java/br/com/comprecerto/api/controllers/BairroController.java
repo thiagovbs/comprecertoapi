@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.BairroService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/bairros")
+@RequestMapping(value = "/rest/bairros")
 public class BairroController {
 
 	@Autowired

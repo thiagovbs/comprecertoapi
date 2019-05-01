@@ -1,32 +1,18 @@
 package br.com.comprecerto.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
 @Table(schema = "sheap", name = "mercado_produto")
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="idMercadoProduto")
 public class MercadoProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -59,6 +45,7 @@ public class MercadoProduto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade")
 	@NotNull
+	@JsonBackReference("mercadoProduto-mercadoLocalidade")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
@@ -67,6 +54,7 @@ public class MercadoProduto implements Serializable {
 	private Produto produto;
 
 	@OneToMany(mappedBy = "mercadoProduto")
+	@JsonBackReference("mercadoProduto-usuarioListas")
 	private List<UsuarioLista> usuarioListas;
 
 	public MercadoProduto() {
@@ -200,5 +188,4 @@ public class MercadoProduto implements Serializable {
 
 		return usuarioLista;
 	}
-
 }

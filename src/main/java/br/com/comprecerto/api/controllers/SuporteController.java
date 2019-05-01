@@ -11,7 +11,7 @@ import br.com.comprecerto.api.services.EmailService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/suporte")
+@RequestMapping(value = "/rest/suporte")
 public class SuporteController {
 
 	@Autowired

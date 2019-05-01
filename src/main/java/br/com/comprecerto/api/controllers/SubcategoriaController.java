@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.SubcategoriaService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/subcategorias")
+@RequestMapping(value = "/rest/subcategorias")
 public class SubcategoriaController {
 
 	@Autowired

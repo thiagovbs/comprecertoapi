@@ -21,7 +21,7 @@ import br.com.comprecerto.api.services.UsuarioListaService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/usuarioListas")
+@RequestMapping(value = "/rest/usuario-listas")
 public class UsuarioListaController {
 
 	@Autowired

@@ -22,7 +22,7 @@ import br.com.comprecerto.api.services.MercadoProdutoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/mercado-produtos")
+@RequestMapping(value = "/rest/mercado-produtos")
 public class MercadoProdutoController {
 
 	@Autowired
@@ -32,6 +32,26 @@ public class MercadoProdutoController {
 	public ResponseEntity<?> filtrar(MercadoProdutoFilter filter) {
 		try {
 			return ResponseEntity.ok(service.filtrar(filter));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/dto")
+	public ResponseEntity<?> filtrarDto(MercadoProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(service.filtrarDto(filter));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/dto/com-validade")
+	public ResponseEntity<?> filtrarDtoComValidade(MercadoProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(service.filtrarDtoComValidade(filter));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

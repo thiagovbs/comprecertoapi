@@ -25,7 +25,7 @@ import br.com.comprecerto.api.services.CategoriaService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/categorias")
+@RequestMapping(value = "/rest/categorias")
 public class CategoriaController {
 
 	@Autowired

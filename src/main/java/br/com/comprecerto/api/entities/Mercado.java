@@ -1,32 +1,18 @@
 package br.com.comprecerto.api.entities;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(schema = "sheap", name = "mercado")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idMercado", scope = Integer.class)
 public class Mercado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -74,15 +60,17 @@ public class Mercado implements Serializable {
 	@Length(max = 13)
 	private String telefone;
 
-	@NotBlank
 	private String imagemUrl;
+
+	@Transient
+	private String imageBase64;
 
 	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
 	@NotEmpty
-//	@JsonManagedReference(value = "mercado_mercadoLocalidade")
 	private List<MercadoLocalidade> mercadoLocalidades;
 
 	@OneToMany(mappedBy = "mercado")
+	@JsonBackReference("mercado-mercadoPushs")
 	private List<MercadoPush> mercadoPushs;
 
 	public Mercado() {
@@ -209,6 +197,14 @@ public class Mercado implements Serializable {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
+	}
+
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(String imageBase64) {
+		this.imageBase64 = imageBase64;
 	}
 
 	public List<MercadoLocalidade> getMercadoLocalidades() {

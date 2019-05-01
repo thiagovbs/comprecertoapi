@@ -1,4 +1,4 @@
-package br.com.comprecerto.api;
+package br.com.comprecerto.api.util;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
