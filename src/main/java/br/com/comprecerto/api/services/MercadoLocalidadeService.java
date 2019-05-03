@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
 import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.MercadoLocalidadeRepository;
+import br.com.comprecerto.api.repositories.mercadolocalidade.MercadoLocalidadeRepositoryQuery;
 
 @Service
 public class MercadoLocalidadeService {
 
 	@Autowired
 	private MercadoLocalidadeRepository repository;
+	
+	@Autowired
+	private MercadoLocalidadeRepositoryQuery repositoryQuery;
 
 	@Autowired
 	private UsuarioService usuarioService;
@@ -37,5 +41,9 @@ public class MercadoLocalidadeService {
 		}
 
 		return repository.findByMercado(usuario.getMercado());
+	}
+	
+	public List<MercadoLocalidade> buscarMercadoLocalidadePorBairro(Integer idBairro) throws Exception {
+		return repositoryQuery.buscarMercadosLocalidadePorBairro(idBairro);
 	}
 }
