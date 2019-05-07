@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.entities.Categoria;
+import br.com.comprecerto.api.repositories.CategoriaRepository;
 import br.com.comprecerto.api.services.CategoriaService;
 
 @CrossOrigin
@@ -30,6 +31,9 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	private Categoria cat = new Categoria();
 
@@ -77,5 +81,10 @@ public class CategoriaController {
 
 		URI uri = categoriaService.uploadCategoriaPicture(file, cat.getIdCategoria());
 		return ResponseEntity.created(uri).build();
+	}
+
+	@GetMapping(value = "/subcategoria/{idSubcategoria}")
+	public ResponseEntity<Categoria> buscarPorSubcategoria(@PathVariable Integer idSubcategoria) {
+		return ResponseEntity.ok(categoriaRepository.buscarPorSubcategoria(idSubcategoria));
 	}
 }
