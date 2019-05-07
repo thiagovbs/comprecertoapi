@@ -8,6 +8,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,4 +50,15 @@ public class MercadoLocalidadeController {
 		Example<MercadoLocalidade> mercadoExample = Example.of(mercadoLocalidade);
 		return ResponseEntity.ok(repository.findAll(mercadoExample));
 	}
+
+	@GetMapping(value = "/bairro/{idBairro}")
+	public ResponseEntity<?> filtrarPorBairro(@PathVariable Integer idBairro) {
+		try {
+			return ResponseEntity.ok(service.buscarMercadoLocalidadePorBairro(idBairro));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
 }
