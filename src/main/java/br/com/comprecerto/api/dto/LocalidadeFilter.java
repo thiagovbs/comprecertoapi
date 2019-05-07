@@ -2,9 +2,18 @@ package br.com.comprecerto.api.dto;
 
 public class LocalidadeFilter {
 
+	private Integer idMercadoLocalidade;
     private Integer idEstado;
     private Integer idCidade;
     private Integer idBairro;
+
+	public Integer getIdMercadoLocalidade() {
+		return idMercadoLocalidade;
+	}
+
+	public void setIdMercadoLocalidade(Integer idMercadoLocalidade) {
+		this.idMercadoLocalidade = idMercadoLocalidade;
+	}
 
     public Integer getIdEstado() {
         return idEstado;

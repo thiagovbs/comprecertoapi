@@ -76,6 +76,10 @@ public class Mercado implements Serializable {
 	public Mercado() {
 	}
 
+	public Mercado(Integer idMercado) {
+		this.idMercado = idMercado;
+	}
+
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = new Date();

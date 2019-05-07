@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class MercadoProdutoFilter extends ProdutosAppFilter {
 
 	private Integer idMercado;
-	private Integer idMercadoLocalidade;
 	private LocalDate dtAlteracao;
 	private LocalDate dtEntrada;
 	private Boolean comValidade;
@@ -16,14 +15,6 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 
 	public void setIdMercado(Integer idMercado) {
 		this.idMercado = idMercado;
-	}
-
-	public Integer getIdMercadoLocalidade() {
-		return idMercadoLocalidade;
-	}
-
-	public void setIdMercadoLocalidade(Integer idMercadoLocalidade) {
-		this.idMercadoLocalidade = idMercadoLocalidade;
 	}
 
 	public LocalDate getDtAlteracao() {
