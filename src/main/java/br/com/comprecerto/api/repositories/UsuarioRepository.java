@@ -11,6 +11,8 @@ import br.com.comprecerto.api.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	Optional<Usuario> findByLogin(String username);
+	
+	Optional<Usuario> findByEmail(String email);
 
 	Optional<Usuario> findByIdUsuario(Integer id);
 	

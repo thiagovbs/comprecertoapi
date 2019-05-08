@@ -62,5 +62,9 @@ public class UsuarioService {
 	public Usuario buscarPorLogin(String login) {
 		return usuarioRepository.findByLogin(login).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
+	
+	public Usuario buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email).orElseThrow(() -> new EmptyResultDataAccessException(1));
+	}
 
 }
