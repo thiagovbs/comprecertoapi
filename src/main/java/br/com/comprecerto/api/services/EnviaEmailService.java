@@ -76,7 +76,7 @@ public class EnviaEmailService {
                          .parse(usuario.getEmail());  
 
               message.setRecipients(Message.RecipientType.TO, toUser);
-              message.setSubject("Sheap - Contato via site");//Assunto
+              message.setSubject("Sheap - Recuperação de Senha");//Assunto
               message.setContent(texto, "text/html; charset=utf-8");
               
               /**Método para enviar a mensagem criada*/
