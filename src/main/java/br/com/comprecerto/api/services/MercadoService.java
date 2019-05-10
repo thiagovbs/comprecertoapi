@@ -123,6 +123,7 @@ public class MercadoService {
             calculaSaldoMercadoServico(mercado);
             Mercado mercadoSalvo = mercadoRepository.saveAndFlush(mercado);
             if (mercado.getImageBase64() != null && !mercado.getImageBase64().isEmpty()) {
+                mercadoSalvo.setImageBase64(mercado.getImageBase64());
                 mercadoSalvo = uploadMercadoPicture(mercadoSalvo);
             }
 
