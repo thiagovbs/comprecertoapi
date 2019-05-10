@@ -70,7 +70,7 @@ public class ImageService {
             is.close();
 
             String nomeArquivoImagem = filename + ".jpg";
-            File arquivoFoto = new ClassPathResource(nomeArquivoImagem).getFile();
+			File arquivoFoto = new File("src/main/resources/" + nomeArquivoImagem);
 
             ImageIO.write(image, "jpg", arquivoFoto);
 
