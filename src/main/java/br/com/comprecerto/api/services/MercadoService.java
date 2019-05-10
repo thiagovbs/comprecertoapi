@@ -122,7 +122,9 @@ public class MercadoService {
 
             calculaSaldoMercadoServico(mercado);
             Mercado mercadoSalvo = mercadoRepository.saveAndFlush(mercado);
-            uploadMercadoPicture(mercadoSalvo);
+            if (mercado.getImageBase64() != null && !mercado.getImageBase64().isEmpty()) {
+                mercadoSalvo = uploadMercadoPicture(mercadoSalvo);
+            }
 
             return mercadoSalvo;
         } catch (Exception e) {
@@ -204,12 +206,9 @@ public class MercadoService {
         return buscarPorId(usuario.getMercado().getIdMercado());
     }
 
-    public void uploadMercadoPicture(Mercado mercado) throws Exception {
-        String prefix = "mercado-" + mercado.getIdMercado();
-
-        String urlImagem = imgService.salvaImagemFromBase64(mercado.getImageBase64(), "mercado-" + mercado.getIdMercado());
-
-        mercado.setImagemUrl(urlImagem);
+    public Mercado uploadMercadoPicture(Mercado mercado) throws Exception {
+        mercado.setImagemUrl(imgService.salvaImagemFromBase64(mercado.getImageBase64(), "mercado-" + mercado.getIdMercado()));
+        return mercadoRepository.saveAndFlush(mercado);
     }
 
 }
