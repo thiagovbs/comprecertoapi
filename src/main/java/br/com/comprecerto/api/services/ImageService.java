@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,7 +70,7 @@ public class ImageService {
             is.close();
 
             String nomeArquivoImagem = filename + ".jpg";
-            File arquivoFoto = new File("src/main/resources/imagestemp/" + nomeArquivoImagem);
+            File arquivoFoto = new ClassPathResource("src/main/resources/imagestemp/" + nomeArquivoImagem).getFile();
 
             ImageIO.write(image, "jpg", arquivoFoto);
 
