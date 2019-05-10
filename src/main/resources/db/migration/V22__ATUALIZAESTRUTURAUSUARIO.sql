@@ -1,1 +1,1 @@
-alter table sheap.usuario alter column login type character varying(50) not null;
+alter table sheap.usuario alter column login type character varying(50);
