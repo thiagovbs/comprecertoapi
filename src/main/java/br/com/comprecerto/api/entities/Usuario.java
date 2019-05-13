@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true, nullable = false)
+	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String nome;
 
