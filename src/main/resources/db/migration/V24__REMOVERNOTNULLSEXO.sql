@@ -1,1 +1,1 @@
-alter table sheap.usuario alter column sexo character varying(1);
+alter table sheap.usuario alter column sexo DROP NOT NULL;
