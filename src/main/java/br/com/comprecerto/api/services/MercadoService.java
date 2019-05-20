@@ -2,25 +2,18 @@ package br.com.comprecerto.api.services;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import br.com.comprecerto.api.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.comprecerto.api.entities.Bairro;
-import br.com.comprecerto.api.entities.Cidade;
-import br.com.comprecerto.api.entities.Estado;
-import br.com.comprecerto.api.entities.Mercado;
-import br.com.comprecerto.api.entities.MercadoLocalidade;
-import br.com.comprecerto.api.entities.MercadoServico;
-import br.com.comprecerto.api.entities.PacoteServico;
-import br.com.comprecerto.api.entities.Pais;
-import br.com.comprecerto.api.entities.Servico;
-import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.BairroRepository;
 import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
@@ -126,6 +119,7 @@ public class MercadoService {
                 mercadoSalvo.setImageBase64(mercado.getImageBase64());
                 mercadoSalvo = uploadMercadoPicture(mercadoSalvo);
             }
+            verificarUsuarioMercado(mercado);
 
             return mercadoSalvo;
         } catch (Exception e) {
@@ -133,6 +127,27 @@ public class MercadoService {
         }
 
         return null;
+    }
+
+    private void verificarUsuarioMercado(Mercado mercado) {
+        Usuario usuario = usuarioService.buscarPorEmail(mercado.getEmail());
+        if (usuario == null && usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
+            usuario = new Usuario();
+            usuario.setLogin(mercado.getEmail());
+            usuario.setEmail(mercado.getEmail());
+            usuario.setSenha(mercado.getSenha());
+            usuario.setNome(mercado.getNomeFantasia());
+            usuario.setPermissoes(new HashSet<>(Arrays.asList(usuarioService.buscarPermissao("MERCADO_OPERADOR"))));
+        }
+
+        if (!usuario.getEmail().equals(mercado.getEmail())) {
+            usuario.setEmail(mercado.getEmail());
+        }
+        if (!usuario.getSenha().equals(mercado.getSenha())) {
+            usuario.setSenha(mercado.getSenha());
+        }
+
+        usuarioService.salvarUsuario(usuario);
     }
 
     private void calculaSaldoMercadoServico(Mercado mercado) {

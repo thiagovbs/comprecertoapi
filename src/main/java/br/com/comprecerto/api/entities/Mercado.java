@@ -33,6 +33,10 @@ public class Mercado implements Serializable {
 	@Length(max = 100)
 	private String email;
 
+	@NotBlank
+	@Length(max = 50)
+	private String senha;
+
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
@@ -129,6 +133,14 @@ public class Mercado implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Boolean getFAtivo() {

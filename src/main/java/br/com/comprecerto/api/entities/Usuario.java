@@ -72,7 +72,6 @@ public class Usuario implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
-	@NotNull
 	private Sexo sexo;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.comprecerto.api.entities.Permissao;
+import br.com.comprecerto.api.repositories.PermissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class UsuarioService {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private PermissaoRepository permissaoRepository;
 
 	public List<Usuario> buscarUsuarios() {
 		return usuarioRepository.findAll();
@@ -67,4 +72,7 @@ public class UsuarioService {
 		return usuarioRepository.findByEmail(email).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 
+	public Permissao buscarPermissao(String descricao) {
+		return permissaoRepository.findByDescricao(descricao);
+	}
 }
