@@ -51,6 +51,9 @@ public class MercadoService {
     @Autowired
     private ImageService imgService;
 
+    @Autowired
+    private MercadoProdutoService mercadoProdutoService;
+
     public List<Mercado> buscarMercados() {
         return mercadoRepository.findAll();
     }
@@ -130,13 +133,16 @@ public class MercadoService {
     }
 
     private void verificarUsuarioMercado(Mercado mercado) {
-        Usuario usuario = usuarioService.buscarPorEmail(mercado.getEmail());
-        if (usuario == null && usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
+        Optional<Usuario> usuarioOptional = usuarioService.buscarPorEmail(mercado.getEmail());
+        Usuario usuario = usuarioOptional.isPresent() ? usuarioOptional.get() : null;
+
+        if (usuario == null && !mercado.getSenha().isEmpty()) {
             usuario = new Usuario();
             usuario.setLogin(mercado.getEmail());
             usuario.setEmail(mercado.getEmail());
             usuario.setSenha(mercado.getSenha());
             usuario.setNome(mercado.getNomeFantasia());
+            usuario.setMercado(mercado);
             usuario.setPermissoes(new HashSet<>(Arrays.asList(usuarioService.buscarPermissao("MERCADO_OPERADOR"))));
         }
 
@@ -227,4 +233,21 @@ public class MercadoService {
         return mercadoRepository.saveAndFlush(mercado);
     }
 
+    @Transactional
+    public void desativarExcluirMercado(Integer id) throws Exception {
+        Optional<Mercado> mercado = mercadoRepository.findByIdMercado(id);
+
+        if (!mercado.isPresent())
+            throw new Exception("Mercado informado não existe!");
+
+        if (mercadoProdutoService.verificaPossuiProdutos(mercado.get())) {
+            desativarMercado(id);
+
+            usuarioService.desativaUsuarioPorEmailAndNome(mercado.get().getEmail(), mercado.get().getNomeFantasia());
+        } else {
+            mercadoRepository.delete(id);
+
+            usuarioService.excluirPorEmailAndName(mercado.get().getEmail(), mercado.get().getNomeFantasia());
+        }
+    }
 }

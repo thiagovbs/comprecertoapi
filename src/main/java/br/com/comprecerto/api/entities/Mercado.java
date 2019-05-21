@@ -69,7 +69,7 @@ public class Mercado implements Serializable {
 	@Transient
 	private String imageBase64;
 
-	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
 	@NotEmpty
 	private List<MercadoLocalidade> mercadoLocalidades;
 

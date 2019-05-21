@@ -22,4 +22,6 @@ public interface MercadoProdutoRepository extends JpaRepository<MercadoProduto, 
 
 	Optional<MercadoProduto> findByIdMercadoProduto(Integer idMercadoProduto);
 
+	@Query("select count(*) from MercadoProduto mp where mp.mercadoLocalidade.mercado = ?1")
+    Long countByMercado(Mercado mercado);
 }

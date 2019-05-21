@@ -86,9 +86,9 @@ public class MercadoController {
 	 * @param id Identificador do mercado a ser inativado
 	 */
 	@DeleteMapping(value = "/{id}")
-	public void desativarMercado(@PathVariable Integer id) {
+	public void desativarExcluirMercado(@PathVariable Integer id) {
 		try {
-			mercadoService.desativarMercado(id);
+			mercadoService.desativarExcluirMercado(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

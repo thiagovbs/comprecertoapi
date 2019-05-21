@@ -74,7 +74,7 @@ public class Usuario implements Serializable {
 	@Column(length = 1)
 	private Sexo sexo;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
 	@JoinTable(schema = "sheap", name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	@NotEmpty
 	private Set<Permissao> permissoes;

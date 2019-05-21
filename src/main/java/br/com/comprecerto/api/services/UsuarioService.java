@@ -68,11 +68,24 @@ public class UsuarioService {
 		return usuarioRepository.findByLogin(login).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
 	
-	public Usuario buscarPorEmail(String email) {
-		return usuarioRepository.findByEmail(email).orElseThrow(() -> new EmptyResultDataAccessException(1));
+	public Optional<Usuario> buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);
 	}
 
 	public Permissao buscarPermissao(String descricao) {
 		return permissaoRepository.findByDescricao(descricao);
+	}
+
+	public void excluirPorEmailAndName(String email, String nomeFantasia) {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmailAndNome(email, nomeFantasia);
+
+		if (usuarioOptional.isPresent()) {
+			usuarioRepository.deleteRelacionamento(usuarioOptional.get().getIdUsuario());
+			usuarioRepository.delete(usuarioOptional.get().getIdUsuario());
+		}
+	}
+
+	public void desativaUsuarioPorEmailAndNome(String email, String nomeFantasia) {
+		usuarioRepository.desativaUsuarioPorEmailAndNome(email, nomeFantasia);
 	}
 }

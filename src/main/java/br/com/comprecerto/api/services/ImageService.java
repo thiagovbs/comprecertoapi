@@ -10,10 +10,12 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.comprecerto.api.exceptions.FileException;
@@ -69,12 +71,15 @@ public class ImageService {
             image = ImageIO.read(is);
             is.close();
 
-            String nomeArquivoImagem = filename + ".jpg";
-			File arquivoFoto = new File("src/main/resources/" + nomeArquivoImagem);
+            String nomeArquivoImagem = filename + ".png";
+            FileUtils.touch(new File("src/main/resources/" + nomeArquivoImagem));
+            File arquivoFoto = new File("src/main/resources/" + nomeArquivoImagem);
 
-            ImageIO.write(image, "jpg", arquivoFoto);
 
-            URI uri = s3Service.uploadFile(new FileInputStream(arquivoFoto), nomeArquivoImagem, "jpg");
+
+            ImageIO.write(image, "png", arquivoFoto);
+
+            URI uri = s3Service.uploadFile(new FileInputStream(arquivoFoto), nomeArquivoImagem, "png");
 
             deletaArquivoTemp(arquivoFoto);
 

@@ -41,11 +41,11 @@ public class MercadoLocalidade implements Serializable {
 	@JsonBackReference("mercadoLocalidade-mercado")
 	private Mercado mercado;
 
-	@OneToMany(mappedBy = "mercadoLocalidade")
+	@OneToMany(mappedBy = "mercadoLocalidade", cascade =  { CascadeType.REMOVE})
 	@JsonBackReference("mercadoLocalidade-mercadoProdutos")
 	private List<MercadoProduto> mercadoProdutos;
 
-	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@NotEmpty
 	private List<MercadoServico> mercadoServicos;
 
