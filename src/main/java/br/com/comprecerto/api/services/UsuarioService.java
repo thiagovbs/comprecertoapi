@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.services;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,4 +89,13 @@ public class UsuarioService {
 	public void desativaUsuarioPorEmailAndNome(String email, String nomeFantasia) {
 		usuarioRepository.desativaUsuarioPorEmailAndNome(email, nomeFantasia);
 	}
+
+    public boolean isAdmin(Principal principal) throws Exception {
+		Optional<Usuario> usuarioLogado = usuarioRepository.findByLogin(principal.getName());
+
+		if (!usuarioLogado.isPresent())
+			throw new Exception("Usuário não encontrado!");
+
+		return usuarioLogado.get().isAdmin();
+    }
 }

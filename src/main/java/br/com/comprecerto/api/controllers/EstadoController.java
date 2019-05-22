@@ -1,8 +1,10 @@
 package br.com.comprecerto.api.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +30,13 @@ public class EstadoController {
 	private EstadoService estadoService;
 
 	@GetMapping
-	public ResponseEntity<List<Estado>> buscarEstados() {
-		return ResponseEntity.ok(estadoService.buscarEstados());
+	public ResponseEntity<?> buscarEstados(Principal principal) {
+		try {
+			return ResponseEntity.ok(estadoService.buscarEstados(principal));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@GetMapping(value = "/{id}")
