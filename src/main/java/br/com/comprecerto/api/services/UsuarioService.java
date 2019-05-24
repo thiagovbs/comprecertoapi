@@ -1,10 +1,13 @@
 package br.com.comprecerto.api.services;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import br.com.comprecerto.api.entities.Permissao;
+import br.com.comprecerto.api.repositories.PermissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ public class UsuarioService {
 
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private PermissaoRepository permissaoRepository;
 
 	public List<Usuario> buscarUsuarios() {
 		return usuarioRepository.findAll();
@@ -62,5 +68,34 @@ public class UsuarioService {
 	public Usuario buscarPorLogin(String login) {
 		return usuarioRepository.findByLogin(login).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
+	
+	public Optional<Usuario> buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
 
+	public Permissao buscarPermissao(String descricao) {
+		return permissaoRepository.findByDescricao(descricao);
+	}
+
+	public void excluirPorEmailAndName(String email, String nomeFantasia) {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmailAndNome(email, nomeFantasia);
+
+		if (usuarioOptional.isPresent()) {
+			usuarioRepository.deleteRelacionamento(usuarioOptional.get().getIdUsuario());
+			usuarioRepository.delete(usuarioOptional.get().getIdUsuario());
+		}
+	}
+
+	public void desativaUsuarioPorEmailAndNome(String email, String nomeFantasia) {
+		usuarioRepository.desativaUsuarioPorEmailAndNome(email, nomeFantasia);
+	}
+
+    public boolean isAdmin(Principal principal) throws Exception {
+		Optional<Usuario> usuarioLogado = usuarioRepository.findByLogin(principal.getName());
+
+		if (!usuarioLogado.isPresent())
+			throw new Exception("Usuário não encontrado!");
+
+		return usuarioLogado.get().isAdmin();
+    }
 }

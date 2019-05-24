@@ -1,10 +1,12 @@
 package br.com.comprecerto.api.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +42,17 @@ public class UsuarioController {
 	@GetMapping(value = "/login/{login}")
 	public ResponseEntity<Usuario> buscarPorLogin(@PathVariable String login) {
 		return ResponseEntity.ok(usuarioService.buscarPorLogin(login));
+	}
+	
+	@PostMapping(value = "/login")
+	public ResponseEntity<?> buscarPorEmail(@RequestBody @Valid String email) {
+		Optional<Usuario> usuarioOptional = usuarioService.buscarPorEmail(email);
+
+		if (usuarioOptional.isPresent()) {
+			return ResponseEntity.ok(usuarioOptional.get());
+		}
+
+		return ResponseEntity.badRequest().body(new EmptyResultDataAccessException(1).toString());
 	}
 
 	@PostMapping

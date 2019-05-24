@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
-	@Column(length = 100, unique = true, nullable = false)
+	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String nome;
 
@@ -72,10 +72,9 @@ public class Usuario implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
-	@NotNull
 	private Sexo sexo;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
 	@JoinTable(schema = "sheap", name = "usuario_permissao", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_permissao"))
 	@NotEmpty
 	private Set<Permissao> permissoes;

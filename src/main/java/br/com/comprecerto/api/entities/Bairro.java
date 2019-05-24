@@ -55,6 +55,10 @@ public class Bairro implements Serializable {
 	public Bairro() {
 	}
 
+	public Bairro(Integer idBairro) {
+		this.idBairro = idBairro;
+	}
+
 	@PrePersist
 	public void salvando() {
 		dtCriacao = dtAlteracao = new Date();

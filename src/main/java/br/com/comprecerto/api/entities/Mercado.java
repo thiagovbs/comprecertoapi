@@ -33,6 +33,10 @@ public class Mercado implements Serializable {
 	@Length(max = 100)
 	private String email;
 
+	@NotBlank
+	@Length(max = 50)
+	private String senha;
+
 	@Column(name = "f_ativo", columnDefinition = "BOOLEAN")
 	private Boolean fAtivo;
 
@@ -65,7 +69,7 @@ public class Mercado implements Serializable {
 	@Transient
 	private String imageBase64;
 
-	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+	@OneToMany(mappedBy = "mercado", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
 	@NotEmpty
 	private List<MercadoLocalidade> mercadoLocalidades;
 
@@ -74,6 +78,10 @@ public class Mercado implements Serializable {
 	private List<MercadoPush> mercadoPushs;
 
 	public Mercado() {
+	}
+
+	public Mercado(Integer idMercado) {
+		this.idMercado = idMercado;
 	}
 
 	@PrePersist
@@ -125,6 +133,14 @@ public class Mercado implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Boolean getFAtivo() {

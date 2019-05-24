@@ -12,4 +12,5 @@ public interface PermissaoRepository extends JpaRepository<Permissao, Integer> {
 
 	Optional<Permissao> findByIdPermissao(Integer id);
 
+    Permissao findByDescricao(String descricao);
 }

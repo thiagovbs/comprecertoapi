@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.comprecerto.api.dto.MercadoProdutoDTO;
+import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,5 +117,14 @@ public class MercadoProdutoService {
 		filter.setComValidade(true);
 
 		return filtrarDto(filter);
+	}
+
+	public boolean verificaPossuiProdutos(Mercado mercado) {
+		Long count = repository.countByMercado(mercado);
+		if (count > 0) {
+			return true;
+		}
+
+		return false;
 	}
 }
