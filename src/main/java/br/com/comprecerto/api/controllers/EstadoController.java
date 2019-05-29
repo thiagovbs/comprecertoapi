@@ -30,9 +30,9 @@ public class EstadoController {
 	private EstadoService estadoService;
 
 	@GetMapping
-	public ResponseEntity<?> buscarEstados(Principal principal) {
+	public ResponseEntity<?> buscarEstados() {
 		try {
-			return ResponseEntity.ok(estadoService.buscarEstados(principal));
+			return ResponseEntity.ok(estadoService.buscarEstados());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -65,6 +65,16 @@ public class EstadoController {
 			estadoService.deletarEstado(id);
 
 			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/mercado/{idMercado}")
+	public ResponseEntity<?> buscarEstados(@PathVariable Integer idMercado) {
+		try {
+			return ResponseEntity.ok(estadoService.buscarEstadosPorMercado(idMercado));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

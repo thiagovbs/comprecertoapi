@@ -1,6 +1,5 @@
 package br.com.comprecerto.api.services;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +16,6 @@ public class EstadoService {
 
 	@Autowired
 	private EstadoRepository estadoRepository;
-
-	@Autowired
-	private UsuarioService usuarioService;
 
 	public List<Estado> buscarEstados() {
 		return estadoRepository.findAll();
@@ -56,11 +52,7 @@ public class EstadoService {
 		estadoRepository.delete(estadoOp.get());
 	}
 
-    public List<Estado> buscarEstados(Principal principal) throws Exception {
-		if (usuarioService.isAdmin(principal)) {
-			return buscarEstados();
-		}
-
-		return estadoRepository.findByMercado(usuarioService.buscarPorLogin(principal.getName()).getMercado().getIdMercado());
-    }
+	public List<Estado> buscarEstadosPorMercado(Integer idMercado) throws Exception {
+		return estadoRepository.findByMercado(idMercado);
+	}
 }

@@ -42,7 +42,7 @@ public class UsuarioService {
 
 	public Usuario salvarUsuario(@Valid Usuario usuario) {
 		Usuario userResp = usuarioRepository.saveAndFlush(usuario);
-//		emailService.sendConfirmationEmail(usuario);
+		// emailService.sendConfirmationEmail(usuario);
 
 		return userResp;
 	}
@@ -68,7 +68,7 @@ public class UsuarioService {
 	public Usuario buscarPorLogin(String login) {
 		return usuarioRepository.findByLogin(login).orElseThrow(() -> new EmptyResultDataAccessException(1));
 	}
-	
+
 	public Optional<Usuario> buscarPorEmail(String email) {
 		return usuarioRepository.findByEmail(email);
 	}
@@ -90,12 +90,12 @@ public class UsuarioService {
 		usuarioRepository.desativaUsuarioPorEmailAndNome(email, nomeFantasia);
 	}
 
-    public boolean isAdmin(Principal principal) throws Exception {
+	public boolean isAdmin(Principal principal) throws Exception {
 		Optional<Usuario> usuarioLogado = usuarioRepository.findByLogin(principal.getName());
 
 		if (!usuarioLogado.isPresent())
 			throw new Exception("Usuário não encontrado!");
 
 		return usuarioLogado.get().isAdmin();
-    }
+	}
 }
