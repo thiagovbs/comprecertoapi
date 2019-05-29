@@ -45,6 +45,7 @@ public class MercadoProduto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_mercado_localidade")
 	@NotNull
+	@JsonBackReference("mercadoProduto-mercadoLocalidade")
 	private MercadoLocalidade mercadoLocalidade;
 
 	@ManyToOne
