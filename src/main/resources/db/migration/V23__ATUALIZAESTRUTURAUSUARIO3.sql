@@ -1,1 +1,1 @@
-alter table sheap.usuario drop constraint usuario_nome_key;
+--alter table sheap.usuario drop constraint usuario_nome_key;
