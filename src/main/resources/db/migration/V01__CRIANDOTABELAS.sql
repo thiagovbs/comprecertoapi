@@ -8,7 +8,7 @@ CREATE TABLE sheap.bairro (
 );
 
 CREATE SEQUENCE sheap.bairro_id_bairro_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -26,7 +26,7 @@ CREATE TABLE sheap.categoria (
 );
 
 CREATE SEQUENCE sheap.categoria_id_categoria_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -50,7 +50,7 @@ CREATE TABLE sheap.cidade (
 );
 
 CREATE SEQUENCE sheap.cidade_id_cidade_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -70,7 +70,7 @@ CREATE TABLE sheap.estado (
 );
 
 CREATE SEQUENCE sheap.estado_id_estado_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -90,7 +90,7 @@ CREATE TABLE sheap.faq (
 );
 
 CREATE SEQUENCE sheap.faq_id_faq_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -117,7 +117,7 @@ CREATE TABLE sheap.mercado (
 );
 
 CREATE SEQUENCE sheap.mercado_id_mercado_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -137,7 +137,7 @@ CREATE TABLE sheap.mercado_localidade (
 );
 
 CREATE SEQUENCE sheap.mercado_localidade_id_mercado_localidade_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -162,7 +162,7 @@ CREATE TABLE sheap.mercado_produto (
 );
 
 CREATE SEQUENCE sheap.mercado_produto_id_mercado_produto_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -188,7 +188,7 @@ CREATE TABLE sheap.mercado_push (
 );
 
 CREATE SEQUENCE sheap.mercado_push_id_mercado_push_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -210,7 +210,7 @@ CREATE TABLE sheap.mercado_servico (
 );
 
 CREATE SEQUENCE sheap.mercado_servico_id_mercado_servico_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -232,7 +232,7 @@ CREATE TABLE sheap.pacote_servico (
 );
 
 CREATE SEQUENCE sheap.pacote_servico_id_pacote_servico_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -251,7 +251,7 @@ CREATE TABLE sheap.pais (
 );
 
 CREATE SEQUENCE sheap.pais_id_pais_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -266,7 +266,7 @@ CREATE TABLE sheap.permissao (
 );
 
 CREATE SEQUENCE sheap.permissao_id_usuario_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -288,7 +288,7 @@ CREATE TABLE sheap.produto (
 );
 
 CREATE SEQUENCE sheap.produto_id_produto_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -306,7 +306,7 @@ CREATE TABLE sheap.servico (
 );
 
 CREATE SEQUENCE sheap.servico_id_servico_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -325,7 +325,7 @@ CREATE TABLE sheap.subcategoria (
 );
 
 CREATE SEQUENCE sheap.subcategoria_id_subcategoria_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -344,7 +344,7 @@ CREATE TABLE sheap.unidade_medida (
 );
 
 CREATE SEQUENCE sheap.unidade_medida_id_unidade_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -368,7 +368,7 @@ CREATE TABLE sheap.usuario (
 );
 
 CREATE SEQUENCE sheap.usuario_id_usuario_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -387,7 +387,7 @@ CREATE TABLE sheap.usuario_lista (
 );
 
 CREATE SEQUENCE sheap.usuario_lista_id_usuario_lista_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -404,7 +404,7 @@ CREATE TABLE sheap.usuario_mercado_push (
 );
 
 CREATE SEQUENCE sheap.usuario_mercado_push_id_usuario_mercado_push_seq
-    AS integer
+    
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
