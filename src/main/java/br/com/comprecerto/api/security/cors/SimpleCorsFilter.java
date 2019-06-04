@@ -38,6 +38,7 @@ public class SimpleCorsFilter implements Filter {
 //		        || request.getHeader("Origin").contains(":4200")
 //		        || request.getHeader("Origin").contains(":8085")
 //		        || request.getHeader("Origin").equals("http://localhost:4200")) {
+		 if(true) {
 			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 
 			response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -55,7 +56,7 @@ public class SimpleCorsFilter implements Filter {
 //			chain.doFilter(req, resp);
 		}
 
-	//}
+	}
 
 	@Override
 	public void destroy() {
