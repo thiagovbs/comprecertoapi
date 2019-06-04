@@ -26,19 +26,19 @@ public class SimpleCorsFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 
-//		if (request.getHeader("Origin") == null 
-//				|| request.getHeader("Origin").equals("https://localhost:4200")
-//				|| request.getHeader("Origin").equals("http://localhost:8100")
-//				|| request.getHeader("Origin").equals("http://localhost:8080")
-//		        || request.getHeader("Origin").equals("http://api.sheap.com.br")
-//		        || request.getHeader("Origin").equals("http://app.sheap.com.br")
-//		        || request.getHeader("Origin").equals("https://sheapweb.herokuapp.com")
-//		        || request.getHeader("Origin").equals("https://sheap.herokuapp.com")
-//		        || request.getHeader("Origin").equals("http://localhost:5000")
-//		        || request.getHeader("Origin").contains(":4200")
-//		        || request.getHeader("Origin").contains(":8085")
-//		        || request.getHeader("Origin").equals("http://localhost:4200")) {
-		 if(true) {
+		if (request.getHeader("Origin") == null 
+				|| request.getHeader("Origin").equals("https://localhost:4200")
+				|| request.getHeader("Origin").equals("http://localhost:8100")
+				|| request.getHeader("Origin").equals("http://localhost:8080")
+		        || request.getHeader("Origin").equals("http://api.sheap.com.br")
+		        || request.getHeader("Origin").equals("http://app.sheap.com.br")
+		        || request.getHeader("Origin").equals("https://sheapweb.herokuapp.com")
+		        || request.getHeader("Origin").equals("https://sheap.herokuapp.com")
+		        || request.getHeader("Origin").equals("http://localhost:5000")
+		        || request.getHeader("Origin").contains(":4200")
+		        || request.getHeader("Origin").contains(":8085")
+		        || request.getHeader("Origin").equals("http://localhost:4200")) {
+			
 			response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 
 			response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -52,8 +52,8 @@ public class SimpleCorsFilter implements Filter {
 			} else {
 				chain.doFilter(req, resp);
 			}
-//		} else {
-//			chain.doFilter(req, resp);
+		} else {
+			chain.doFilter(req, resp);
 		}
 
 	}
