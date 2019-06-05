@@ -1,0 +1,1 @@
+ALTER TABLE sheap.permissao RENAME COLUMN id_usuario TO id_permissao;

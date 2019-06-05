@@ -18,8 +18,8 @@ public class Permissao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="id_usuario", unique = true, nullable = false)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="id_permissao", unique = true, nullable = false)
 	private Integer idPermissao;
 
 	@Column(length = 30, nullable = false)
