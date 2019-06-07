@@ -52,9 +52,16 @@ public class ProdutoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) {
-		prod = produtoService.salvarProduto(produto);
-		return ResponseEntity.ok(prod);
+	public ResponseEntity<?> salvarProduto(@RequestBody @Valid Produto produto) {
+		try {
+			prod = produtoService.salvarProduto(produto);
+			return ResponseEntity.ok(prod);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
 	}
 
 	@PutMapping(value = "/{id}")
@@ -121,10 +128,5 @@ public class ProdutoController {
 		}
 	}
 
-	@PostMapping(value = "/picture")
-	public ResponseEntity<?> uploadProfilePicture(@PathVariable MultipartFile file) {
-
-		URI uri = produtoService.uploadProdutoPicture(file, prod.getIdProduto());
-		return ResponseEntity.created(uri).build();
-	}
+	
 }

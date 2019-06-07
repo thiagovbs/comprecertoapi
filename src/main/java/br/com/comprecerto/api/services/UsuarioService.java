@@ -79,9 +79,9 @@ public class UsuarioService {
 
 	public void excluirPorEmailAndName(String email, String nomeFantasia) {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findByEmailAndNome(email, nomeFantasia);
-
-		if (usuarioOptional.isPresent()) {
-			usuarioRepository.deleteRelacionamento(usuarioOptional.get().getIdUsuario());
+		usuarioOptional.get().getIdUsuario();
+		if (usuarioOptional.isPresent()) {			
+			usuarioRepository.deleteRelacionamento(usuarioOptional.get().getIdUsuario());			
 			usuarioRepository.delete(usuarioOptional.get().getIdUsuario());
 		}
 	}

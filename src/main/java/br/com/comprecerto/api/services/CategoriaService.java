@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.repositories.CategoriaRepository;
 import br.com.comprecerto.api.repositories.MercadoPushRepository;
+import br.com.comprecerto.api.repositories.ProdutoRepository;
 import br.com.comprecerto.api.repositories.SubcategoriaRepository;
 
 @Service
@@ -34,6 +35,9 @@ public class CategoriaService {
 
 	@Autowired
 	private SubcategoriaRepository subcategoriaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	public List<Categoria> buscarCategorias() {
 		return categoriaRepository.findAll();
@@ -63,7 +67,7 @@ public class CategoriaService {
 
 	public void deletarCategoria(Integer id) throws Exception {
 		Categoria categoria = buscarPorId(id);
-		if (mercadoPushRepository.findByCategoria(categoria).size() > 0 || subcategoriaRepository.findByCategoria(categoria).size() > 0) {
+		if (mercadoPushRepository.findByCategoria(categoria).size() > 0 || produtoRepository.buscarProdutosPorCategoria(id).size() > 0) {
 			throw new Exception("Categoria em uso. Não pode ser excluída!");
 		}
 

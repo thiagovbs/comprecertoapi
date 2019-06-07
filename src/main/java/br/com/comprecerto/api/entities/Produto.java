@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -52,7 +53,7 @@ public class Produto implements Serializable {
 	@NotNull
 	private Integer quantidade;
 
-	@NotBlank
+	
 	private String imagemUrl;
 
 	@OneToMany(mappedBy = "produto")
@@ -68,6 +69,9 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "id_unidade_medida", nullable = false)
 	@NotNull
 	private UnidadeMedida unidadeMedida;
+	
+	@Transient
+	private String imageBase64;
 
 	public Produto() {
 	}
@@ -144,6 +148,14 @@ public class Produto implements Serializable {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
+	}
+	
+	public String getImageBase64() {
+		return imageBase64;
+	}
+
+	public void setImageBase64(String imageBase64) {
+		this.imageBase64 = imageBase64;
 	}
 
 	public List<MercadoProduto> getMercadoProdutos() {

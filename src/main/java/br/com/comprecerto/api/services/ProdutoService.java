@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.comprecerto.api.dto.ProdutoFilter;
 import br.com.comprecerto.api.dto.ProdutosAppDTO;
 import br.com.comprecerto.api.dto.ProdutosAppFilter;
+import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.Produto;
 import br.com.comprecerto.api.entities.Subcategoria;
 import br.com.comprecerto.api.repositories.MercadoProdutoRepository;
@@ -37,7 +38,7 @@ public class ProdutoService {
 
 	@Autowired
 	private ImageService imgService;
-	
+
 	@Autowired
 	private MercadoProdutoRepository mercadoProdutoRepository;
 
@@ -54,8 +55,15 @@ public class ProdutoService {
 		return produto.get();
 	}
 
-	public Produto salvarProduto(@Valid Produto produto) {
-		return produtoRepository.saveAndFlush(produto);
+	public Produto salvarProduto(@Valid Produto produto) throws Exception {
+
+		Produto produtoSalvo = produtoRepository.saveAndFlush(produto);
+		if (produtoSalvo.getImageBase64() != null && !produtoSalvo.getImageBase64().isEmpty()) {
+			produtoSalvo.setImageBase64(produto.getImageBase64());
+			produtoSalvo = uploadProdutoPicture(produtoSalvo);
+		}
+
+		return produtoSalvo;
 	}
 
 	public Produto atualizarProduto(Integer id, @Valid Produto produto) throws Exception {
@@ -72,7 +80,7 @@ public class ProdutoService {
 
 		if (!produtoOp.isPresent())
 			throw new Exception("O produto informado não existe!");
-		
+
 		if (mercadoProdutoRepository.findByProduto(produtoOp.get()).size() > 0) {
 			throw new Exception("O produto é utilizado em algum mercado! Não pode ser excluído");
 		}
@@ -97,18 +105,15 @@ public class ProdutoService {
 		return produtoRepository.buscarMarcasPorSubcategoria(subcategoria.get());
 	}
 
-	public URI uploadProdutoPicture(MultipartFile multipartFile, Integer idproduto) {
+	public Produto uploadProdutoPicture(Produto produto) throws Exception {
+		produto.setImagemUrl(
+				imgService.salvaImagemFromBase64(produto.getImageBase64(), "produto-" + produto.getIdProduto()));
+		return produtoRepository.saveAndFlush(produto);
 
-		String prefix = "prod" + idproduto;
-
-		BufferedImage jpgImage = imgService.getJpgImageFromFile(multipartFile);
-
-		String filename = prefix + ".jpg";
-
-		return s3Service.uploadFile(imgService.getInputStream(jpgImage, "jpg"), filename, "image");
 	}
 
-	public List<Map<String, String>> buscarUnidadesMedidaPorSubcategoriaEMarca(Integer idSubcategoria, String marca) throws Exception {
+	public List<Map<String, String>> buscarUnidadesMedidaPorSubcategoriaEMarca(Integer idSubcategoria, String marca)
+			throws Exception {
 		Optional<Subcategoria> subcategoria = subcategoriaRepository.findByIdSubcategoria(idSubcategoria);
 
 		if (!subcategoria.isPresent())
