@@ -72,6 +72,7 @@ public class CategoriaService {
 		}
 
 		categoriaRepository.delete(id);
+		imgService.deletaArquivoS3("cat"+id+".jpg");
 	}
 
 	public URI uploadCategoriaPicture(MultipartFile multipartFile, Integer idcategoria) {

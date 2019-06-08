@@ -165,7 +165,7 @@ public class MercadoService {
                     saldo.add(servico.getPacoteServico().getAcrescimo());
                 if (servico.getPacoteServico().getDesconto() != null)
                     saldo.subtract(servico.getPacoteServico().getDesconto());
-
+System.out.println(saldo);
                 servico.setSaldo(saldo);
             });
         });
@@ -206,8 +206,14 @@ public class MercadoService {
 
         if (!mercadoOp.isPresent())
             throw new Exception("O mercado informado não existe!");
+        
+        //mercadoRepository.saveAndFlush(mercado);		
+		if (mercado.getImageBase64() != null && !mercado.getImageBase64().isEmpty()) {			
+			uploadMercadoPicture(mercado);			
+		}
 
-        return salvarMercado(mercado);
+		return salvarMercado(mercado);
+
     }
 
     public void desativarMercado(Integer id) throws Exception {
@@ -248,6 +254,7 @@ public class MercadoService {
             mercadoRepository.delete(id);
 
             usuarioService.excluirPorEmailAndName(mercado.get().getEmail(), mercado.get().getNomeFantasia());
+            imgService.deletaArquivoS3("mercado-"+id+".png");
         }
     }
 }

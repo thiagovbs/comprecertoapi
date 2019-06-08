@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 
 import br.com.comprecerto.api.exceptions.FileException;
@@ -41,8 +42,8 @@ public class S3Service {
 		}
 	}
 
-	public URI uploadFile(InputStream is, String fileName, String contentType) {
-		try {
+	public URI uploadFile(InputStream is, String fileName, String contentType) {		
+		try {			
 			ObjectMetadata meta = new ObjectMetadata();
 			meta.setContentType(contentType);
 
@@ -51,6 +52,18 @@ public class S3Service {
 
 			return s3client.getUrl(bucketName, fileName).toURI();
 		}catch (URISyntaxException e) {
+			throw new FileException("Erro ao converter URL para URI");
+		}
+	}
+	
+	public boolean deleteFile(String keyName) {		
+		try {			
+			System.out.println(keyName);
+			s3client.deleteObject(new DeleteObjectRequest(bucketName, keyName));
+			LOG.info("Arquivo deletado");
+
+			return true;
+		}catch (Exception e) {
 			throw new FileException("Erro ao converter URL para URI");
 		}
 	}

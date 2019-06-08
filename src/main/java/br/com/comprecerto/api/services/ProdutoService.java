@@ -68,9 +68,14 @@ public class ProdutoService {
 
 	public Produto atualizarProduto(Integer id, @Valid Produto produto) throws Exception {
 		Optional<Produto> produtoOp = produtoRepository.findByIdProduto(id);
-
+		
 		if (!produtoOp.isPresent())
 			throw new Exception("O produto informado não existe!");
+
+		//Produto produtoSalvo = produtoRepository.saveAndFlush(produto);		
+		if (produto.getImageBase64() != null && !produto.getImageBase64().isEmpty()) {
+			uploadProdutoPicture(produto);
+		}
 
 		return salvarProduto(produto);
 	}
@@ -86,6 +91,8 @@ public class ProdutoService {
 		}
 
 		produtoRepository.delete(produtoOp.get());
+		imgService.deletaArquivoS3("produto-"+produtoOp.get().getIdProduto()+".png");
+		
 	}
 
 	public List<Produto> buscarProdutosPorCategoria(Integer idCategoria) {
@@ -106,6 +113,7 @@ public class ProdutoService {
 	}
 
 	public Produto uploadProdutoPicture(Produto produto) throws Exception {
+		System.out.println("uploadProdutoPicture");
 		produto.setImagemUrl(
 				imgService.salvaImagemFromBase64(produto.getImageBase64(), "produto-" + produto.getIdProduto()));
 		return produtoRepository.saveAndFlush(produto);

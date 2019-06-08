@@ -66,8 +66,7 @@ public class ProdutoController {
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarProduto(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
-		try {
-
+		try {			
 			prod = produtoService.atualizarProduto(id, produto);
 			return ResponseEntity.ok(prod);
 		} catch (Exception e) {

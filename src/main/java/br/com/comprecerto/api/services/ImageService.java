@@ -63,7 +63,7 @@ public class ImageService {
         }
     }
 
-    public String salvaImagemFromBase64(String imagem, String filename) {
+    public String salvaImagemFromBase64(String imagem, String filename) {    	
         try {
             InputStream is = new ByteArrayInputStream(new Base64().decode(imagem.replaceFirst("^.*,", "")));
 
@@ -74,7 +74,6 @@ public class ImageService {
             String nomeArquivoImagem = filename + ".png";
             FileUtils.touch(new File("src/main/resources/" + nomeArquivoImagem));
             File arquivoFoto = new File("src/main/resources/" + nomeArquivoImagem);
-
 
 
             ImageIO.write(image, "png", arquivoFoto);
@@ -89,6 +88,10 @@ public class ImageService {
         }
 
         return null;
+    }
+    
+    public boolean deletaArquivoS3(String URL) throws IOException {
+    	return s3Service.deleteFile(URL);
     }
 
     private void deletaArquivoTemp(File arquivo) throws IOException {
