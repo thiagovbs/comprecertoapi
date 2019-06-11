@@ -20,5 +20,10 @@ public interface MercadoRepository extends JpaRepository<Mercado, Integer>, Merc
 	@Modifying
 	@Query("update Mercado m set m.fAtivo = false where m.idMercado = ?1")
 	void desativar(Integer idMercado);
+	
+	@Transactional
+	@Modifying
+	@Query("update Mercado m set m.fAtivo = true where m.idMercado = ?1")
+	void ativar(Integer idMercado);
 
 }

@@ -23,12 +23,19 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
 	@Transactional
 	@Modifying
-	@Query("update Usuario set fAtivo = false where email = ?1 and nomeFantasia = ?2")
-	void desativaUsuarioPorEmailAndNome(String email, String nomeFantasia);
+	@Query("update Usuario set fAtivo = false where email = ?1 and nome = ?2")
+	void desativaUsuarioPorEmailAndNome(String email, String nome);
 
+	
 	@Transactional
 	@Modifying
-	@Query(nativeQuery =  true, value = "delete from usuario_permissao where id_usuario = ?1")
+	@Query("update Usuario set fAtivo = true where email = ?1 and nome = ?2")
+	void ativaUsuarioPorEmailAndNome(String email, String nome);
+	
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery =  true, value = "delete from sheap.usuario_permissao where id_usuario = ?1")
 	void deleteRelacionamento(Integer idUsuario);
 
 	Optional<Usuario> findByLoginAndFAtivo(String login, boolean ativo);

@@ -79,6 +79,23 @@ public class MercadoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/**
+	 * <br>
+	 * Ativar um mercado
+	 * 
+	 * @param id      Identificador do mercado a ser atualizado
+	 * @param mercado Mercado a ser atualizado
+	 * @return Mercado atualizado
+	 */
+	@PutMapping(value = "/ativar/{id}")
+	public void ativarMercado(@PathVariable Integer id, @RequestBody @Valid Mercado mercado) {
+		try {
+			mercadoService.ativarMercado(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Inativação do mercado
@@ -88,7 +105,7 @@ public class MercadoController {
 	@DeleteMapping(value = "/{id}")
 	public void desativarExcluirMercado(@PathVariable Integer id) {
 		try {
-			mercadoService.desativarExcluirMercado(id);
+			mercadoService.desativarMercado(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -89,6 +89,10 @@ public class UsuarioService {
 	public void desativaUsuarioPorEmailAndNome(String email, String nomeFantasia) {
 		usuarioRepository.desativaUsuarioPorEmailAndNome(email, nomeFantasia);
 	}
+	
+	public void ativaUsuarioPorEmailAndNome(String email, String nomeFantasia) {
+		usuarioRepository.ativaUsuarioPorEmailAndNome(email, nomeFantasia);
+	}
 
 	public boolean isAdmin(Principal principal) throws Exception {
 		Optional<Usuario> usuarioLogado = usuarioRepository.findByLogin(principal.getName());

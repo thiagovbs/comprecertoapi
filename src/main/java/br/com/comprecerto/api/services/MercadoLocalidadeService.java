@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.comprecerto.api.entities.MercadoLocalidade;
 import br.com.comprecerto.api.entities.Usuario;
@@ -45,5 +46,15 @@ public class MercadoLocalidadeService {
 	
 	public List<MercadoLocalidade> buscarMercadoLocalidadePorBairro(Integer idBairro) throws Exception {
 		return repositoryQuery.buscarMercadosLocalidadePorBairro(idBairro);
+	}
+	
+	@Transactional
+	public void desativarMercadoLocalidade(Integer idMercadoLocalidade) throws Exception {
+		Optional<MercadoLocalidade> mercadoLocalidade = repository.findByIdMercadoLocalidade(idMercadoLocalidade);
+
+		if (!mercadoLocalidade.isPresent())
+			throw new Exception("Mercado localidade informado não existe!");
+
+		repository.desativar(mercadoLocalidade.get().getIdMercadoLocalidade());
 	}
 }

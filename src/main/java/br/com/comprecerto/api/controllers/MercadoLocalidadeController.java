@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +61,20 @@ public class MercadoLocalidadeController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/**
+	 * Inativação do mercadoLocalidade
+	 * 
+	 * @param id Identificador do mercadoLocalidade a ser inativado
+	 */
+	@DeleteMapping(value = "/{id}")
+	public void desativarrMercadoLocalidade(@PathVariable Integer idMercadoLocalidade) {
+		try {
+			service.desativarMercadoLocalidade(idMercadoLocalidade);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 }
