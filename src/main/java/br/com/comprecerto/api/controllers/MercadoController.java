@@ -89,7 +89,7 @@ public class MercadoController {
 	 * @return Mercado atualizado
 	 */
 	@PutMapping(value = "/ativar/{id}")
-	public void ativarMercado(@PathVariable Integer id, @RequestBody @Valid Mercado mercado) {
+	public void ativarMercado(@PathVariable Integer id) {
 		try {
 			mercadoService.ativarMercado(id);
 		} catch (Exception e) {
