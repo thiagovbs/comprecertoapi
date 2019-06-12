@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import br.com.comprecerto.api.repositories.BairroRepository;
 import br.com.comprecerto.api.repositories.CidadeRepository;
 import br.com.comprecerto.api.repositories.EstadoRepository;
+import br.com.comprecerto.api.repositories.MercadoLocalidadeRepository;
 import br.com.comprecerto.api.repositories.MercadoRepository;
 import br.com.comprecerto.api.repositories.PaisRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,9 @@ public class MercadoService {
 
 	@Autowired
 	private MercadoProdutoService mercadoProdutoService;
+	
+	@Autowired
+	private MercadoLocalidadeService mercadoLocalidadeService;
 
 	public List<Mercado> buscarMercados() {
 		return mercadoRepository.findAll();
@@ -234,6 +238,7 @@ public class MercadoService {
 			throw new Exception("O mercado informado não existe!");
 
 		mercadoRepository.desativar(mercadoOp.get().getIdMercado());
+		mercadoLocalidadeService.desativarMercadoLocalidadePorMercado(mercadoOp.get());
 		usuarioService.desativaUsuarioPorEmailAndNome(mercadoOp.get().getEmail(), mercadoOp.get().getNomeFantasia());
 	}	
 	
@@ -280,7 +285,7 @@ public class MercadoService {
 			throw new Exception("O mercado informado não existe!");
 
 		mercadoRepository.ativar(mercadoOp.get().getIdMercado());		
-
+		mercadoLocalidadeService.ativarMercadoLocalidadePorMercado(mercadoOp.get());
 		usuarioService.ativaUsuarioPorEmailAndNome(mercadoOp.get().getEmail(), mercadoOp.get().getNomeFantasia());
 
 	}

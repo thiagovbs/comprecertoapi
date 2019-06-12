@@ -68,9 +68,9 @@ public class MercadoLocalidadeController {
 	 * @param id Identificador do mercadoLocalidade a ser inativado
 	 */
 	@DeleteMapping(value = "/{id}")
-	public void desativarrMercadoLocalidade(@PathVariable Integer idMercadoLocalidade) {
+	public void desativarrMercadoLocalidade(@PathVariable Integer id) {
 		try {
-			service.desativarMercadoLocalidade(idMercadoLocalidade);
+			service.desativarMercadoLocalidade(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

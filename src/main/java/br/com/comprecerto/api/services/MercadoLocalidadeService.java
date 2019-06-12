@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
 import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.MercadoLocalidadeRepository;
@@ -56,5 +57,29 @@ public class MercadoLocalidadeService {
 			throw new Exception("Mercado localidade informado não existe!");
 
 		repository.desativar(mercadoLocalidade.get().getIdMercadoLocalidade());
+	}
+	
+	@Transactional
+	public void desativarMercadoLocalidadePorMercado(Mercado mercado) throws Exception {
+		List<MercadoLocalidade> mercadoLocalidade = repository.findByMercado(mercado);
+
+		if (mercadoLocalidade.isEmpty())
+			throw new Exception("Mercado localidade informado não existe!");
+		mercadoLocalidade.forEach((localidade) -> {
+			repository.desativar(localidade.getIdMercadoLocalidade());
+		});
+		
+	}
+	
+	@Transactional
+	public void ativarMercadoLocalidadePorMercado(Mercado mercado) throws Exception {
+		List<MercadoLocalidade> mercadoLocalidade = repository.findByMercado(mercado);
+
+		if (mercadoLocalidade.isEmpty())
+			throw new Exception("Mercado localidade informado não existe!");
+		mercadoLocalidade.forEach((localidade) -> {
+			repository.ativar(localidade.getIdMercadoLocalidade());
+		});
+		
 	}
 }

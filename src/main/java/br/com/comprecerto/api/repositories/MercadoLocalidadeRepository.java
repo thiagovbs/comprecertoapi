@@ -23,5 +23,11 @@ public interface MercadoLocalidadeRepository extends JpaRepository<MercadoLocali
 	@Modifying
 	@Query("update MercadoLocalidade ml set ml.fAtivo = false where ml.idMercadoLocalidade = ?1")
 	void desativar(Integer idMercadoLocalidade);
+	
+	
+	@Transactional
+	@Modifying
+	@Query("update MercadoLocalidade ml set ml.fAtivo = true where ml.idMercadoLocalidade = ?1")
+	void ativar(Integer idMercadoLocalidade);
 
 }
