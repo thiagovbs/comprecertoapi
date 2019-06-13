@@ -32,4 +32,7 @@ public interface BairroRepository extends JpaRepository<Bairro, Integer> {
 	Bairro findByNomeAndCidadeAndEstadoAndPais(String nome, String nomeCidade, String nomeEstado, String nomePais);
 
 	List<Bairro> findByCidade(Cidade cidade);
+	
+	@Query("SELECT DISTINCT b FROM Cidade c JOIN c.bairros b JOIN b.mercadoLocalidades ml WHERE ml.fAtivo=true and c.idCidade=?1")	
+    List<Bairro> AllWithMercado(Integer IdCidade);
 }

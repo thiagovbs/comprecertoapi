@@ -18,7 +18,8 @@ public class EstadoService {
 	private EstadoRepository estadoRepository;
 
 	public List<Estado> buscarEstados() {
-		return estadoRepository.findAll();
+		;
+		return estadoRepository.AllWithMercado();
 	}
 
 	public Estado buscarPorId(Integer id) {

@@ -63,7 +63,7 @@ public class CidadeService {
 		if (!estado.isPresent())
 			throw new Exception("O estado informado não existe!");
 
-		return cidadeRepository.findByEstado(estado.get());
+		return cidadeRepository.AllWithMercado(estado.get().getIdEstado());
 	}
 
 }

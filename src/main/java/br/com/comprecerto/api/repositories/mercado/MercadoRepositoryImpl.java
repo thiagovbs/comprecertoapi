@@ -32,6 +32,7 @@ public class MercadoRepositoryImpl implements MercadoRepositoryQuery {
     }
 
     private void verificaFiltros(CriteriaBuilder cb, Root<Mercado> mercado, List<Predicate> predicates, LocalidadeFilter localidadeFilter) {
+    		predicates.add(cb.equal(mercado.get("fAtivo"), true));
         if (localidadeFilter.getIdEstado() != null && localidadeFilter.getIdEstado() != 0) {
             Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercado.join("mercadoLocalidades");
             Join<MercadoLocalidade, Bairro> bairro = mercadoLocalidade.join("bairro");
