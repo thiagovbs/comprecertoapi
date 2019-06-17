@@ -29,5 +29,8 @@ public interface EstadoRepository extends JpaRepository<Estado, Integer> {
     List<Estado> findByMercado(Integer idMercado);
 	
 	@Query("SELECT DISTINCT e FROM Estado e JOIN e.cidades c JOIN c.bairros b JOIN b.mercadoLocalidades ml WHERE ml.fAtivo=true")	
-    List<Estado> AllWithMercado();
+    List<Estado> AllWithMercadoAtivo();
+	
+	@Query("SELECT DISTINCT e FROM Estado e JOIN e.cidades c JOIN c.bairros b JOIN b.mercadoLocalidades ml WHERE ml.fAtivo=true or ml.fAtivo=false")	
+    List<Estado> AllWithMercadoAll();
 }

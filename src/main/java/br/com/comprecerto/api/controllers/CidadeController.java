@@ -64,10 +64,10 @@ public class CidadeController {
 		}
 	}
 
-	@GetMapping(value = "/estado/{idEstado}")
-	public ResponseEntity<?> buscarCidadesPorEstado(@PathVariable Integer idEstado) {
+	@GetMapping(value = "/estado/{idEstado}&{fativo}")
+	public ResponseEntity<?> buscarCidadesPorEstado(@PathVariable Integer idEstado, @PathVariable Boolean fativo) {
 		try {
-			return ResponseEntity.ok(cidadeService.buscarCidadesPorEstado(idEstado));
+			return ResponseEntity.ok(cidadeService.buscarCidadesPorEstado(idEstado,fativo));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

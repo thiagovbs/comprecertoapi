@@ -90,6 +90,7 @@ public class MercadoService {
 
 	@Transactional
 	public Mercado salvarMercado(@Valid Mercado mercado) {
+		System.out.println(mercado.getMercadoLocalidades());
 		try {
 			mercado.getMercadoLocalidades().forEach(localidade -> {
 				localidade.setMercado(mercado);
@@ -123,7 +124,7 @@ public class MercadoService {
 						}
 					}
 				}
-
+				
 				salvaDependenciasMercado(localidade);
 			});
 
@@ -169,6 +170,7 @@ public class MercadoService {
 
 	private void calculaSaldoMercadoServico(Mercado mercado) {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
+			System.out.println(localidade);
 			localidade.getMercadoServicos().forEach(servico -> {
 				BigDecimal saldo = servico.getPacoteServico().getValor();
 
@@ -221,7 +223,7 @@ public class MercadoService {
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
 
-		 mercadoRepository.saveAndFlush(mercado);
+		 //mercadoRepository.saveAndFlush(mercado);
 		if (mercado.getImageBase64() != null && !mercado.getImageBase64().isEmpty()) {
 			uploadMercadoPicture(mercado);
 		}

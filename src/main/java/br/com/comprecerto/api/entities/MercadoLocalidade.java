@@ -15,6 +15,8 @@ import java.util.List;
 @Table(schema = "sheap", name = "mercado_localidade")
 public class MercadoLocalidade implements Serializable {
 
+	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,7 +33,7 @@ public class MercadoLocalidade implements Serializable {
 	@NotBlank
 	private String googlemapsLinks;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id_bairro", nullable = true, insertable = true, updatable = true)
 	@NotNull
 	private Bairro bairro;
@@ -46,7 +48,7 @@ public class MercadoLocalidade implements Serializable {
 	private List<MercadoProduto> mercadoProdutos;
 
 	@OneToMany(mappedBy = "mercadoLocalidade", cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	@NotEmpty
+	//@NotEmpty
 	private List<MercadoServico> mercadoServicos;
 
 	@Transient
@@ -178,6 +180,12 @@ public class MercadoLocalidade implements Serializable {
 		getServicosTemp().add(servico);
 
 		return servico;
+	}
+	
+	@Override
+	public String toString() {
+		return "MercadoLocalidade [ googlemapsLinks=" + googlemapsLinks
+				+ ", bairro=" + bairro + "]";
 	}
 
 }

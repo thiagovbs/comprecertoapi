@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MercadoRepositoryQuery {
 
-    public List<Mercado> buscarMercados(LocalidadeFilter localidadeFilter);
+    public List<Mercado> buscarMercados(LocalidadeFilter localidadeFilter, Boolean fativo);
 }

@@ -57,13 +57,16 @@ public class CidadeService {
 		cidadeRepository.delete(cidadeOp.get());
 	}
 
-	public List<Cidade> buscarCidadesPorEstado(Integer idEstado) throws Exception {
+	public List<Cidade> buscarCidadesPorEstado(Integer idEstado, Boolean fativo) throws Exception {
 		Optional<Estado> estado = estadoRepository.findByIdEstado(idEstado);
 
 		if (!estado.isPresent())
 			throw new Exception("O estado informado não existe!");
-
-		return cidadeRepository.AllWithMercado(estado.get().getIdEstado());
+		
+		if(fativo)
+			return cidadeRepository.AllWithMercadoAtivo(estado.get().getIdEstado());
+		else
+			return cidadeRepository.AllWithMercadoAll(estado.get().getIdEstado());
 	}
 
 }

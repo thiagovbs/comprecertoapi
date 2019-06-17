@@ -57,13 +57,15 @@ public class BairroService {
 		bairroRepository.delete(bairroOp.get());
 	}
 
-	public List<Bairro> buscarBairrosPorCidade(Integer idCidade) throws Exception {
+	public List<Bairro> buscarBairrosPorCidade(Integer idCidade, Boolean fativo) throws Exception {
 		Optional<Cidade> cidade = cidadeRepository.findByIdCidade(idCidade);
 
 		if (!cidade.isPresent())
 			throw new Exception("A cidade informada não existe!");
-
-		return bairroRepository.AllWithMercado(cidade.get().getIdCidade());
+		if(fativo)
+			return bairroRepository.AllWithMercadoAtivo(cidade.get().getIdCidade());
+		else
+			return bairroRepository.AllWithMercadoAll(cidade.get().getIdCidade());
 	}
 
 }

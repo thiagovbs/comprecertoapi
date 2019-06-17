@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -265,6 +266,16 @@ public class Mercado implements Serializable {
 		mercadoPush.setMercado(null);
 
 		return mercadoPush;
+	}
+
+	@Override
+	public String toString() {
+		return "Mercado [idMercado=" + idMercado + ", cnpj=" + cnpj + ", dtAlteracao=" + dtAlteracao + ", dtCriacao="
+				+ dtCriacao + ", email=" + email + ", senha=" + senha + ", fAtivo=" + fAtivo + ", fDestaque="
+				+ fDestaque + ", fSuperDestaque=" + fSuperDestaque + ", logo=" + Arrays.toString(logo)
+				+ ", nomeFantasia=" + nomeFantasia + ", razaoSocial=" + razaoSocial + ", slogan=" + slogan
+				+ ", telefone=" + telefone + ", imagemUrl=" + imagemUrl + ", imageBase64=" + imageBase64
+				+ ", mercadoLocalidades=" + mercadoLocalidades + ", mercadoPushs=" + mercadoPushs + "]";
 	}
 
 }

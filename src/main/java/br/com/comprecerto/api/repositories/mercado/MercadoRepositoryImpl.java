@@ -17,22 +17,25 @@ public class MercadoRepositoryImpl implements MercadoRepositoryQuery {
     private EntityManager em;
 
     @Override
-    public List<Mercado> buscarMercados(LocalidadeFilter localidadeFilter) {
+    public List<Mercado> buscarMercados(LocalidadeFilter localidadeFilter, Boolean fativo) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Mercado> cq = cb.createQuery(Mercado.class);
 
         Root<Mercado> mercado = cq.from(Mercado.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        verificaFiltros(cb, mercado, predicates, localidadeFilter);
+        verificaFiltros(cb, mercado, predicates, localidadeFilter, fativo);
 
         cq.where(predicates.toArray(new Predicate[0]));
 
         return em.createQuery(cq).getResultList();
     }
 
-    private void verificaFiltros(CriteriaBuilder cb, Root<Mercado> mercado, List<Predicate> predicates, LocalidadeFilter localidadeFilter) {
-    		predicates.add(cb.equal(mercado.get("fAtivo"), true));
+    private void verificaFiltros(CriteriaBuilder cb, Root<Mercado> mercado, List<Predicate> predicates, LocalidadeFilter localidadeFilter, Boolean fativo) {
+    	if(fativo) {
+    		predicates.add(cb.equal(mercado.get("fAtivo"), fativo));
+    	}	
+    	
         if (localidadeFilter.getIdEstado() != null && localidadeFilter.getIdEstado() != 0) {
             Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercado.join("mercadoLocalidades");
             Join<MercadoLocalidade, Bairro> bairro = mercadoLocalidade.join("bairro");

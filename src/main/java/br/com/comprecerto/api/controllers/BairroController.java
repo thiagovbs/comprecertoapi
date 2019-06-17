@@ -64,10 +64,10 @@ public class BairroController {
 		}
 	}
 
-	@GetMapping(value = "/cidade/{idCidade}")
-	public ResponseEntity<?> buscarBairrosPorCidade(@PathVariable Integer idCidade) {
+	@GetMapping(value = "/cidade/{idCidade}&{fativo}")
+	public ResponseEntity<?> buscarBairrosPorCidade(@PathVariable Integer idCidade,@PathVariable Boolean fativo) {
 		try {
-			return ResponseEntity.ok(bairroService.buscarBairrosPorCidade(idCidade));
+			return ResponseEntity.ok(bairroService.buscarBairrosPorCidade(idCidade,fativo));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

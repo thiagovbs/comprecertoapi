@@ -17,9 +17,12 @@ public class EstadoService {
 	@Autowired
 	private EstadoRepository estadoRepository;
 
-	public List<Estado> buscarEstados() {
-		;
-		return estadoRepository.AllWithMercado();
+	public List<Estado> buscarEstados(Boolean fativo) {
+		System.out.print(fativo);
+		if(fativo)
+			return estadoRepository.AllWithMercadoAtivo();
+		else
+			return estadoRepository.AllWithMercadoAll();
 	}
 
 	public Estado buscarPorId(Integer id) {

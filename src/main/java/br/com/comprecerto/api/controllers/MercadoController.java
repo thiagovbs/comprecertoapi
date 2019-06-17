@@ -36,8 +36,8 @@ public class MercadoController {
 	 * @return Lista de mercados
 	 */
 	@GetMapping
-	public ResponseEntity<List<Mercado>> buscarMercados(LocalidadeFilter localidadeFilter) {
-		return ResponseEntity.ok(mercadoRepository.buscarMercados(localidadeFilter));
+	public ResponseEntity<List<Mercado>> buscarMercados(LocalidadeFilter localidadeFilter, Boolean fativo) {
+		return ResponseEntity.ok(mercadoRepository.buscarMercados(localidadeFilter,fativo));
 	}
 
 	/**

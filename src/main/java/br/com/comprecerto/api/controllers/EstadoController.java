@@ -30,9 +30,9 @@ public class EstadoController {
 	private EstadoService estadoService;
 
 	@GetMapping
-	public ResponseEntity<?> buscarEstados() {
+	public ResponseEntity<?> buscarEstados(Boolean fativo) {
 		try {
-			return ResponseEntity.ok(estadoService.buscarEstados());
+			return ResponseEntity.ok(estadoService.buscarEstados(fativo));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
