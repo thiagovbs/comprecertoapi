@@ -68,5 +68,14 @@ public class CidadeService {
 		else
 			return cidadeRepository.AllWithMercadoAll(estado.get().getIdEstado());
 	}
+	
+	public List<Cidade> buscarCidadesPorEstadoMercado(Integer idEstado, Integer idMercado) throws Exception {
+		Optional<Estado> estado = estadoRepository.findByIdEstado(idEstado);
+
+		if (!estado.isPresent())
+			throw new Exception("O estado informado não existe!");
+		
+			return cidadeRepository.AllbyEstadoMercado(idEstado,idMercado);
+	}
 
 }

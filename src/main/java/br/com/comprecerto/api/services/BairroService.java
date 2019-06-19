@@ -67,5 +67,14 @@ public class BairroService {
 		else
 			return bairroRepository.AllWithMercadoAll(cidade.get().getIdCidade());
 	}
+	
+	public List<Bairro> buscarBairrosPorCidadeMercado(Integer idCidade, Integer idMercado) throws Exception {
+		Optional<Cidade> cidade = cidadeRepository.findByIdCidade(idCidade);
+
+		if (!cidade.isPresent())
+			throw new Exception("A cidade informada não existe!");
+	
+		return bairroRepository.AllWithMercadoAtivo(cidade.get().getIdCidade());
+	}
 
 }

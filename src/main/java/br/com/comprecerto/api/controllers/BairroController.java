@@ -73,4 +73,14 @@ public class BairroController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@GetMapping(value = "/cidadeMercado/{idCidade}&{idMercado}")
+	public ResponseEntity<?> buscarBairrosPorCidadeMercado(@PathVariable Integer idCidade,@PathVariable Integer idMercado) {
+		try {
+			return ResponseEntity.ok(bairroService.buscarBairrosPorCidadeMercado(idCidade,idMercado));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
