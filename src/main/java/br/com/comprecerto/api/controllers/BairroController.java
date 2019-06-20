@@ -76,7 +76,7 @@ public class BairroController {
 	
 	@GetMapping(value = "/cidadeMercado/{idCidade}&{idMercado}")
 	public ResponseEntity<?> buscarBairrosPorCidadeMercado(@PathVariable Integer idCidade,@PathVariable Integer idMercado) {
-		try {
+		try {			
 			return ResponseEntity.ok(bairroService.buscarBairrosPorCidadeMercado(idCidade,idMercado));
 		} catch (Exception e) {
 			e.printStackTrace();
