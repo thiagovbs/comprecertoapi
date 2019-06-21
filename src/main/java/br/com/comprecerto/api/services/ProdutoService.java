@@ -98,6 +98,10 @@ public class ProdutoService {
 	public List<Produto> buscarProdutosPorCategoria(Integer idCategoria) {
 		return produtoRepository.buscarProdutosPorCategoria(idCategoria);
 	}
+	
+	public List<Produto> buscarProdutosPorSubCategoria(Integer idSubcategoria) {
+		return produtoRepository.buscarProdutosPorSubCategoria(idSubcategoria);
+	}
 
 	public List<ProdutosAppDTO> listaProdutosDetail(ProdutosAppFilter produtosAppFilter) {
 		return produtoRepository.listaProdutosDetail(produtosAppFilter);

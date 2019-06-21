@@ -91,6 +91,11 @@ public class ProdutoController {
 	public ResponseEntity<List<Produto>> buscarProdutosPorCategoria(@PathVariable Integer idCategoria) {
 		return ResponseEntity.ok(produtoService.buscarProdutosPorCategoria(idCategoria));
 	}
+	
+	@GetMapping(value = "/subcategoria/{idSubcategoria}")
+	public ResponseEntity<List<Produto>> buscarProdutosPorSubCategoria(@PathVariable Integer idSubcategoria) {
+		return ResponseEntity.ok(produtoService.buscarProdutosPorSubCategoria(idSubcategoria));
+	}
 
 	@PostMapping(value = "/detail")
 	public ResponseEntity<List<ProdutosAppDTO>> listaProdutosDetail(@RequestBody ProdutosAppFilter produtosAppFilter) {

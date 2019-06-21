@@ -74,7 +74,7 @@ public class BairroService {
 		if (!cidade.isPresent())
 			throw new Exception("A cidade informada não existe!");
 	
-		return bairroRepository.AllWithMercadoAtivo(cidade.get().getIdCidade());
+		return bairroRepository.AllbyCidadeMercado(cidade.get().getIdCidade(),idMercado);
 	}
 
 }

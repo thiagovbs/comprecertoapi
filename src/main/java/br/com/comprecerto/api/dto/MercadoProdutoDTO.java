@@ -34,6 +34,7 @@ public class MercadoProdutoDTO {
 	private Integer idMercadoProduto;
 	private BigDecimal precoMercadoProduto;
 	private Boolean fDestaqueMercadoProduto;
+	private String imagemUrl;
 	//	private BigDecimal desconto; TODO: Aonde está esse campo??
 	private Date dtValidadeMercadoProduto;
 	private List<MercadoServico> mercadoServicos;
@@ -261,5 +262,15 @@ public class MercadoProdutoDTO {
 	public void setMercadoServicos(List<MercadoServico> mercadoServicos) {
 		this.mercadoServicos = mercadoServicos;
 	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
+	}
+	
+	
 	
 }
