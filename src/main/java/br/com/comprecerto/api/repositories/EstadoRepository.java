@@ -24,6 +24,10 @@ public interface EstadoRepository extends JpaRepository<Estado, Integer> {
 			" where e.nome = ?1" + //
 			" and e.pais.nome = ?2")
 	Estado findByNomeAndPais(String nome, String nomePais);
+	
+	@Query("select e from Estado e" + //
+			" where e.sigla = ?1")
+	Estado findBySigla(String nome);
 
 	@Query("select DISTINCT e from Estado e join e.cidades c join c.bairros b join b.mercadoLocalidades ml where ml.mercado.idMercado = ?1 and ml.fAtivo=true")
     List<Estado> findByMercado(Integer idMercado);

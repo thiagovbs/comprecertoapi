@@ -257,7 +257,7 @@ public class MercadoService {
 	public Mercado uploadMercadoPicture(Mercado mercado) throws Exception {
 		mercado.setImagemUrl(
 				imgService.salvaImagemFromBase64(mercado.getImageBase64(), "mercado-" + mercado.getIdMercado()));
-		return mercadoRepository.saveAndFlush(mercado);
+		return mercado;
 	}
 
 //	@Transactional

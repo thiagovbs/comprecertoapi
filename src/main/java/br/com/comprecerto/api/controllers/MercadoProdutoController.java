@@ -60,7 +60,7 @@ public class MercadoProdutoController {
 
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoProduto(@RequestBody @Valid MercadoProduto mercadoProduto) {
-		try {
+		try {			
 			return ResponseEntity.ok(service.salvarMercadoProduto(mercadoProduto));
 		} catch (Exception e) {
 			e.printStackTrace();

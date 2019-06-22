@@ -196,4 +196,13 @@ public class Produto implements Serializable {
 		this.unidadeMedida = unidadeMedida;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [idProduto=" + idProduto + ", caracteristica=" + caracteristica + ", dtAlteracao=" + dtAlteracao
+				+ ", dtCriacao=" + dtCriacao + ", marca=" + marca + ", nome=" + nome + ", quantidade=" + quantidade
+				+ ", imagemUrl=" + imagemUrl + ", mercadoProdutos=" + mercadoProdutos + ", subcategoria=" + subcategoria
+				+ ", unidadeMedida=" + unidadeMedida + ", imageBase64=" + imageBase64 + "]";
+	}
+
+	
 }

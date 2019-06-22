@@ -38,6 +38,7 @@ public class MercadoProdutoService {
 	}
 
 	public MercadoProduto salvarMercadoProduto(MercadoProduto mercadoProduto) throws Exception {
+		System.out.println(mercadoProduto.getProduto());
 		mercadoLocalidadeService.buscarMercadoLocalidade(mercadoProduto.getMercadoLocalidade().getIdMercadoLocalidade());
 		produtoService.buscarPorId(mercadoProduto.getProduto().getIdProduto());
 		
