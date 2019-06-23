@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,7 +68,7 @@ public class MercadoProdutoController {
 			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause())));
 		}
 	}
-
+	
 	@PutMapping(value = "/{idMercadoProduto}")
 	public ResponseEntity<?> atualizarProduto(@PathVariable Integer idMercadoProduto, @RequestBody @Valid MercadoProduto mercadoProduto) {
 		try {
@@ -76,5 +77,14 @@ public class MercadoProdutoController {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	@DeleteMapping(value = "/{id}")
+	public void deletarProduto(@PathVariable Integer id) {
+		try {
+			service.deletarProduto(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

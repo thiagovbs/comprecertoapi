@@ -70,6 +70,15 @@ public class MercadoProdutoService {
 
 		return salvarMercadoProduto(mercadoProduto);
 	}
+	
+	public void deletarProduto(Integer idMercadoProduto) throws Exception {
+		Optional<MercadoProduto> mercadoProdutoOp = repository.findByIdMercadoProduto(idMercadoProduto);
+
+		if (!mercadoProdutoOp.isPresent())
+			throw new Exception("O produto informado não existe!");
+
+		repository.delete(idMercadoProduto);
+	}
 
 	public List<MercadoProdutoDTO> filtrarDto(MercadoProdutoFilter filter) {
 		return criaProjecao(repository.filtrar(filter));
