@@ -75,6 +75,15 @@ public class MercadoLocalidadeController {
 			e.printStackTrace();
 		}
 	}
+	
+	@GetMapping(value = "/{id}")
+	public  ResponseEntity<?> buscarMercadoLocalidade(@PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(service.buscarMercadoLocalidade(id));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 
 }
