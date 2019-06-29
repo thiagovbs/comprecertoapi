@@ -89,17 +89,14 @@ public class MercadoService {
 	}
 
 	@Transactional
-	public Mercado salvarMercado(@Valid Mercado mercado) {
-		System.out.println(mercado.getMercadoLocalidades());
+	public Mercado salvarMercado(@Valid Mercado mercado) {		
 		try {
 			mercado.getMercadoLocalidades().forEach(localidade -> {
 				localidade.setMercado(mercado);
-				localidade.getMercadoServicos().stream().forEach((servico) -> servico.setMercadoLocalidade(localidade));
-
-				Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstadoAndPais(localidade.getBairro().getNome(),
+				localidade.getMercadoServicos().stream().forEach((servico) -> servico.setMercadoLocalidade(localidade));				
+				Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstado(localidade.getBairro().getNome(),
 						localidade.getBairro().getCidade().getNome(),
-						localidade.getBairro().getCidade().getEstado().getNome(),
-						localidade.getBairro().getCidade().getEstado().getPais().getNome());
+						localidade.getBairro().getCidade().getEstado().getNome());
 				if (bairro != null) {
 					localidade.setBairro(bairro);
 				} else {

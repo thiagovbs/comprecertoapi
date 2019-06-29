@@ -30,6 +30,12 @@ public interface BairroRepository extends JpaRepository<Bairro, Integer> {
 			" and b.cidade.estado.nome = ?3" + //
 			" and b.cidade.estado.pais.nome = ?4")
 	Bairro findByNomeAndCidadeAndEstadoAndPais(String nome, String nomeCidade, String nomeEstado, String nomePais);
+	
+	@Query("select b from Bairro b" + //
+			" where b.nome = ?1" + //
+			" and b.cidade.nome = ?2" + //
+			" and b.cidade.estado.nome = ?3")
+	Bairro findByNomeAndCidadeAndEstado(String nome, String nomeCidade, String nomeEstado);
 
 	List<Bairro> findByCidade(Cidade cidade);
 	

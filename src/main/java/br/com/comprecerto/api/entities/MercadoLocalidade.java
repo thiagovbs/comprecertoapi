@@ -1,12 +1,19 @@
 package br.com.comprecerto.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import br.com.comprecerto.api.entities.enums.Entrega;
+import br.com.comprecerto.api.entities.enums.Sexo;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +60,21 @@ public class MercadoLocalidade implements Serializable {
 
 	@Transient
 	private List<Servico> servicosTemp = new ArrayList<Servico>();
+	
+	@Length(max = 13)
+	private String telefone;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(length = 1)
+	private Entrega entrega;
+	
+	private Boolean frete;
+	
+	private BigDecimal valorMinimo;
+	
+	private BigDecimal valorFrete;
+	
+	private LocalDateTime horarioMaximo;
 
 	public MercadoLocalidade() {
 	}
@@ -180,12 +202,63 @@ public class MercadoLocalidade implements Serializable {
 		getServicosTemp().add(servico);
 
 		return servico;
-	}
+	}	
 	
-	@Override
-	public String toString() {
-		return "MercadoLocalidade [ googlemapsLinks=" + googlemapsLinks
-				+ ", bairro=" + bairro + "]";
+	public Boolean getfAtivo() {
+		return fAtivo;
 	}
+
+	public void setfAtivo(Boolean fAtivo) {
+		this.fAtivo = fAtivo;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
+	}
+
+	public Boolean getFrete() {
+		return frete;
+	}
+
+	public void setFrete(Boolean frete) {
+		this.frete = frete;
+	}
+
+	public BigDecimal getValorMinimo() {
+		return valorMinimo;
+	}
+
+	public void setValorMinimo(BigDecimal valorMinimo) {
+		this.valorMinimo = valorMinimo;
+	}
+
+	public BigDecimal getValorFrete() {
+		return valorFrete;
+	}
+
+	public void setValorFrete(BigDecimal valorFrete) {
+		this.valorFrete = valorFrete;
+	}
+
+	public LocalDateTime getHorarioMaximo() {
+		return horarioMaximo;
+	}
+
+	public void setHorarioMaximo(LocalDateTime horarioMaximo) {
+		this.horarioMaximo = horarioMaximo;
+	}
+
 
 }

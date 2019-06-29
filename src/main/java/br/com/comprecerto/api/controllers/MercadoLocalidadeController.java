@@ -1,6 +1,9 @@
 package br.com.comprecerto.api.controllers;
 
 import java.security.Principal;
+import java.util.Arrays;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -10,10 +13,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.comprecerto.api.dto.LocalidadeFilter;
+import br.com.comprecerto.api.config.CompreCertoExceptionHandler.Erro;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.Bairro;
 import br.com.comprecerto.api.entities.Mercado;
@@ -82,6 +87,16 @@ public class MercadoLocalidadeController {
 			return ResponseEntity.ok(service.buscarMercadoLocalidade(id));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> salvarMercadoLocalidade(@RequestBody @Valid MercadoLocalidade mercadoLocalidade) {
+		try {			
+			return ResponseEntity.ok(service.salvarMercadoLocalidade(mercadoLocalidade));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause())));
 		}
 	}
 

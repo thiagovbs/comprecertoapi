@@ -26,6 +26,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(schema = "sheap", name = "bairro")
 public class Bairro implements Serializable {
 
+	@Override
+	public String toString() {
+		return "Bairro [idBairro=" + idBairro + ", dtAlteracao=" + dtAlteracao + ", dtCriacao=" + dtCriacao
+				+ ", fAtivo=" + fAtivo + ", nome=" + nome + ", cidade=" + cidade + ", mercadoLocalidades="
+				+ mercadoLocalidades + "]";
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
