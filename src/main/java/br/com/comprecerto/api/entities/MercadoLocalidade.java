@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +75,7 @@ public class MercadoLocalidade implements Serializable {
 	
 	private BigDecimal valorFrete;
 	
-	private LocalDateTime horarioMaximo;
+	private LocalTime horarioMaximo;
 
 	public MercadoLocalidade() {
 	}
@@ -252,11 +253,11 @@ public class MercadoLocalidade implements Serializable {
 		this.valorFrete = valorFrete;
 	}
 
-	public LocalDateTime getHorarioMaximo() {
+	public LocalTime getHorarioMaximo() {
 		return horarioMaximo;
 	}
 
-	public void setHorarioMaximo(LocalDateTime horarioMaximo) {
+	public void setHorarioMaximo(LocalTime horarioMaximo) {
 		this.horarioMaximo = horarioMaximo;
 	}
 
