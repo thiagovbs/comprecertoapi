@@ -8,7 +8,6 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 	private LocalDate dtAlteracao;
 	private LocalDate dtEntrada;
 	private Boolean comValidade;
-	private Integer idBairro;
 
 	public Integer getIdMercado() {
 		return idMercado;
@@ -42,13 +41,6 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 		this.comValidade = comValidade;
 	}
 
-	public Integer getIdBairro() {
-		return idBairro;
-	}
-
-	public void setIdBairro(Integer idBairro) {
-		this.idBairro = idBairro;
-	}
 	
 	
 }

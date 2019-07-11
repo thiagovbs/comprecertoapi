@@ -28,7 +28,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		verificaFiltros(cb, mercadoProduto, predicates, mercadoProdutoFilter);
 
 		cq.where(predicates.toArray(new Predicate[0]));
-
+		
 		return em.createQuery(cq).getResultList();
 	}
 
@@ -53,7 +53,6 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		if (mercadoProdutoFilter.getIdBairro() != null && mercadoProdutoFilter.getIdBairro() != 0) {
 			Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercadoProduto.join("mercadoLocalidade");
 			Join<MercadoLocalidade, Bairro> bairro = mercadoLocalidade.join("bairro");
-
 			predicates.add(cb.equal(bairro.get("idBairro"), mercadoProdutoFilter.getIdBairro()));
 		}
 
@@ -95,7 +94,10 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 		if (mercadoProdutoFilter.getComValidade() != null && mercadoProdutoFilter.getComValidade()) {
 			predicates.add(cb.greaterThanOrEqualTo(mercadoProduto.get("dtValidade"), LocalDate.now()));
+			//predicates.add(cb.lessThanOrEqualTo(mercadoProduto.get("dtEntrada"), LocalDate.now()));
 		}
+		
+		
 	}
 
 }

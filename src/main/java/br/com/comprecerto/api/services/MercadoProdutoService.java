@@ -80,7 +80,7 @@ public class MercadoProdutoService {
 		repository.delete(idMercadoProduto);
 	}
 
-	public List<MercadoProdutoDTO> filtrarDto(MercadoProdutoFilter filter) {
+	public List<MercadoProdutoDTO> filtrarDto(MercadoProdutoFilter filter) {		
 		return criaProjecao(repository.filtrar(filter));
 	}
 
