@@ -24,7 +24,6 @@ import java.util.List;
 public class MercadoLocalidade implements Serializable {
 
 	
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -76,6 +75,9 @@ public class MercadoLocalidade implements Serializable {
 	private BigDecimal valorFrete;
 	
 	private LocalTime horarioMaximo;
+	
+	@OneToMany(mappedBy = "mercadoLocalidade")
+	private List<Pedido> pedidos;
 
 	public MercadoLocalidade() {
 	}

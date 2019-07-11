@@ -11,15 +11,7 @@ public class MercadoProdutoDTO {
 	private Integer idMercado;
 	private String nomeFantasiaMercado;
 	private String razaoSocialMercado;
-	private Integer idMercadoLocalidade;
-	private Integer idBairro;
-	private String nomeBairro;
-	private Integer idCidade;
-	private String nomeCidade;
-	private Integer idEstado;
-	private String nomeEstado;
-	private Integer idPais;
-	private String nomePais;
+	private Integer idMercadoLocalidade;	
 	private String observacao;
 	private Integer idCategoria;
 	private String nomeCategoria;
@@ -35,6 +27,7 @@ public class MercadoProdutoDTO {
 	private BigDecimal precoMercadoProduto;
 	private Boolean fDestaqueMercadoProduto;
 	private String imagemUrl;
+	private String mercadoImagemUrl;
 	//	private BigDecimal desconto; TODO: Aonde está esse campo??
 	private Date dtValidadeMercadoProduto;
 	private List<MercadoServico> mercadoServicos;
@@ -71,68 +64,12 @@ public class MercadoProdutoDTO {
 		this.idMercadoLocalidade = idMercadoLocalidade;
 	}
 
-	public Integer getIdBairro() {
-		return idBairro;
+	public String getMercadoImagemUrl() {
+		return mercadoImagemUrl;
 	}
 
-	public void setIdBairro(Integer idBairro) {
-		this.idBairro = idBairro;
-	}
-
-	public String getNomeBairro() {
-		return nomeBairro;
-	}
-
-	public void setNomeBairro(String nomeBairro) {
-		this.nomeBairro = nomeBairro;
-	}
-
-	public Integer getIdCidade() {
-		return idCidade;
-	}
-
-	public void setIdCidade(Integer idCidade) {
-		this.idCidade = idCidade;
-	}
-
-	public String getNomeCidade() {
-		return nomeCidade;
-	}
-
-	public void setNomeCidade(String nomeCidade) {
-		this.nomeCidade = nomeCidade;
-	}
-
-	public Integer getIdEstado() {
-		return idEstado;
-	}
-
-	public void setIdEstado(Integer idEstado) {
-		this.idEstado = idEstado;
-	}
-
-	public String getNomeEstado() {
-		return nomeEstado;
-	}
-
-	public void setNomeEstado(String nomeEstado) {
-		this.nomeEstado = nomeEstado;
-	}
-
-	public Integer getIdPais() {
-		return idPais;
-	}
-
-	public void setIdPais(Integer idPais) {
-		this.idPais = idPais;
-	}
-
-	public String getNomePais() {
-		return nomePais;
-	}
-
-	public void setNomePais(String nomePais) {
-		this.nomePais = nomePais;
+	public void setMercadoImagemUrl(String mercadoImagemUrl) {
+		this.mercadoImagemUrl = mercadoImagemUrl;
 	}
 
 	public String getObservacao() {

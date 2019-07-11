@@ -89,10 +89,12 @@ public class MercadoProdutoService {
 
 		for (MercadoProduto mercadoProduto : mercadoProdutos) {
 			MercadoProdutoDTO dto = new MercadoProdutoDTO();
+			dto.setMercadoImagemUrl(mercadoProduto.getMercadoLocalidade().getMercado().getImagemUrl());
 			dto.setIdMercadoProduto(mercadoProduto.getIdMercadoProduto());
 			dto.setDtValidadeMercadoProduto(DateUtil.converteLocalDateToDate(mercadoProduto.getDtValidade()));
 			dto.setPrecoMercadoProduto(mercadoProduto.getPreco());
 			dto.setfDestaqueMercadoProduto(mercadoProduto.getFDestaque());
+			dto.setImagemUrl(mercadoProduto.getProduto().getImagemUrl());
 			dto.setObservacao(mercadoProduto.getObservacao());
 			dto.setCaracteristicaProduto(mercadoProduto.getProduto().getCaracteristica());
 			dto.setIdProduto(mercadoProduto.getProduto().getIdProduto());
@@ -108,14 +110,14 @@ public class MercadoProdutoService {
 			dto.setIdMercado(mercadoProduto.getMercadoLocalidade().getMercado().getIdMercado());
 			dto.setNomeFantasiaMercado(mercadoProduto.getMercadoLocalidade().getMercado().getNomeFantasia());
 			dto.setRazaoSocialMercado(mercadoProduto.getMercadoLocalidade().getMercado().getRazaoSocial());
-			dto.setIdBairro(mercadoProduto.getMercadoLocalidade().getBairro().getIdBairro());
-			dto.setNomeBairro(mercadoProduto.getMercadoLocalidade().getBairro().getNome());
-			dto.setIdCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getIdCidade());
-			dto.setNomeCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getNome());
-			dto.setIdEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getIdEstado());
-			dto.setNomeEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getNome());
-			dto.setIdPais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getIdPais());
-			dto.setNomePais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getNome());
+			//dto.setIdBairro(mercadoProduto.getMercadoLocalidade().getBairro().getIdBairro());
+			//dto.setNomeBairro(mercadoProduto.getMercadoLocalidade().getBairro().getNome());
+			//dto.setIdCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getIdCidade());
+			//dto.setNomeCidade(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getNome());
+			//dto.setIdEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getIdEstado());
+			//dto.setNomeEstado(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getNome());
+			//dto.setIdPais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getIdPais());
+			//dto.setNomePais(mercadoProduto.getMercadoLocalidade().getBairro().getCidade().getEstado().getPais().getNome());
 			dto.setMercadoServicos(mercadoProduto.getMercadoLocalidade().getMercadoServicos());
 			dtos.add(dto);
 		}

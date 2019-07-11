@@ -65,6 +65,12 @@ public class Usuario implements Serializable {
 	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String nome;
+	
+	@Column(length = 14)
+	private String cpf;
+	
+	@Column(name = "whatsapp", columnDefinition = "BOOLEAN")
+	private Boolean whatsapp;
 
 	@Column(length = 100, nullable = false)
 	@NotBlank
@@ -90,6 +96,9 @@ public class Usuario implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_mercado")
 	private Mercado mercado;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Pedido> pedidos;
 
 	public Usuario() {
 	}
@@ -115,6 +124,39 @@ public class Usuario implements Serializable {
 
 	public Date getDtAlteracao() {
 		return this.dtAlteracao;
+	}
+	
+	
+	public Boolean getfAtivo() {
+		return fAtivo;
+	}
+
+	public void setfAtivo(Boolean fAtivo) {
+		this.fAtivo = fAtivo;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Boolean getWhatsapp() {
+		return whatsapp;
+	}
+
+	public void setWhatsapp(Boolean whatsapp) {
+		this.whatsapp = whatsapp;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public void setDtAlteracao(Date dtAlteracao) {
