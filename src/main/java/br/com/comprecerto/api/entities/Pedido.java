@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -63,10 +62,6 @@ public class Pedido implements Serializable {
 	
 	@NotNull
 	private BigDecimal troco;
-	
-	@NotBlank
-	@Length(max = 13)
-	private String telefone;
 	
 	@NotBlank
 	@Length(max = 14)
@@ -172,14 +167,6 @@ public class Pedido implements Serializable {
 
 	public void setTroco(BigDecimal troco) {
 		this.troco = troco;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
 	}
 
 	public String getCelular() {

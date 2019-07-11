@@ -97,7 +97,7 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "id_mercado")
 	private Mercado mercado;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario")	
 	private List<Pedido> pedidos;
 
 	public Usuario() {

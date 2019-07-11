@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.comprecerto.api.entities.MercadoLocalidade;
 import br.com.comprecerto.api.entities.Pedido;
-import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.services.PedidoService;
 
 @CrossOrigin
