@@ -30,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.comprecerto.api.entities.enums.Entrega;
 import br.com.comprecerto.api.entities.enums.Pagamento;
 import br.com.comprecerto.api.entities.enums.Status;
+import br.com.comprecerto.api.entities.enums.Substituicao;
 
 
 @Entity
@@ -48,26 +49,27 @@ public class Pedido implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
 	private Status status;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(length = 1)
+	private Substituicao substituicao;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
 	private Entrega entrega;
 	
-	@NotNull
 	private BigDecimal valorFrete;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(length = 1)
 	private Pagamento pagamento;
 	
-	@NotNull
 	private BigDecimal troco;
 	
 	@NotBlank
 	@Length(max = 14)
 	private String celular;
 	
-	@NotBlank
 	@Length(max = 100)
 	private String endereco;	
 	
@@ -103,6 +105,9 @@ public class Pedido implements Serializable {
 	@PreUpdate
 	public void atualizando() {
 		dtAlteracao = new Date();
+		pedidoProdutos.forEach(pedidoProduto -> {				
+			pedidoProduto.setPedido(this);
+		});
 	}
 
 	public Integer getIdPedido() {
@@ -175,6 +180,14 @@ public class Pedido implements Serializable {
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public Substituicao getSubstituicao() {
+		return substituicao;
+	}
+
+	public void setSubstituicao(Substituicao substituicao) {
+		this.substituicao = substituicao;
 	}
 
 	public String getEndereco() {

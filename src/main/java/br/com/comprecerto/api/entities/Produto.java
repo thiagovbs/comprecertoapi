@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -70,6 +71,14 @@ public class Produto implements Serializable {
 	@NotNull
 	private UnidadeMedida unidadeMedida;
 	
+	@Column(name = "venda_por_peso", columnDefinition = "BOOLEAN")
+	private Boolean vendaPorPeso;
+	
+	private Integer pesoMinimo;
+	
+	private Integer pesoMaximo;
+	
+	
 	@Transient
 	private String imageBase64;
 
@@ -124,6 +133,30 @@ public class Produto implements Serializable {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+
+	public Boolean getVendaPorPeso() {
+		return vendaPorPeso;
+	}
+
+	public void setCompraPorPeso(Boolean vendaPorPeso) {
+		this.vendaPorPeso = vendaPorPeso;
+	}
+
+	public Integer getPesoMinimo() {
+		return pesoMinimo;
+	}
+
+	public void setPesoMinimo(Integer pesoMinimo) {
+		this.pesoMinimo = pesoMinimo;
+	}
+
+	public Integer getPesoMaximo() {
+		return pesoMaximo;
+	}
+
+	public void setPesoMaximo(Integer pesoMaximo) {
+		this.pesoMaximo = pesoMaximo;
 	}
 
 	public String getNome() {

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprecerto.api.entities.Usuario;
+import br.com.comprecerto.api.entities.UsuarioSenhas;
 import br.com.comprecerto.api.services.UsuarioService;
 
 @CrossOrigin
@@ -61,9 +62,9 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> atualizarUsuario(@PathVariable Integer id, @RequestBody @Valid Usuario usuario) {
+	public ResponseEntity<?> atualizarUsuario(@PathVariable Integer id, @RequestBody @Valid UsuarioSenhas usuarioSenhas) {
 		try {
-			return ResponseEntity.ok(usuarioService.atualizarUsuario(id, usuario));
+			return ResponseEntity.ok(usuarioService.verificaSenhaUsuario(id, usuarioSenhas));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

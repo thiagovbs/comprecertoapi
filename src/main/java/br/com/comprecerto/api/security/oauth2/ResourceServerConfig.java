@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -25,8 +27,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 
 	@Autowired
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {		
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
@@ -47,5 +49,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public MethodSecurityExpressionHandler createExpressionHandler() {
 		return new OAuth2MethodSecurityExpressionHandler();
 	}
+	
+	@Bean
+    public PasswordEncoder passwordEncoder(){
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return encoder;
+    }
 
 }

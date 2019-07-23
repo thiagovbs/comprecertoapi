@@ -66,12 +66,12 @@ public class Usuario implements Serializable {
 	@NotBlank
 	private String nome;
 	
+	@Column(length = 100, nullable = false)
+	private String sobrenome;
+	
 	@Column(length = 14)
 	private String cpf;
 	
-	@Column(name = "whatsapp", columnDefinition = "BOOLEAN")
-	private Boolean whatsapp;
-
 	@Column(length = 100, nullable = false)
 	@NotBlank
 	private String senha;
@@ -97,7 +97,8 @@ public class Usuario implements Serializable {
 	@JoinColumn(name = "id_mercado")
 	private Mercado mercado;
 	
-	@OneToMany(mappedBy = "usuario")	
+	@OneToMany(mappedBy = "usuario")
+	@JsonIgnore
 	private List<Pedido> pedidos;
 
 	public Usuario() {
@@ -141,14 +142,6 @@ public class Usuario implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-
-	public Boolean getWhatsapp() {
-		return whatsapp;
-	}
-
-	public void setWhatsapp(Boolean whatsapp) {
-		this.whatsapp = whatsapp;
 	}
 
 	public List<Pedido> getPedidos() {
@@ -209,6 +202,14 @@ public class Usuario implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+		
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
 
 	public String getSenha() {

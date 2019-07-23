@@ -37,12 +37,12 @@ public class PedidoController {
 		return ResponseEntity.ok(pedidoService.buscarPorId(id));
 	}
 	
-	@GetMapping(value = "/{idUsuario}")
+	@GetMapping(value = "/usuario/{idUsuario}")
 	public ResponseEntity<List<Pedido>> buscarPorUsuario(@PathVariable Integer idUsuario) {
 		return ResponseEntity.ok(pedidoService.buscarPorUsuario(idUsuario));
 	}
 	
-	@GetMapping(value = "/{idMercadoLocalidade}")
+	@GetMapping(value = "/mercadoLocalidade/{idMercadoLocalidade}")
 	public ResponseEntity<List<Pedido>> buscarPorMercadoLocalidade(@PathVariable Integer idMercadoLocalidade) {
 		return ResponseEntity.ok(pedidoService.buscarPorMercadoLocalidade(idMercadoLocalidade));
 	}

@@ -1,6 +1,10 @@
 package br.com.comprecerto.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import br.com.comprecerto.api.entities.enums.Entrega;
 import br.com.comprecerto.api.entities.enums.Sexo;
@@ -76,6 +80,21 @@ public class MercadoLocalidade implements Serializable {
 	
 	private LocalTime horarioMaximo;
 	
+	
+	
+	@Transient
+	private String imagemUrl;
+	
+	private LocalTime horarioMaximoEntrega;
+	
+	public LocalTime getHorarioMaximoEntrega() {
+		return horarioMaximoEntrega;
+	}
+
+	public void setHorarioMaximoEntrega(LocalTime horarioMaximoEntrega) {
+		this.horarioMaximoEntrega = horarioMaximoEntrega;
+	}
+
 	@OneToMany(mappedBy = "mercadoLocalidade")
 	private List<Pedido> pedidos;
 
@@ -263,5 +282,20 @@ public class MercadoLocalidade implements Serializable {
 		this.horarioMaximo = horarioMaximo;
 	}
 
+	public String getImagemUrl() {
+		if(mercado!= null) {
+			this.imagemUrl=mercado.getImagemUrl();
+			return this.imagemUrl;
+		}
+		this.imagemUrl="";
+		return this.imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
+	}
+
+	
+	
 
 }

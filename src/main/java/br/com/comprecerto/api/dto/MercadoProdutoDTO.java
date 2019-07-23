@@ -1,6 +1,7 @@
 package br.com.comprecerto.api.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,11 @@ public class MercadoProdutoDTO {
 	private Integer idMercado;
 	private String nomeFantasiaMercado;
 	private String razaoSocialMercado;
-	private Integer idMercadoLocalidade;	
+	private Integer idMercadoLocalidade;
+	private BigDecimal valorMinimo;	
+	private BigDecimal valorFrete;	
+	private LocalTime horarioMaximo;
+	private LocalTime horarioMaximoEntrega;	
 	private String observacao;
 	private Integer idCategoria;
 	private String nomeCategoria;
@@ -206,6 +211,38 @@ public class MercadoProdutoDTO {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
+	}
+
+	public BigDecimal getValorMinimo() {
+		return valorMinimo;
+	}
+
+	public void setValorMinimo(BigDecimal valorMinimo) {
+		this.valorMinimo = valorMinimo;
+	}
+
+	public BigDecimal getValorFrete() {
+		return valorFrete;
+	}
+
+	public void setValorFrete(BigDecimal valorFrete) {
+		this.valorFrete = valorFrete;
+	}
+
+	public LocalTime getHorarioMaximo() {
+		return horarioMaximo;
+	}
+
+	public void setHorarioMaximo(LocalTime horarioMaximo) {
+		this.horarioMaximo = horarioMaximo;
+	}
+
+	public LocalTime getHorarioMaximoEntrega() {
+		return horarioMaximoEntrega;
+	}
+
+	public void setHorarioMaximoEntrega(LocalTime horarioMaximoEntrega) {
+		this.horarioMaximoEntrega = horarioMaximoEntrega;
 	}
 	
 	

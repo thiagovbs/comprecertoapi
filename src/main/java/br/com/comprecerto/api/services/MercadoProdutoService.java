@@ -89,6 +89,10 @@ public class MercadoProdutoService {
 
 		for (MercadoProduto mercadoProduto : mercadoProdutos) {
 			MercadoProdutoDTO dto = new MercadoProdutoDTO();
+			dto.setValorFrete(mercadoProduto.getMercadoLocalidade().getValorFrete());
+			dto.setValorMinimo(mercadoProduto.getMercadoLocalidade().getValorMinimo());
+			dto.setHorarioMaximo(mercadoProduto.getMercadoLocalidade().getHorarioMaximo());
+			dto.setHorarioMaximoEntrega(mercadoProduto.getMercadoLocalidade().getHorarioMaximoEntrega());
 			dto.setMercadoImagemUrl(mercadoProduto.getMercadoLocalidade().getMercado().getImagemUrl());
 			dto.setIdMercadoProduto(mercadoProduto.getIdMercadoProduto());
 			dto.setDtValidadeMercadoProduto(DateUtil.converteLocalDateToDate(mercadoProduto.getDtValidade()));

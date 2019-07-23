@@ -47,7 +47,7 @@ public class Categoria implements Serializable {
 	@Length(max = 100)
 	private String nome;
 
-	@NotBlank
+	//@NotBlank
 	private String imagemUrl;
 
 	@ManyToMany(fetch = FetchType.EAGER)

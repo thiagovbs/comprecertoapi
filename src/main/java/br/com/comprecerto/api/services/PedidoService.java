@@ -27,10 +27,8 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	@Autowired
-	private PedidoProdutoRepository pedidoProdutoRepository;
 
-	public List<Pedido> buscarPedidos() {
+	public List<Pedido> buscarPedidos() {		
 		return pedidoRepository.findAll();
 	}
 	
@@ -53,18 +51,10 @@ public class PedidoService {
 	
 	
 	public Pedido salvarPedido(@Valid Pedido pedido) {		
-		pedidoRepository.saveAndFlush(pedido);		
-//		pedido.getPedidoProdutos().forEach(pedidoProduto -> {
-//			System.out.println(pedidoProduto.getProduto());
-//			salvaDependenciasPedido(pedidoProduto);
-//		});
 		return pedidoRepository.saveAndFlush(pedido);
 	}
 	
 	
-	private void salvaDependenciasPedido(PedidoProduto pedidoProdutos) {
-		pedidoProdutoRepository.saveAndFlush(pedidoProdutos);
-	};
 
 	public Pedido atualizarPedido(Integer id, @Valid Pedido pedido) throws Exception {
 		Optional<Pedido> pedidoOp = pedidoRepository.findByIdPedido(id);
