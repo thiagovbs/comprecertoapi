@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.comprecerto.api.entities.MercadoServico;
+import br.com.comprecerto.api.entities.enums.Entrega;
 
 public class MercadoProdutoDTO {
 
@@ -28,6 +29,8 @@ public class MercadoProdutoDTO {
 	private Integer quantidadeProduto;
 	private String caracteristicaProduto;
 	private String unidadeMedida;
+	private String endereco;
+	private Entrega entrega;
 	private Integer idMercadoProduto;
 	private BigDecimal precoMercadoProduto;
 	private Boolean fDestaqueMercadoProduto;
@@ -243,6 +246,22 @@ public class MercadoProdutoDTO {
 
 	public void setHorarioMaximoEntrega(LocalTime horarioMaximoEntrega) {
 		this.horarioMaximoEntrega = horarioMaximoEntrega;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public Entrega getEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(Entrega entrega) {
+		this.entrega = entrega;
 	}
 	
 	

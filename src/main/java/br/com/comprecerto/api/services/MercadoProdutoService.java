@@ -12,6 +12,8 @@ import br.com.comprecerto.api.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.services.codecommit.model.MergeOptionTypeEnum;
+
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Usuario;
@@ -38,7 +40,7 @@ public class MercadoProdutoService {
 	}
 
 	public MercadoProduto salvarMercadoProduto(MercadoProduto mercadoProduto) throws Exception {
-		System.out.println(mercadoProduto.getProduto());
+		//System.out.println(mercadoProduto.getProduto());
 		mercadoLocalidadeService.buscarMercadoLocalidade(mercadoProduto.getMercadoLocalidade().getIdMercadoLocalidade());
 		produtoService.buscarPorId(mercadoProduto.getProduto().getIdProduto());
 		
@@ -89,6 +91,8 @@ public class MercadoProdutoService {
 
 		for (MercadoProduto mercadoProduto : mercadoProdutos) {
 			MercadoProdutoDTO dto = new MercadoProdutoDTO();
+			dto.setEndereco(mercadoProduto.getMercadoLocalidade().getEndereco());
+			dto.setEntrega(mercadoProduto.getMercadoLocalidade().getEntrega());
 			dto.setValorFrete(mercadoProduto.getMercadoLocalidade().getValorFrete());
 			dto.setValorMinimo(mercadoProduto.getMercadoLocalidade().getValorMinimo());
 			dto.setHorarioMaximo(mercadoProduto.getMercadoLocalidade().getHorarioMaximo());

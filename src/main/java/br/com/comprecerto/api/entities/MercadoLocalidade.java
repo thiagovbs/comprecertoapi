@@ -43,6 +43,9 @@ public class MercadoLocalidade implements Serializable {
 	@Column(length = 255, nullable = false)
 	@NotBlank
 	private String googlemapsLinks;
+	
+	@Column(length = 255)	
+	private String endereco;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "id_bairro", nullable = true, insertable = true, updatable = true)
@@ -293,6 +296,14 @@ public class MercadoLocalidade implements Serializable {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	

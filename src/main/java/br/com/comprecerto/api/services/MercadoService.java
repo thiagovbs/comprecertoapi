@@ -167,7 +167,7 @@ public class MercadoService {
 
 	private void calculaSaldoMercadoServico(Mercado mercado) {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
-			System.out.println(localidade);
+			//System.out.println(localidade);
 			localidade.getMercadoServicos().forEach(servico -> {
 				BigDecimal saldo = servico.getPacoteServico().getValor();
 
@@ -175,7 +175,7 @@ public class MercadoService {
 					saldo.add(servico.getPacoteServico().getAcrescimo());
 				if (servico.getPacoteServico().getDesconto() != null)
 					saldo.subtract(servico.getPacoteServico().getDesconto());
-				System.out.println(saldo);
+				//System.out.println(saldo);
 				servico.setSaldo(saldo);
 			});
 		});
