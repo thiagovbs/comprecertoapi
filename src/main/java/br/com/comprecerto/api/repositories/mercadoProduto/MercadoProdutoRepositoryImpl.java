@@ -19,19 +19,26 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 	@Override
 	public List<MercadoProduto> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+		int count = mercadoProdutoFilter.getCount();
+		int page = mercadoProdutoFilter.getCount()*mercadoProdutoFilter.getPage();
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();		
 		CriteriaQuery<MercadoProduto> cq = cb.createQuery(MercadoProduto.class);
 
 		Root<MercadoProduto> mercadoProduto = cq.from(MercadoProduto.class);
-		List<Predicate> predicates = new ArrayList<>();
-
-		verificaFiltros(cb, mercadoProduto, predicates, mercadoProdutoFilter);
-
-		cq.where(predicates.toArray(new Predicate[0]));
 		
-		return em.createQuery(cq).getResultList();
-	}
-
+		List<Predicate> predicates = new ArrayList<>();
+		
+		verificaFiltros(cb, mercadoProduto, predicates, mercadoProdutoFilter);
+		
+		Order fdestaque = cb.desc(mercadoProduto.get("fDestaque"));
+		Order preco = cb.asc(mercadoProduto.get("preco"));
+	    cq.orderBy(fdestaque,preco);
+		cq.where(predicates.toArray(new Predicate[0]));
+			
+		return em.createQuery(cq).setMaxResults(count).setFirstResult(page).getResultList();
+	}	
+	
 	private void verificaFiltros(CriteriaBuilder cb, Root<MercadoProduto> mercadoProduto, List<Predicate> predicates, MercadoProdutoFilter mercadoProdutoFilter) {
 		if (mercadoProdutoFilter.getIdEstado() != null && mercadoProdutoFilter.getIdEstado() != 0) {
 			Join<MercadoProduto, MercadoLocalidade> mercadoLocalidade = mercadoProduto.join("mercadoLocalidade");
@@ -95,9 +102,8 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 		if (mercadoProdutoFilter.getComValidade() != null && mercadoProdutoFilter.getComValidade()) {
 			predicates.add(cb.greaterThanOrEqualTo(mercadoProduto.get("dtValidade"), LocalDate.now()));
 			//predicates.add(cb.lessThanOrEqualTo(mercadoProduto.get("dtEntrada"), LocalDate.now()));
-		}
-		
-		
+		}			
+			
 	}
 
 }

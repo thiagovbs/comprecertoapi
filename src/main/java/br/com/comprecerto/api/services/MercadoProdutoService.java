@@ -85,7 +85,7 @@ public class MercadoProdutoService {
 	public List<MercadoProdutoDTO> filtrarDto(MercadoProdutoFilter filter) {		
 		return criaProjecao(repository.filtrar(filter));
 	}
-
+	
 	public List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
 		List<MercadoProdutoDTO> dtos = new ArrayList<>();
 
@@ -138,7 +138,7 @@ public class MercadoProdutoService {
 
 		return filtrarDto(filter);
 	}
-
+	
 	public boolean verificaPossuiProdutos(Mercado mercado) {
 		Long count = repository.countByMercado(mercado);
 		if (count > 0) {

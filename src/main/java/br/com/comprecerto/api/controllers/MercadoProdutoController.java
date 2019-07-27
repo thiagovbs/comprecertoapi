@@ -58,7 +58,7 @@ public class MercadoProdutoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
+	
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoProduto(@RequestBody @Valid MercadoProduto mercadoProduto) {
 		try {			

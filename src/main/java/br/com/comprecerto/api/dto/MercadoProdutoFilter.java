@@ -5,6 +5,8 @@ import java.time.LocalDate;
 public class MercadoProdutoFilter extends ProdutosAppFilter {
 
 	private Integer idMercado;
+	private Integer page;
+	private Integer count;
 	private LocalDate dtAlteracao;
 	private LocalDate dtEntrada;
 	private Boolean comValidade;
@@ -39,6 +41,22 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 
 	public void setComValidade(Boolean comValidade) {
 		this.comValidade = comValidade;
+	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	
