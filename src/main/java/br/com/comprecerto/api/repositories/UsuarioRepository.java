@@ -1,5 +1,6 @@
 package br.com.comprecerto.api.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -39,4 +40,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	void deleteRelacionamento(Integer idUsuario);
 
 	Optional<Usuario> findByLoginAndFAtivo(String login, boolean ativo);
+	
+	List<Usuario> findByFirebaseToken(String firebaseToken);
 }

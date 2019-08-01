@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import br.com.comprecerto.api.entities.Pedido;
  
  
-
+@Service
 public class PushSender {
  
   private final String TOPIC = "JavaSampleApproach";
@@ -23,19 +24,19 @@ public class PushSender {
   AndroidPushNotificationsService androidPushNotificationsService;
  
   
-  public ResponseEntity<String> sendAtualizaçãoPedido( Pedido pedido) throws JSONException {
+  public ResponseEntity<String> sendAtualizacaoPedido(Pedido pedido) throws JSONException {
  
     JSONObject body = new JSONObject();
     body.put("to",  pedido.getUsuario().getFirebaseToken());    
  
     JSONObject notification = new JSONObject();
-    notification.put("title", "O pedido "+ pedido.getIdPedido()+"tem um novo status!");
-    notification.put("body", br.com.comprecerto.api.entities.enums.Status.valueOf(pedido.getStatus().toString()));
+    notification.put("title", "O pedido #"+ pedido.getIdPedido()+" tem um novo status!");
+    notification.put("body", pedido.getStatus().getDescricao());
     notification.put("priority", "high");
     notification.put("icon", "notification_icon");
     
     JSONObject data = new JSONObject();
-    data.put("body", "O pedido "+ pedido.getIdPedido()+" mudou para "+br.com.comprecerto.api.entities.enums.Status.valueOf(pedido.getStatus().toString()));
+    data.put("body", "O pedido "+ pedido.getIdPedido()+" mudou para "+pedido.getStatus().getDescricao());
     data.put("priority", "high");
  
     body.put("notification", notification);
@@ -56,12 +57,12 @@ public class PushSender {
  } 
 }
 */
- 
+    
     HttpEntity<String> request = new HttpEntity<>(body.toString());    		
  
     CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
     CompletableFuture.allOf(pushNotification).join();
- 
+     
     try {
       String firebaseResponse = pushNotification.get();
       

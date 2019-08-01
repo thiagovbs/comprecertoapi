@@ -28,7 +28,7 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	
+	@Autowired
 	private PushSender pushSender;
 	
 
@@ -55,8 +55,8 @@ public class PedidoService {
 	
 	
 	public Pedido salvarPedido(@Valid Pedido pedido) {
-		if(pedido.getIdPedido() != null) {
-			pushSender.sendAtualizaçãoPedido(pedido);
+		if(pedido.getIdPedido() == null) {
+			pushSender.sendAtualizacaoPedido(pedido);
 		}
 		
 		return pedidoRepository.saveAndFlush(pedido);
@@ -70,7 +70,7 @@ public class PedidoService {
 		if (!pedidoOp.isPresent())
 			throw new Exception("O pedido informado não existe!");
 
-		pushSender.sendAtualizaçãoPedido(pedido);
+		pushSender.sendAtualizacaoPedido(pedido);
 		return salvarPedido(pedido);
 	}
 

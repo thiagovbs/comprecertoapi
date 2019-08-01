@@ -72,9 +72,9 @@ public class UsuarioController {
 	}
 	
 	@PutMapping(value = "/token/{id}")
-	public ResponseEntity<?> atualizarUsuarioToken(@PathVariable Integer idUsuario, @RequestBody @Valid String token) {
-		try {
-			return ResponseEntity.ok(usuarioService.verificaTokenUsuario(idUsuario, token));
+	public ResponseEntity<?> atualizarUsuarioToken(@PathVariable Integer id, @RequestBody @Valid String token) {
+		try {			
+			return ResponseEntity.ok(usuarioService.verificaTokenUsuario(id, token));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(e.getMessage());

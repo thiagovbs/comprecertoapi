@@ -75,15 +75,20 @@ public class UsuarioService {
 		Optional<Usuario> usuarioOp = usuarioRepository.findByIdUsuario(id);
 			
 		if (!usuarioOp.isPresent())
-			throw new Exception("O usuário informado não existe!");		
+			throw new Exception("O usuário informado não existe!");	
 		
-		if (usuarioOp.get().getFirebaseToken() != null) {
-			usuarioOp.get().setFirebaseToken(token);	
-			
-			return salvarUsuario(usuarioOp.get());			
-		} else {
-			throw new Exception("A senha antiga não está correta!");
+		List<Usuario> usuarioOp2 = usuarioRepository.findByFirebaseToken(token);
+		
+		if(!usuarioOp2.isEmpty()) {
+			usuarioOp2.forEach(usuario -> {				
+				usuario.setFirebaseToken(null);
+				usuarioRepository.saveAndFlush(usuario);				
+			});
 		}
+			
+			usuarioOp.get().setFirebaseToken(token);
+			Usuario userResp = usuarioRepository.saveAndFlush(usuarioOp.get());
+			return userResp;	
 		
 	}
 
