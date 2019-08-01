@@ -70,6 +70,22 @@ public class UsuarioService {
 		}
 		
 	}
+	
+	public Usuario verificaTokenUsuario(Integer id, String token) throws Exception {	
+		Optional<Usuario> usuarioOp = usuarioRepository.findByIdUsuario(id);
+			
+		if (!usuarioOp.isPresent())
+			throw new Exception("O usuário informado não existe!");		
+		
+		if (usuarioOp.get().getFirebaseToken() != null) {
+			usuarioOp.get().setFirebaseToken(token);	
+			
+			return salvarUsuario(usuarioOp.get());			
+		} else {
+			throw new Exception("A senha antiga não está correta!");
+		}
+		
+	}
 
 	public Usuario atualizarUsuario(Integer id, @Valid Usuario usuario) throws Exception {
 		Optional<Usuario> usuarioOp = usuarioRepository.findByIdUsuario(id);

@@ -18,6 +18,7 @@ import br.com.comprecerto.api.entities.Pais;
 import br.com.comprecerto.api.entities.Pedido;
 import br.com.comprecerto.api.entities.PedidoProduto;
 import br.com.comprecerto.api.entities.Usuario;
+import br.com.comprecerto.api.push.PushSender;
 import br.com.comprecerto.api.repositories.PedidoProdutoRepository;
 import br.com.comprecerto.api.repositories.PedidoRepository;
 
@@ -26,6 +27,9 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	
+	private PushSender pushSender;
 	
 
 	public List<Pedido> buscarPedidos() {		
@@ -50,7 +54,11 @@ public class PedidoService {
 	}
 	
 	
-	public Pedido salvarPedido(@Valid Pedido pedido) {		
+	public Pedido salvarPedido(@Valid Pedido pedido) {
+		if(pedido.getIdPedido() != null) {
+			pushSender.sendAtualizaçãoPedido(pedido);
+		}
+		
 		return pedidoRepository.saveAndFlush(pedido);
 	}
 	
@@ -62,6 +70,7 @@ public class PedidoService {
 		if (!pedidoOp.isPresent())
 			throw new Exception("O pedido informado não existe!");
 
+		pushSender.sendAtualizaçãoPedido(pedido);
 		return salvarPedido(pedido);
 	}
 

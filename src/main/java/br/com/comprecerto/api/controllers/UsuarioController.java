@@ -70,6 +70,16 @@ public class UsuarioController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@PutMapping(value = "/token/{id}")
+	public ResponseEntity<?> atualizarUsuarioToken(@PathVariable Integer idUsuario, @RequestBody @Valid String token) {
+		try {
+			return ResponseEntity.ok(usuarioService.verificaTokenUsuario(idUsuario, token));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> deletarUsuario(@PathVariable Integer id) {

@@ -100,6 +100,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	@JsonIgnore
 	private List<Pedido> pedidos;
+	
+	@Column(length = 255)
+	private String firebaseToken;
 
 	public Usuario() {
 	}
@@ -286,6 +289,14 @@ public class Usuario implements Serializable {
 
 	public void setMercado(Mercado mercado) {
 		this.mercado = mercado;
+	}
+
+	public String getFirebaseToken() {
+		return firebaseToken;
+	}
+
+	public void setFirebaseToken(String firebaseToken) {
+		this.firebaseToken = firebaseToken;
 	}
 
 	public boolean isAdmin() {
