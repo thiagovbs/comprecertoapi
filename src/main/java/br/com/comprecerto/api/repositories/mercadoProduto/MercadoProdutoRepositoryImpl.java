@@ -19,9 +19,7 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 	@Override
 	public List<MercadoProduto> filtrar(MercadoProdutoFilter mercadoProdutoFilter) {
-		int count = mercadoProdutoFilter.getCount();
-		int page = mercadoProdutoFilter.getCount()*mercadoProdutoFilter.getPage();
-		
+				
 		CriteriaBuilder cb = em.getCriteriaBuilder();		
 		CriteriaQuery<MercadoProduto> cq = cb.createQuery(MercadoProduto.class);
 
@@ -36,7 +34,14 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 	    cq.orderBy(fdestaque,preco);
 		cq.where(predicates.toArray(new Predicate[0]));
 			
-		return em.createQuery(cq).setMaxResults(count).setFirstResult(page).getResultList();
+		
+		if(mercadoProdutoFilter.getCount() !=null && mercadoProdutoFilter.getPage() != null ) {
+			int count = mercadoProdutoFilter.getCount();
+			int page = mercadoProdutoFilter.getCount()*mercadoProdutoFilter.getPage();
+			return em.createQuery(cq).setMaxResults(count).setFirstResult(page).getResultList();
+		}else {
+			return em.createQuery(cq).getResultList();
+		}
 	}	
 	
 	private void verificaFiltros(CriteriaBuilder cb, Root<MercadoProduto> mercadoProduto, List<Predicate> predicates, MercadoProdutoFilter mercadoProdutoFilter) {

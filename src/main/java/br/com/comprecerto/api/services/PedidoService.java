@@ -7,19 +7,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import br.com.comprecerto.api.entities.Bairro;
-import br.com.comprecerto.api.entities.Cidade;
-import br.com.comprecerto.api.entities.Estado;
-import br.com.comprecerto.api.entities.Mercado;
-import br.com.comprecerto.api.entities.MercadoLocalidade;
-import br.com.comprecerto.api.entities.Pais;
 import br.com.comprecerto.api.entities.Pedido;
-import br.com.comprecerto.api.entities.PedidoProduto;
-import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.push.PushSender;
-import br.com.comprecerto.api.repositories.PedidoProdutoRepository;
 import br.com.comprecerto.api.repositories.PedidoRepository;
 
 @Service
@@ -30,7 +20,7 @@ public class PedidoService {
 	
 	@Autowired
 	private PushSender pushSender;
-	
+		
 
 	public List<Pedido> buscarPedidos() {		
 		return pedidoRepository.findAll();
@@ -71,6 +61,10 @@ public class PedidoService {
 			throw new Exception("O pedido informado não existe!");
 
 		pushSender.sendAtualizacaoPedido(pedido);
+		
+		//pushNotificationService.pushAtualizacaoPedido(pedido);
+		
+		
 		return salvarPedido(pedido);
 	}
 

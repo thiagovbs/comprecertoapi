@@ -18,7 +18,6 @@ import br.com.comprecerto.api.entities.Pedido;
 @Service
 public class PushSender {
  
-  private final String TOPIC = "JavaSampleApproach";
   
   @Autowired
   AndroidPushNotificationsService androidPushNotificationsService;
@@ -34,6 +33,7 @@ public class PushSender {
     notification.put("body", pedido.getStatus().getDescricao());
     notification.put("priority", "high");
     notification.put("icon", "notification_icon");
+    notification.put("color", "#009b89");
     
     JSONObject data = new JSONObject();
     data.put("body", "O pedido "+ pedido.getIdPedido()+" mudou para "+pedido.getStatus().getDescricao());
@@ -41,22 +41,7 @@ public class PushSender {
  
     body.put("notification", notification);
     body.put("data", data);
- 
-/**
-    {
- "to" : "dClQP1Dml58:APA91bEPjueAX0xdxSDLwR3nKOphneVH0ZWfzSPjFOQw3KHfBClMR2uIcMsvgQP5c3EAhZVeAoZUPlpnM69eRL2nypLWw9r6zum_A9mNEz1kI_FH22tM8vy20V7gwkDu6U1b8z8WfMbx",
- "notification" : {
-	 "body" : "cuidado com seu sócio!",
-	 "title" : "IMPORTANTE",
-	 "priority" : "high",
-	 "icon" : "notification_icon"
- },
- "data" : {
-	 "body" : "great match!",
-	 "priority" : "high"
- } 
-}
-*/
+
     
     HttpEntity<String> request = new HttpEntity<>(body.toString());    		
  
