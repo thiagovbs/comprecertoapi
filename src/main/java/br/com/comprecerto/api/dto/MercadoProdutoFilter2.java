@@ -12,6 +12,7 @@ public class MercadoProdutoFilter2 extends ProdutosAppFilter {
 	private LocalDate dtAlteracao;
 	private LocalDate dtEntrada;
 	private Boolean comValidade;
+	private String busca;
 	private String observacao;
 	private String nome;
 	private String caracteristica;
@@ -95,6 +96,19 @@ public class MercadoProdutoFilter2 extends ProdutosAppFilter {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+
+	public String getBusca() {
+		return busca;
+	}
+
+	public void setBusca(String busca) {
+		System.out.println(busca);
+		setNome(busca);
+		setCaracteristica(busca);
+		setMarca(busca);
+		setObservacao(busca);
+		this.busca = busca;
 	}
 	
 	
