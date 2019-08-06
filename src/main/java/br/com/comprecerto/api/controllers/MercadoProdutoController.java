@@ -59,6 +59,16 @@ public class MercadoProdutoController {
 		}
 	}
 	
+	@GetMapping(value = "/dto2/com-validade")
+	public ResponseEntity<?> filtrarDtoComValidade2(MercadoProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(service.filtrarDtoComValidade(filter));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoProduto(@RequestBody @Valid MercadoProduto mercadoProduto) {
 		try {			

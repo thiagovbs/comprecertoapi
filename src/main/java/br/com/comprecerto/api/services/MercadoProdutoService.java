@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.amazonaws.services.codecommit.model.MergeOptionTypeEnum;
 
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
+import br.com.comprecerto.api.dto.MercadoProdutoFilter2;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.MercadoProdutoRepository;
@@ -86,6 +87,10 @@ public class MercadoProdutoService {
 		return criaProjecao(repository.filtrar(filter));
 	}
 	
+	public List<MercadoProdutoDTO> filtrarDto2(MercadoProdutoFilter2 filter) {		
+		return criaProjecao(repository.filtrar2(filter));
+	}
+	
 	public List<MercadoProdutoDTO> criaProjecao(List<MercadoProduto> mercadoProdutos) {
 		List<MercadoProdutoDTO> dtos = new ArrayList<>();
 
@@ -137,6 +142,12 @@ public class MercadoProdutoService {
 		filter.setComValidade(true);
 
 		return filtrarDto(filter);
+	}
+	
+	public List<MercadoProdutoDTO> filtrarDtoComValidade2(MercadoProdutoFilter2 filter) {
+		filter.setComValidade(true);
+
+		return filtrarDto2(filter);
 	}
 	
 	public boolean verificaPossuiProdutos(Mercado mercado) {

@@ -36,6 +36,7 @@ public class SimpleCorsFilter implements Filter {
 		        || request.getHeader("Origin").equals("https://sheap.herokuapp.com")
 		        || request.getHeader("Origin").equals("http://localhost:5000")
 		        || request.getHeader("Origin").contains("http://167.86.118.44:8080")
+		        || request.getHeader("Origin").contains("http://167.86.118.44:4200")
 		        || request.getHeader("Origin").contains("http://167.86.118.44:8085")
 		        || request.getHeader("Origin").equals("http://localhost:4200")) {
 			

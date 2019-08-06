@@ -25,6 +25,10 @@ public class MercadoRepositoryImpl implements MercadoRepositoryQuery {
         List<Predicate> predicates = new ArrayList<>();
 
         verificaFiltros(cb, mercado, predicates, localidadeFilter, fativo);
+        
+        Order fDestaque = cb.desc(mercado.get("fDestaque"));
+		Order fSuperDestaque = cb.asc(mercado.get("fSuperDestaque"));
+	    cq.orderBy(fSuperDestaque,fDestaque);
 
         cq.where(predicates.toArray(new Predicate[0]));
 
