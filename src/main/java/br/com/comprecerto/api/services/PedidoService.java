@@ -44,14 +44,10 @@ public class PedidoService {
 	}
 	
 	
-	public Pedido salvarPedido(@Valid Pedido pedido) {
-		if(pedido.getIdPedido() == null) {
-			pushSender.sendAtualizacaoPedido(pedido);
-		}
+	public Pedido salvarPedido(@Valid Pedido pedido) {		
 		
 		return pedidoRepository.saveAndFlush(pedido);
 	}
-	
 	
 
 	public Pedido atualizarPedido(Integer id, @Valid Pedido pedido) throws Exception {
@@ -60,10 +56,7 @@ public class PedidoService {
 		if (!pedidoOp.isPresent())
 			throw new Exception("O pedido informado não existe!");
 
-		pushSender.sendAtualizacaoPedido(pedido);
-		
-		//pushNotificationService.pushAtualizacaoPedido(pedido);
-		
+		pushSender.sendAtualizacaoPedido(pedido);	
 		
 		return salvarPedido(pedido);
 	}

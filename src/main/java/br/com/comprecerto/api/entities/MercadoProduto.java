@@ -191,10 +191,6 @@ public class MercadoProduto implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "MercadoProduto [idMercadoProduto=" + idMercadoProduto + ", dtAlteracao=" + dtAlteracao + ", dtCriacao="
-				+ dtCriacao + ", dtEntrada=" + dtEntrada + ", dtValidade=" + dtValidade + ", fAtivo=" + fAtivo
-				+ ", fDestaque=" + fDestaque + ", fSuperDestaque=" + fSuperDestaque + ", observacao=" + observacao
-				+ ", preco=" + preco + ", mercadoLocalidade=" + mercadoLocalidade + ", produto=" + produto
-				+ ", usuarioListas=" + usuarioListas + "]";
+		return "MercadoProduto [idMercadoProduto=" + idMercadoProduto +  "]";
 	}
 }

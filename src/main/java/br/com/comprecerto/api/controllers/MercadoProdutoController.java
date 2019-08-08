@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprecerto.api.config.CompreCertoExceptionHandler.Erro;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
-import br.com.comprecerto.api.dto.MercadoProdutoFilter2;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.services.MercadoProdutoService;
 
@@ -59,17 +58,7 @@ public class MercadoProdutoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	@GetMapping(value = "/dto2/com-validade")
-	public ResponseEntity<?> filtrarDtoComValidade2(MercadoProdutoFilter2 filter) {
-		try {
-			return ResponseEntity.ok(service.filtrarDtoComValidade2(filter));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
-	
+		
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoProduto(@RequestBody @Valid MercadoProduto mercadoProduto) {
 		try {			

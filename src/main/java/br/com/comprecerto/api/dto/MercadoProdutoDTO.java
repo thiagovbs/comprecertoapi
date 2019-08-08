@@ -263,6 +263,11 @@ public class MercadoProdutoDTO {
 	public void setEntrega(Entrega entrega) {
 		this.entrega = entrega;
 	}
+
+	@Override
+	public String toString() {
+		return "MercadoProdutoDTO [idMercadoProduto=" + idMercadoProduto +"]";
+	}
 	
 	
 	

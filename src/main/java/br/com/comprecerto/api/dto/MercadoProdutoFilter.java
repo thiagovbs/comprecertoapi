@@ -1,6 +1,10 @@
 package br.com.comprecerto.api.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.criteria.Predicate;
 
 public class MercadoProdutoFilter extends ProdutosAppFilter {
 
@@ -10,6 +14,9 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 	private LocalDate dtAlteracao;
 	private LocalDate dtEntrada;
 	private Boolean comValidade;
+	private String busca;
+	private List<Integer> localidades = new ArrayList<>();
+	
 
 	public Integer getIdMercado() {
 		return idMercado;
@@ -58,6 +65,26 @@ public class MercadoProdutoFilter extends ProdutosAppFilter {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+	
+	public String getBusca() {
+		return busca;
+	}
+
+	public void setBusca(String busca) {		
+		this.busca = busca;
+	}
+
+	public List<Integer> getLocalidades() {
+		return localidades;
+	}
+
+	public void setLocalidades(List<Integer> localidades) {
+		this.localidades = localidades;
+	}
+
+	
+	
+	
 
 	
 	
