@@ -1,10 +1,19 @@
 package br.com.comprecerto.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -36,7 +45,8 @@ public class MercadoProduto implements Serializable {
 	@Column(name = "f_super_destaque", columnDefinition = "BOOLEAN")
 	private Boolean fSuperDestaque;
 
-	@Type(type = "text")
+	@JsonDeserialize(using = CustomDeserializer.class)
+	@Type(type = "text")	
 	private String observacao;
 
 	@NotNull
@@ -193,4 +203,19 @@ public class MercadoProduto implements Serializable {
 	public String toString() {
 		return "MercadoProduto [idMercadoProduto=" + idMercadoProduto +  "]";
 	}
+}
+
+
+
+class CustomDeserializer extends JsonDeserializer<String> {
+
+    @Override
+    public String deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException, JsonProcessingException {
+        JsonNode node = jsonParser.readValueAsTree();
+        if (node.asText().isEmpty()) {
+            return null;
+        }
+        return node.toString();
+    }
+
 }
