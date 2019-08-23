@@ -33,7 +33,8 @@ public class PushSender {
     notification.put("body", pedido.getStatus().getDescricao());
     notification.put("priority", "high");
     notification.put("icon", "notification_icon");
-    notification.put("color", "#009b89");
+    notification.put("click_action", "FCM_PLUGIN_ACTIVITY");
+    notification.put("color", "#009b89");  
     
     JSONObject data = new JSONObject();
     data.put("body", "O pedido "+ pedido.getIdPedido()+" mudou para "+pedido.getStatus().getDescricao());
@@ -71,6 +72,7 @@ public class PushSender {
 	    notification.put("body", "teste");
 	    notification.put("priority", "high");
 	    notification.put("icon", "notification_icon");
+	    notification.put("click_action", "FCM_PLUGIN_ACTIVITY");
 	    notification.put("color", "#009b89");
 	    
 	    JSONObject data = new JSONObject();
