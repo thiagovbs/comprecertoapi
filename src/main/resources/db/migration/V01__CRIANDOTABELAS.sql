@@ -22,6 +22,7 @@ CREATE TABLE sheap.categoria (
     dt_alteracao timestamp without time zone,
     dt_criacao timestamp without time zone,
     f_ativo boolean,
+	imagem_url varchar(255),
     nome character varying(100) NOT NULL
 );
 
@@ -108,7 +109,8 @@ CREATE TABLE sheap.mercado (
     f_ativo boolean,
     f_destaque boolean,
     f_super_destaque boolean,
-    imagem_url character varying(255) NOT NULL,
+    imagem_url character varying(255),
+	senha varchar(100) NULL,
     logo oid,
     nome_fantasia character varying(150) NOT NULL,
     razao_social character varying(150) NOT NULL,
@@ -131,6 +133,14 @@ CREATE TABLE sheap.mercado_localidade (
     dt_alteracao timestamp without time zone,
     dt_criacao timestamp without time zone,
     f_ativo boolean,
+	horario_maximo time,
+	horario_maximo_entrega time,
+	entrega character varying(1),
+	telefone character varying(13),
+	frete boolean,
+	endereco character varying(255),
+	valor_frete numeric(19,2),
+	valor_minimo numeric(19,2),
     googlemaps_links character varying(255) NOT NULL,
     id_bairro integer NOT NULL,
     id_mercado integer
@@ -151,7 +161,7 @@ CREATE TABLE sheap.mercado_produto (
     dt_alteracao timestamp without time zone,
     dt_criacao timestamp without time zone,
     dt_entrada timestamp without time zone NOT NULL,
-    dt_validade timestamp without time zone NOT NULL,
+    dt_validade timestamp without time zone ,
     f_ativo boolean,
     f_destaque boolean,
     f_super_destaque boolean,
@@ -228,7 +238,8 @@ CREATE TABLE sheap.pacote_servico (
     dt_criacao timestamp without time zone,
     f_ativo boolean,
     nome character varying(100),
-    id_servico integer NOT NULL
+    id_servico integer NOT NULL,
+	valor DECIMAL(10,2)
 );
 
 CREATE SEQUENCE sheap.pacote_servico_id_pacote_servico_seq
@@ -261,11 +272,11 @@ CREATE SEQUENCE sheap.pais_id_pais_seq
 ALTER SEQUENCE sheap.pais_id_pais_seq OWNED BY sheap.pais.id_pais;
 
 CREATE TABLE sheap.permissao (
-    id_usuario integer NOT NULL,
+    id_permissao integer NOT NULL,
     descricao character varying(30) NOT NULL
 );
 
-CREATE SEQUENCE sheap.permissao_id_usuario_seq
+CREATE SEQUENCE sheap.permissao_id_permissao_seq
     
     START WITH 1
     INCREMENT BY 1
@@ -273,7 +284,7 @@ CREATE SEQUENCE sheap.permissao_id_usuario_seq
     NO MAXVALUE
     CACHE 1;
 
-ALTER SEQUENCE sheap.permissao_id_usuario_seq OWNED BY sheap.permissao.id_usuario;
+ALTER SEQUENCE sheap.permissao_id_permissao_seq OWNED BY sheap.permissao.id_permissao;
 
 CREATE TABLE sheap.produto (
     id_produto integer NOT NULL,
@@ -283,7 +294,11 @@ CREATE TABLE sheap.produto (
     marca character varying(100) NOT NULL,
     nome character varying(100) NOT NULL,
     quantidade integer NOT NULL,
+	venda_por_peso boolean DEFAULT false,
+	peso_minimo integer,
+	peso_maximo integer,
     id_subcategoria integer NOT NULL,
+	imagem_url varchar(255),
     id_unidade_medida integer NOT NULL
 );
 
@@ -359,11 +374,14 @@ CREATE TABLE sheap.usuario (
     dt_criacao timestamp without time zone,
     dt_nascimento timestamp without time zone,
     email character varying(150) NOT NULL,
-    f_ativo boolean,
-    login character varying(18) NOT NULL,
+    f_ativo boolean,	
+    login character varying(50) NOT NULL,
     nome character varying(100) NOT NULL,
+	sobrenome character varying(100),
+	cpf character varying(14),
     senha character varying(100) NOT NULL,
-    sexo character varying(1) NOT NULL,
+    sexo character varying(1),
+	firebase_Token character varying(255),
     id_mercado integer
 );
 
@@ -418,6 +436,63 @@ CREATE TABLE sheap.usuario_permissao (
     id_permissao integer NOT NULL
 );
 
+
+CREATE TABLE sheap.pedido (
+    id_pedido integer NOT NULL,
+    dt_alteracao timestamp without time zone,
+    dt_criacao timestamp without time zone,
+    f_ativo boolean,
+	status character varying(1) NOT NULL,
+	entrega character varying(1) NOT NULL,
+	valor_frete numeric(19,2),
+	pagamento character varying(1) NOT NULL,
+	troco numeric(19,2),	
+	substituicao character varying(1),
+	celular character varying(14) NOT NULL,
+	endereco character varying(100),
+	data_horario_retirada timestamp without time zone,
+    id_usuario integer NOT NULL,
+	id_mercado_localidade integer NOT NULL
+    
+);
+
+CREATE SEQUENCE sheap.pedido_id_pedido_seq
+    
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE sheap.pedido_id_pedido_seq OWNED BY sheap.pedido.id_pedido;
+
+
+CREATE TABLE sheap.pedido_produto (
+    id_pedido_produto integer NOT NULL,
+    dt_alteracao timestamp without time zone,
+    dt_criacao timestamp without time zone,
+    f_ativo boolean,
+	preco numeric(19,2) NOT NULL,
+    quantidade integer NOT NULL,
+    id_produto integer NOT NULL,
+	id_pedido integer NOT NULL
+);
+
+CREATE SEQUENCE sheap.pedido_produto_id_pedido_produto_seq
+    
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER SEQUENCE sheap.pedido_produto_id_pedido_produto_seq OWNED BY sheap.pedido_produto.id_pedido_produto;
+
+
+ALTER TABLE ONLY sheap.pedido_produto ALTER COLUMN id_pedido_produto SET DEFAULT nextval('sheap.pedido_produto_id_pedido_produto_seq'::regclass);
+
+ALTER TABLE ONLY sheap.pedido ALTER COLUMN id_pedido SET DEFAULT nextval('sheap.pedido_id_pedido_seq'::regclass);
+
 ALTER TABLE ONLY sheap.bairro ALTER COLUMN id_bairro SET DEFAULT nextval('sheap.bairro_id_bairro_seq'::regclass);
 
 ALTER TABLE ONLY sheap.categoria ALTER COLUMN id_categoria SET DEFAULT nextval('sheap.categoria_id_categoria_seq'::regclass);
@@ -442,7 +517,7 @@ ALTER TABLE ONLY sheap.pacote_servico ALTER COLUMN id_pacote_servico SET DEFAULT
 
 ALTER TABLE ONLY sheap.pais ALTER COLUMN id_pais SET DEFAULT nextval('sheap.pais_id_pais_seq'::regclass);
 
-ALTER TABLE ONLY sheap.permissao ALTER COLUMN id_usuario SET DEFAULT nextval('sheap.permissao_id_usuario_seq'::regclass);
+ALTER TABLE ONLY sheap.permissao ALTER COLUMN id_permissao SET DEFAULT nextval('sheap.permissao_id_permissao_seq'::regclass);
 
 ALTER TABLE ONLY sheap.produto ALTER COLUMN id_produto SET DEFAULT nextval('sheap.produto_id_produto_seq'::regclass);
 
@@ -457,6 +532,10 @@ ALTER TABLE ONLY sheap.usuario ALTER COLUMN id_usuario SET DEFAULT nextval('shea
 ALTER TABLE ONLY sheap.usuario_lista ALTER COLUMN id_usuario_lista SET DEFAULT nextval('sheap.usuario_lista_id_usuario_lista_seq'::regclass);
 
 ALTER TABLE ONLY sheap.usuario_mercado_push ALTER COLUMN id_usuario_mercado_push SET DEFAULT nextval('sheap.usuario_mercado_push_id_usuario_mercado_push_seq'::regclass);
+
+SELECT pg_catalog.setval('sheap.pedido_produto_id_pedido_produto_seq', 1, false);
+
+SELECT pg_catalog.setval('sheap.pedido_id_pedido_seq', 1, false);
 
 SELECT pg_catalog.setval('sheap.bairro_id_bairro_seq', 1, false);
 
@@ -482,7 +561,7 @@ SELECT pg_catalog.setval('sheap.pacote_servico_id_pacote_servico_seq', 1, false)
 
 SELECT pg_catalog.setval('sheap.pais_id_pais_seq', 1, false);
 
-SELECT pg_catalog.setval('sheap.permissao_id_usuario_seq', 1, false);
+SELECT pg_catalog.setval('sheap.permissao_id_permissao_seq', 1, false);
 
 SELECT pg_catalog.setval('sheap.produto_id_produto_seq', 1, false);
 
@@ -538,7 +617,7 @@ ALTER TABLE ONLY sheap.pais
     ADD PRIMARY KEY (id_pais);
 
 ALTER TABLE ONLY sheap.permissao
-    ADD PRIMARY KEY (id_usuario);
+    ADD PRIMARY KEY (id_permissao);
 
 ALTER TABLE ONLY sheap.produto
     ADD PRIMARY KEY (id_produto);
@@ -548,6 +627,12 @@ ALTER TABLE ONLY sheap.servico
 
 ALTER TABLE ONLY sheap.subcategoria
     ADD PRIMARY KEY (id_subcategoria);
+	
+ALTER TABLE ONLY sheap.pedido_produto
+    ADD PRIMARY KEY (id_pedido_produto);
+
+ALTER TABLE ONLY sheap.pedido
+    ADD PRIMARY KEY (id_pedido);
 
 ALTER TABLE ONLY sheap.usuario
     ADD UNIQUE (email);
@@ -572,12 +657,27 @@ ALTER TABLE ONLY sheap.usuario_permissao
 
 ALTER TABLE ONLY sheap.usuario
     ADD PRIMARY KEY (id_usuario);
+	
+ALTER TABLE ONLY sheap.pedido
+    ADD FOREIGN KEY (id_usuario) REFERENCES sheap.usuario(id_usuario);
+
+ALTER TABLE ONLY sheap.pedido
+    ADD FOREIGN KEY (id_mercado_localidade) REFERENCES sheap.mercado_localidade(id_mercado_localidade);
+
+ALTER TABLE ONLY sheap.pedido_produto
+    ADD FOREIGN KEY (id_produto) REFERENCES sheap.produto(id_produto);
+
+ALTER TABLE ONLY sheap.pedido_produto
+    ADD FOREIGN KEY (id_pedido) REFERENCES sheap.pedido(id_pedido);
 
 ALTER TABLE ONLY sheap.usuario_lista
     ADD FOREIGN KEY (id_mercado_produto) REFERENCES sheap.mercado_produto(id_mercado_produto);
 
 ALTER TABLE ONLY sheap.subcategoria
     ADD FOREIGN KEY (id_categoria) REFERENCES sheap.categoria(id_categoria);
+	
+ALTER TABLE ONLY sheap.usuario
+	ADD FOREIGN KEY (id_mercado) REFERENCES sheap.mercado (id_mercado);
 
 ALTER TABLE ONLY sheap.usuario_lista
     ADD FOREIGN KEY (id_usuario) REFERENCES sheap.usuario(id_usuario);
@@ -622,7 +722,7 @@ ALTER TABLE ONLY sheap.cidade
     ADD FOREIGN KEY (id_estado) REFERENCES sheap.estado(id_estado);
 
 ALTER TABLE ONLY sheap.usuario_permissao
-    ADD FOREIGN KEY (id_permissao) REFERENCES sheap.permissao(id_usuario);
+    ADD FOREIGN KEY (id_permissao) REFERENCES sheap.permissao(id_permissao);
 
 ALTER TABLE ONLY sheap.mercado_servico
     ADD FOREIGN KEY (id_mercado_localidade) REFERENCES sheap.mercado_localidade(id_mercado_localidade);

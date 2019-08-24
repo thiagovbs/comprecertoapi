@@ -1,1 +1,0 @@
-ALTER TABLE sheap.mercado ALTER COLUMN imagem_url DROP NOT NULL;

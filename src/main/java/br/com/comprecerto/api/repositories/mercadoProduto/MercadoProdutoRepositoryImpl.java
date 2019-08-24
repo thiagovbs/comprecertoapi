@@ -135,8 +135,8 @@ public class MercadoProdutoRepositoryImpl implements MercadoProdutoRepositoryQue
 
 		if (mercadoProdutoFilter.getComValidade() != null && mercadoProdutoFilter.getComValidade()) {
 			predicates.add(cb.greaterThanOrEqualTo(mercadoProduto.get("dtValidade"), LocalDate.now()));
-			// predicates.add(cb.lessThanOrEqualTo(mercadoProduto.get("dtEntrada"),
-			// LocalDate.now()));
+			 predicates.add(cb.lessThanOrEqualTo(mercadoProduto.get("dtEntrada"),
+			 LocalDate.now()));
 		}
 
 	}

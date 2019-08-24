@@ -1,1 +1,0 @@
-INSERT INTO sheap.pacote_servico (f_ativo, nome, descricao, valor, id_servico, dt_criacao, dt_alteracao) VALUES (true, 'Comum', 'x', 1142, (SELECT id_servico FROM sheap.servico WHERE nome = 'Posicionamento'), current_date, current_date);

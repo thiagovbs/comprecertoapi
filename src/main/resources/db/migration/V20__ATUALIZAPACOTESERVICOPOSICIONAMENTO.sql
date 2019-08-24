@@ -1,1 +1,0 @@
-UPDATE sheap.pacote_servico set valor = 0 where nome =  'Comum';
