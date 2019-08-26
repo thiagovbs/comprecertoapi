@@ -638,9 +638,6 @@ ALTER TABLE ONLY sheap.usuario
     ADD UNIQUE (email);
 
 ALTER TABLE ONLY sheap.usuario
-    ADD UNIQUE (nome);
-
-ALTER TABLE ONLY sheap.usuario
     ADD UNIQUE (login);
 
 ALTER TABLE ONLY sheap.unidade_medida

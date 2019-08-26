@@ -47,7 +47,7 @@ public class MercadoController {
 	 * @return Mercado solicitado
 	 */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Mercado> buscarPorId(@PathVariable Integer id) {
+	public ResponseEntity<Mercado> buscarPorId(@PathVariable Integer id) {		
 		return ResponseEntity.ok(mercadoService.buscarPorId(id));
 	}
 

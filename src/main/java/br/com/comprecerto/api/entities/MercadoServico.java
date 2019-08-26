@@ -134,9 +134,8 @@ public class MercadoServico implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MercadoServico [idMercadoServico=" + idMercadoServico + ", dtAlteracao=" + dtAlteracao + ", dtCriacao="
-				+ dtCriacao + ", dtFimServico=" + dtFimServico + ", dtInicioServico=" + dtInicioServico + ", fAtivo="
-				+ fAtivo + ", saldo=" + saldo + ", mercadoLocalidade=" + mercadoLocalidade + ", pacoteServico="
+		return "MercadoServico [idMercadoServico=" + idMercadoServico + ", fAtivo="
+				+ fAtivo + ", saldo=" + saldo +  ", pacoteServico="
 				+ pacoteServico + "]";
 	}
 

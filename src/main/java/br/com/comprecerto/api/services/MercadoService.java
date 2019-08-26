@@ -2,6 +2,7 @@ package br.com.comprecerto.api.services;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -54,7 +55,7 @@ public class MercadoService {
 
 	@Autowired
 	private MercadoProdutoService mercadoProdutoService;
-	
+
 	@Autowired
 	private MercadoLocalidadeService mercadoLocalidadeService;
 
@@ -68,32 +69,38 @@ public class MercadoService {
 		if (!mercado.isPresent())
 			return null;
 
-		for (MercadoLocalidade localidade : mercado.get().getMercadoLocalidades()) {
+		mercado.get().getMercadoLocalidades().forEach(localidade -> {			
 
-			for (Servico servico : servicoService.buscarServicos()) {
-				List<MercadoServico> ms = localidade.getMercadoServicos().stream()
-						.filter(mercadoServico -> mercadoServico.getPacoteServico().getServico().equals(servico))
-						.collect(Collectors.toList());
+			servicoService.buscarServicos().forEach(servico -> {
 
-				if (!ms.isEmpty()) {
-					servico.setPacoteSelecionado(ms.get(0).getPacoteServico());
-				} else {
-					servico.setPacoteSelecionado(new PacoteServico());
-				}
-
+				List<MercadoServico> ms = new ArrayList<MercadoServico>();
+				/*
+				 * localidade.getMercadoServicos().forEach(mercadoServico -> { if
+				 * (mercadoServico.getPacoteServico().getServico().getIdServico().equals(servico
+				 * .getIdServico())) { ms.add(mercadoServico);
+				 * 
+				 * 
+				 * } });
+				 * 
+				 * 
+				 * if (!ms.isEmpty()) {
+				 * servico.setPacoteSelecionado(ms.get(0).getPacoteServico());
+				 * System.out.println(ms.get(0).getPacoteServico()); } else {
+				 * System.out.println(new PacoteServico()); servico.setPacoteSelecionado(new
+				 * PacoteServico()); }
+				 */
 				localidade.addServicoTemp(servico);
-			}
-		}
-
+			});
+		});		
 		return mercado.get();
 	}
 
 	@Transactional
-	public Mercado salvarMercado(@Valid Mercado mercado) {		
+	public Mercado salvarMercado(@Valid Mercado mercado) {
 		try {
 			mercado.getMercadoLocalidades().forEach(localidade -> {
 				localidade.setMercado(mercado);
-				localidade.getMercadoServicos().stream().forEach((servico) -> servico.setMercadoLocalidade(localidade));				
+				localidade.getMercadoServicos().stream().forEach((servico) -> servico.setMercadoLocalidade(localidade));
 				Bairro bairro = bairroRepository.findByNomeAndCidadeAndEstado(localidade.getBairro().getNome(),
 						localidade.getBairro().getCidade().getNome(),
 						localidade.getBairro().getCidade().getEstado().getNome());
@@ -121,7 +128,7 @@ public class MercadoService {
 						}
 					}
 				}
-				
+
 				salvaDependenciasMercado(localidade);
 			});
 
@@ -167,7 +174,7 @@ public class MercadoService {
 
 	private void calculaSaldoMercadoServico(Mercado mercado) {
 		mercado.getMercadoLocalidades().forEach(localidade -> {
-			//System.out.println(localidade);
+			// System.out.println(localidade);
 			localidade.getMercadoServicos().forEach(servico -> {
 				BigDecimal saldo = servico.getPacoteServico().getValor();
 
@@ -175,7 +182,7 @@ public class MercadoService {
 					saldo.add(servico.getPacoteServico().getAcrescimo());
 				if (servico.getPacoteServico().getDesconto() != null)
 					saldo.subtract(servico.getPacoteServico().getDesconto());
-				//System.out.println(saldo);
+				// System.out.println(saldo);
 				servico.setSaldo(saldo);
 			});
 		});
@@ -220,7 +227,7 @@ public class MercadoService {
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
 
-		 //mercadoRepository.saveAndFlush(mercado);
+		// mercadoRepository.saveAndFlush(mercado);
 		if (mercado.getImageBase64() != null && !mercado.getImageBase64().isEmpty()) {
 			uploadMercadoPicture(mercado);
 		}
@@ -239,8 +246,7 @@ public class MercadoService {
 		mercadoRepository.desativar(mercadoOp.get().getIdMercado());
 		mercadoLocalidadeService.desativarMercadoLocalidadePorMercado(mercadoOp.get());
 		usuarioService.desativaUsuarioPorEmailAndNome(mercadoOp.get().getEmail(), mercadoOp.get().getNomeFantasia());
-	}	
-	
+	}
 
 	public Mercado buscarPorFuncionario(Principal principal) throws Exception {
 		Usuario usuario = usuarioService.buscarPorLogin(principal.getName());
@@ -283,7 +289,7 @@ public class MercadoService {
 		if (!mercadoOp.isPresent())
 			throw new Exception("O mercado informado não existe!");
 
-		mercadoRepository.ativar(mercadoOp.get().getIdMercado());		
+		mercadoRepository.ativar(mercadoOp.get().getIdMercado());
 		mercadoLocalidadeService.ativarMercadoLocalidadePorMercado(mercadoOp.get());
 		usuarioService.ativaUsuarioPorEmailAndNome(mercadoOp.get().getEmail(), mercadoOp.get().getNomeFantasia());
 

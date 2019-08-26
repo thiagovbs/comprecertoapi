@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import br.com.comprecerto.api.entities.enums.Entrega;
 import br.com.comprecerto.api.entities.enums.Sexo;
+import br.com.comprecerto.api.services.ServicoService;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,13 +24,13 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(schema = "sheap", name = "mercado_localidade")
 public class MercadoLocalidade implements Serializable {
-
 	
-	private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -306,7 +308,11 @@ public class MercadoLocalidade implements Serializable {
 		this.endereco = endereco;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "MercadoLocalidade [idMercadoLocalidade=" + idMercadoLocalidade + ","+ ", mercadoServicos=" + mercadoServicos + ", servicosTemp=" + servicosTemp
+				+"]";
+	}
 	
 
 }
