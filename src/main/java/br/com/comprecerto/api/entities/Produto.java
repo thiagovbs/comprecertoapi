@@ -78,6 +78,8 @@ public class Produto implements Serializable {
 	
 	private Integer pesoMaximo;
 	
+	private Integer ean;
+	
 	
 	@Transient
 	private String imageBase64;
