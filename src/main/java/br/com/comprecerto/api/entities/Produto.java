@@ -78,7 +78,7 @@ public class Produto implements Serializable {
 	
 	private Integer pesoMaximo;
 	
-	private Integer ean;
+	private String ean;
 	
 	
 	@Transient

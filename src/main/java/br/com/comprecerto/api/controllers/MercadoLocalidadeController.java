@@ -2,12 +2,13 @@ package br.com.comprecerto.api.controllers;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.comprecerto.api.config.CompreCertoExceptionHandler.Erro;
+import br.com.comprecerto.api.dto.MercadoLocalidadeAppDTO;
 import br.com.comprecerto.api.dto.MercadoProdutoFilter;
 import br.com.comprecerto.api.entities.Bairro;
 import br.com.comprecerto.api.entities.Mercado;
@@ -66,11 +68,12 @@ public class MercadoLocalidadeController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Inativação do mercadoLocalidade
 	 * 
-	 * @param id Identificador do mercadoLocalidade a ser inativado
+	 * @param id
+	 *            Identificador do mercadoLocalidade a ser inativado
 	 */
 	@DeleteMapping(value = "/{id}")
 	public void desativarrMercadoLocalidade(@PathVariable Integer id) {
@@ -80,25 +83,37 @@ public class MercadoLocalidadeController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@GetMapping(value = "/dto/bairro/{idBairro}")
+	public ResponseEntity<?> filtrarPorBairroDTO(@PathVariable Integer idBairro) {
+		try {
+			List<MercadoLocalidade> list = service.buscarMercadoLocalidadePorBairro(idBairro);
+			List<MercadoLocalidadeAppDTO> listDTO = list.stream().map(obj -> new MercadoLocalidadeAppDTO(obj))
+					.collect(Collectors.toList());
+			return ResponseEntity.ok(listDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
 	@GetMapping(value = "/{id}")
-	public  ResponseEntity<?> buscarMercadoLocalidade(@PathVariable Integer id) {
+	public ResponseEntity<?> buscarMercadoLocalidade(@PathVariable Integer id) {
 		try {
 			return ResponseEntity.ok(service.buscarMercadoLocalidade(id));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoLocalidade(@RequestBody @Valid MercadoLocalidade mercadoLocalidade) {
-		try {			
+		try {
 			return ResponseEntity.ok(service.salvarMercadoLocalidade(mercadoLocalidade));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().body(Arrays.asList(new Erro(e.getMessage(), e.getCause())));
 		}
 	}
-
 
 }

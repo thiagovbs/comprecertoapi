@@ -1,7 +1,6 @@
 package br.com.comprecerto.api.services;
 
 import java.security.Principal;
-import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoLocalidade;
-import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Usuario;
 import br.com.comprecerto.api.repositories.MercadoLocalidadeRepository;
 import br.com.comprecerto.api.repositories.mercadolocalidade.MercadoLocalidadeRepositoryQuery;
