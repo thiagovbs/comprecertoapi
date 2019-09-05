@@ -46,6 +46,11 @@ public class PedidoController {
 	public ResponseEntity<List<Pedido>> buscarPorMercadoLocalidade(@PathVariable Integer idMercadoLocalidade) {
 		return ResponseEntity.ok(pedidoService.buscarPorMercadoLocalidade(idMercadoLocalidade));
 	}
+	
+	@GetMapping(value = "/mercado/{idMercado}")
+	public ResponseEntity<List<Pedido>> buscarPorMercado(@PathVariable Integer idMercado) {		
+		return ResponseEntity.ok(pedidoService.buscarPorMercado(idMercado));
+	}
 
 	@PostMapping
 	public ResponseEntity<Pedido> salvarPedido(@RequestBody @Valid Pedido pedido) {

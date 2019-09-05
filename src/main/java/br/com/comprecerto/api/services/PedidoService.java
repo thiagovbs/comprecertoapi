@@ -33,6 +33,10 @@ public class PedidoService {
 	public List<Pedido> buscarPorMercadoLocalidade(Integer idMercadoLocalidade) {
 		return pedidoRepository.findByIdMercadoLocalidade(idMercadoLocalidade);
 	}
+	
+	public List<Pedido> buscarPorMercado(Integer idMercado) {
+		return pedidoRepository.findByIdMercado(idMercado);
+	}
 
 	public Pedido buscarPorId(Integer id) {
 		Optional<Pedido> pedidoOp = pedidoRepository.findByIdPedido(id);

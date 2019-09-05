@@ -19,5 +19,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 	
 	@Query("from Pedido p where p.mercadoLocalidade.idMercadoLocalidade = ?1 order by p.idPedido")
 	List<Pedido> findByIdMercadoLocalidade(Integer idMercadoLocalidade);
+	
+	@Query("from Pedido p where p.mercadoLocalidade.mercado.idMercado = ?1 order by p.idPedido")
+	List<Pedido> findByIdMercado(Integer idMercado);
 
 }
