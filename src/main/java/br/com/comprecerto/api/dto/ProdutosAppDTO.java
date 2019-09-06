@@ -17,13 +17,13 @@ public class ProdutosAppDTO {
 	private BigDecimal precoMercadoProduto;
 //	private BigDecimal desconto; TODO: Aonde está esse campo??
 	private Date dtValidadeMercadoProduto;
-	private Integer quantidadeProduto;
+	private Double quantidadeProduto;
 
 	public ProdutosAppDTO() {
 	}
 
 	public ProdutosAppDTO(Integer idCategoria, String nomeCategoria, Integer idSubcategoria, String nomeSubcategoria, Integer idProduto, String nomeProduto, String marcaProduto,
-			String unidadeMedida, String caracteristicaProduto, BigDecimal precoMercadoProduto, Date dtValidadeMercadoProduto, Integer quantidadeProduto) {
+			String unidadeMedida, String caracteristicaProduto, BigDecimal precoMercadoProduto, Date dtValidadeMercadoProduto, Double quantidadeProduto) {
 		this.idCategoria = idCategoria;
 		this.nomeCategoria = nomeCategoria;
 		this.idSubcategoria = idSubcategoria;
@@ -126,11 +126,11 @@ public class ProdutosAppDTO {
 		this.dtValidadeMercadoProduto = dtValidadeMercadoProduto;
 	}
 
-	public Integer getQuantidadeProduto() {
+	public Double getQuantidadeProduto() {
 		return quantidadeProduto;
 	}
 
-	public void setQuantidadeProduto(Integer quantidadeProduto) {
+	public void setQuantidadeProduto(Double quantidadeProduto) {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 

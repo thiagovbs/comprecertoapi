@@ -26,7 +26,7 @@ public class MercadoProdutoDTO {
 	private Integer idProduto;
 	private String nomeProduto;
 	private String marcaProduto;
-	private Integer quantidadeProduto;
+	private Double quantidadeProduto;
 	private String caracteristicaProduto;
 	private String unidadeMedida;
 	private String endereco;
@@ -144,11 +144,11 @@ public class MercadoProdutoDTO {
 		this.marcaProduto = marcaProduto;
 	}
 
-	public Integer getQuantidadeProduto() {
+	public Double getQuantidadeProduto() {
 		return quantidadeProduto;
 	}
 
-	public void setQuantidadeProduto(Integer quantidadeProduto) {
+	public void setQuantidadeProduto(Double quantidadeProduto) {
 		this.quantidadeProduto = quantidadeProduto;
 	}
 

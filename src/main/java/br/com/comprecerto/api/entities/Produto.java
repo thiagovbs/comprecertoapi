@@ -52,7 +52,7 @@ public class Produto implements Serializable {
 	private String nome;
 
 	@NotNull
-	private Integer quantidade;
+	private Double quantidade;
 
 	
 	private String imagemUrl;
@@ -169,11 +169,11 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getQuantidade() {
+	public Double getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
 
