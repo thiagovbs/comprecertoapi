@@ -58,6 +58,16 @@ public class MercadoProdutoController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@GetMapping(value = "/categorias")
+	public ResponseEntity<?> buscarCategorias(MercadoProdutoFilter filter) {
+		try {
+			return ResponseEntity.ok(service.buscarCategorias(filter));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 		
 	@PostMapping
 	public ResponseEntity<?> salvarMercadoProduto(@RequestBody @Valid MercadoProduto mercadoProduto) {

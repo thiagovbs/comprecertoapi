@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.entities.MercadoProduto;
 import br.com.comprecerto.api.entities.Produto;
@@ -24,4 +25,7 @@ public interface MercadoProdutoRepository extends JpaRepository<MercadoProduto, 
 
 	@Query("select count(*) from MercadoProduto mp where mp.mercadoLocalidade.mercado = ?1")
     Long countByMercado(Mercado mercado);
+	
+	@Query("from MercadoProduto mp where mp.mercadoLocalidade.mercado = ?1")
+	List<Categoria> buscarCategorias(Integer Mercadoid,Integer Bairroid);
 }

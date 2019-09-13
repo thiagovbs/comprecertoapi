@@ -3,10 +3,12 @@ package br.com.comprecerto.api.services;
 import java.security.Principal;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 import br.com.comprecerto.api.dto.MercadoProdutoDTO;
+import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.entities.Mercado;
 import br.com.comprecerto.api.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,6 +139,25 @@ public class MercadoProdutoService {
 		filter.setComValidade(true);
 
 		return filtrarDto(filter);
+	}
+	
+	public List<Categoria> buscarCategorias(MercadoProdutoFilter filter) {
+		filter.setComValidade(true);
+		List<MercadoProdutoDTO> mpDTO = new ArrayList<MercadoProdutoDTO>();
+		mpDTO=filtrarDto(filter);		
+		
+		HashSet categoriasTMP = new HashSet();
+		
+		
+		
+		mpDTO.forEach(MercadoProdutoDTO -> {
+			categoriasTMP.add(MercadoProdutoDTO.getIdCategoria());			
+		});
+		
+		 List<Categoria> categorias = new ArrayList<Categoria>(categoriasTMP);
+		
+		
+		return categorias;
 	}
 		
 	public boolean verificaPossuiProdutos(Mercado mercado) {
