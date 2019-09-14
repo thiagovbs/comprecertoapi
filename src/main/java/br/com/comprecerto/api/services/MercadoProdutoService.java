@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.comprecerto.api.dto.CategoriasMercadoDTO;
+import br.com.comprecerto.api.dto.ListCategoriasMercadoDTO;
 import br.com.comprecerto.api.dto.MercadoProdutoDTO;
 import br.com.comprecerto.api.entities.Categoria;
 import br.com.comprecerto.api.entities.Mercado;
@@ -147,16 +148,18 @@ public class MercadoProdutoService {
 		List<MercadoProdutoDTO> mpDTO = new ArrayList<MercadoProdutoDTO>();
 		mpDTO=filtrarDto(filter);		
 		
-		HashSet<CategoriasMercadoDTO> categoriasTMP = new HashSet<CategoriasMercadoDTO>();
 		
 		
+		ListCategoriasMercadoDTO categorias=  new ListCategoriasMercadoDTO();
 		
 		mpDTO.forEach(MercadoProdutoDTO -> {
+			if(!categorias.findCategoria(MercadoProdutoDTO.getIdCategoria())) {
+				categorias.add(new CategoriasMercadoDTO(MercadoProdutoDTO.getIdCategoria(), MercadoProdutoDTO.getIdMercado(), MercadoProdutoDTO.getNomeFantasiaMercado(), MercadoProdutoDTO.getNomeCategoria()));	
+			}
 			
-			categoriasTMP.add(new CategoriasMercadoDTO(MercadoProdutoDTO.getIdCategoria(), MercadoProdutoDTO.getIdMercado(), MercadoProdutoDTO.getNomeFantasiaMercado(), MercadoProdutoDTO.getNomeCategoria()));			
 		});
 		
-		 List<CategoriasMercadoDTO> categorias = new ArrayList<CategoriasMercadoDTO>(categoriasTMP);
+		 
 		
 		
 		return categorias;
