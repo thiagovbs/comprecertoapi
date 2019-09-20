@@ -2,6 +2,7 @@ package br.com.comprecerto.api.services;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -11,6 +12,9 @@ public abstract class AbstractEmailService implements EmailService {
 
 	@Value("${default.sender}")
 	private String sender;
+	
+	@Autowired
+	private UsuarioService userService;
 
 	@Override
 	public void sendConfirmationEmail(Usuario obj) {
@@ -21,8 +25,8 @@ public abstract class AbstractEmailService implements EmailService {
 	protected SimpleMailMessage prepareSimpleEmailMessageFromUsuario(Usuario obj) {
 
 		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(sender);
-		sm.setFrom(obj.getEmail());
+		sm.setTo(obj.getEmail());
+		sm.setFrom(sender);
 		sm.setSubject("Cadastro concluído com sucesso!");
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText("Obrigado por se cadastrar " + obj.getLogin() + " !");
@@ -33,13 +37,13 @@ public abstract class AbstractEmailService implements EmailService {
 	public void sendSuporteMsgEmail(String msg) {
 		String[] message = msg.split("/");
 		
-		if (message.length >= 4) {
+		if (message.length == 6) {
 			SimpleMailMessage sm = prepareSuporteMsgEmail(msg);
 			sendEmail(sm);
-		} else if (message.length == 3) {
+		} else if (message.length == 4) {
 			SimpleMailMessage sm2 = prepareEmailQualcidadeNaoDisponivel(msg);
 			sendEmail(sm2);
-		} else if (message.length == 2) {
+		} else if (message.length == 3) {
 			SimpleMailMessage sm3 = prepareEmailMsgInformeProblema(msg);
 			sendEmail(sm3);
 		}
@@ -47,7 +51,8 @@ public abstract class AbstractEmailService implements EmailService {
 	}
 
 	private SimpleMailMessage prepareSuporteMsgEmail(String msg) {
-
+		
+		
 		String[] message = msg.split("/");
 
 		String titulo = message[0];
@@ -55,14 +60,15 @@ public abstract class AbstractEmailService implements EmailService {
 		String estado = message[2];
 		String cidade = message[3];
 		String bairro = message[4];
-
+		String email = message[5];
+		
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(sender);
-		sm.setFrom(sender);
+		sm.setFrom(email);
 		sm.setSubject(titulo);
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText("O mercado é o: " + mercado + "\n" + "Do estado :" + estado + "\n" + "Da cidade :" + cidade + "\n"
-				+ "Do bairro :" + bairro);
+				+ "Do bairro :" + bairro + "\n"+ email);
 		return sm;
 	}
 
@@ -73,13 +79,14 @@ public abstract class AbstractEmailService implements EmailService {
 		String titulo = message[0];
 		String estado = message[1];
 		String cidade = message[2];
+		String email = message[3];
 
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(sender);
-		sm.setFrom(sender);
+		sm.setFrom(email);
 		sm.setSubject(titulo);
 		sm.setSentDate(new Date(System.currentTimeMillis()));
-		sm.setText("O estado :" + estado + "\n" + "Da cidade :" + cidade + "\n não possuem o serviço");
+		sm.setText("O estado :" + estado + "\n" + "Da cidade :" + cidade + "\n não possuem o serviço" + "\n"+ email);
 		return sm;
 	}
 
@@ -88,13 +95,15 @@ public abstract class AbstractEmailService implements EmailService {
 		String[] message = msg.split("/");
 		String titulo = message[0];
 		String desc = message[1];
+		String email = message[2];
 
+		
 		SimpleMailMessage sm = new SimpleMailMessage();
 		sm.setTo(sender);
-		sm.setFrom(sender);
+		sm.setFrom(email);
 		sm.setSubject(titulo);
 		sm.setSentDate(new Date(System.currentTimeMillis()));
-		sm.setText("O problema é :" + desc);
+		sm.setText("O problema é :" + desc + "\n" + email);
 		return sm;
 	}
 

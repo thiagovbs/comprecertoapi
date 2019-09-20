@@ -19,6 +19,7 @@ public class SuporteController {
 	
 	@PostMapping(value = "/1")
 	public void recebermensagemQualmercadoNoCompreCerto(@RequestBody String msg){
+		System.out.println(msg);
 		emailService.sendSuporteMsgEmail(msg);
 	}
 	
