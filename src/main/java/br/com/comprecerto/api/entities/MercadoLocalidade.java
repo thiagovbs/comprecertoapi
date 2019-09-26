@@ -70,7 +70,7 @@ public class MercadoLocalidade implements Serializable {
 	@Transient
 	private List<Servico> servicosTemp = new ArrayList<Servico>();
 	
-	@Length(max = 13)
+	@Length(max = 14)
 	private String telefone;
 	
 	@Enumerated(EnumType.STRING)
